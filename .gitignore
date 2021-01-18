@@ -10,7 +10,7 @@ android/app/google-services.json
 .buildlog/
 .history
 .svn/
-android/.gradle
+# android/.gradle
 ios/.symlinks/
 ios/Flutter/
 #Temporary un stages
