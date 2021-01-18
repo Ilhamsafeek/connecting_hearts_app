@@ -1,0 +1,203 @@
+name: connecting_hearts
+description: A new Flutter project.
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutube: ^0.7.3
+  youtube_player_flutter: ^6.1.0+4
+
+  percent_indicator: "^2.1.1"
+  flutter_money_formatter: ^0.8.3
+  progress_indicators: "^0.1.4"
+  flutter_verification_code_input:
+      git:
+        url: git://github.com/tinylife-io/flutter_verification_code_input.git
+  #spin progress      
+  flutter_spinkit: "^4.0.0" 
+  # country_pickers: ^1.2.0
+  country_list_pick:
+  currency_pickers:
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  carousel_slider: any
+  flutter_swiper : ^1.1.6
+  cupertino_icons: ^0.1.2
+  firebase_auth:
+  firebase_messaging: ^6.0.12
+  shared_preferences: ^0.5.6+3
+  http:
+  font_awesome_flutter: ^8.4.0
+  flutter_masked_text: ^0.7.0
+  link: ^1.0.0
+  url_launcher: ^5.4.2
+  braintree_payment:  #https://pub.dev/packages/braintree_payment
+  share: ^0.6.3+6
+  dio:
+
+  camera:
+  path_provider:
+  path:
+  flutter_staggered_animations: ^0.1.2
+  flutter_local_notifications: ^1.1.0
+  connectivity:
+  flutter_offline:
+  shimmer: ^1.1.1
+  bottom_navy_bar: ^5.4.0
+  animated_text_kit: ^2.0.0
+  flutter_staggered_grid_view:
+  loading_overlay:
+  # image_picker_modern:
+  # image_cropper: ^1.0.2
+  # flutter_image_compress: ^0.6.3
+  cached_network_image: ^2.2.0
+  flutter_blurhash:
+  # flutter_braintree:
+  # permission_handler: ^5.0.0+hotfix.5
+  # image_picker:
+  image_picker: ^0.6.1+4
+  permission_handler: ^4.0.0
+  dash_chat:
+  bubble: ^1.1.9+1
+  timeago: ^2.0.26
+  flutter_automation: ^1.4.0
+  flutter_currency_converter:
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+  - assets/logo.png
+  - assets/powered_by.png
+  - assets/amex.png
+  - assets/visa.png
+  - assets/discover.png
+  - assets/mastercard.png
+
+
+
+
+  - assets/slider_1.png
+  - assets/slider_2.png
+  - assets/slider_3.png
+  - assets/add_payment_method.png
+  - assets/my_contribution.png
+  - assets/ch_logo.png
+  - assets/placeholder.png
+  - assets/sermon_title.png
+  - assets/profile-background.png
+  - assets/charity.png
+  - assets/zamzam.png
+
+  # dash
+
+  - assets/school-with-a-smile.png
+  - assets/feed-a-family.png
+  - assets/help-a-nest.png
+  - assets/healthy-society.png
+  - assets/sankalpa.png
+  - assets/e-charity.png
+  - assets/zamzam-media.png
+  - assets/job-bank.png
+  - assets/zamzamlogo.png
+  - assets/conecting-hearts-logo.png
+  - assets/shop-icon.png
+  - assets/zamzam_updates.png
+  - assets/donate_points.png
+
+
+ # thumbnails
+
+  - assets/faf01.png
+  - assets/faf02.png
+  - assets/faf03.png
+  - assets/faf04.png
+  - assets/faf_milestone.png
+  - assets/swas_milestone.png
+  - assets/swas01.png
+  - assets/swas02.png
+  - assets/swas03.png
+  - assets/swas04.png
+  - assets/han01.png
+  - assets/han02.png
+  - assets/han03.png
+  - assets/han04.png
+
+  - assets/healthy01.png
+  - assets/healthy02.png
+  - assets/healthy03.png
+  - assets/healthy04.png
+
+  - assets/sankalpa01.png
+  - assets/sankalpa02.png
+  - assets/sankalpa03.png
+  - assets/sankalpa04.png
+  - assets/zamzam_media_thumbnail.png
+
+  - assets/merchant1.png
+  - assets/merchant2.png
+  - assets/merchant3.png
+  - assets/merchant4.png
+  - assets/merchant5.png
+  - assets/merchant6.png
+  - assets/merchant7.png
+  - assets/subscribtion.png
+  - assets/special_occation.png
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/assets-and-images/#resolution-aware.
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  fonts:
+    - family: Architekt
+      fonts:
+        - asset: assets/fonts/Architekt.ttf
+        # - asset: assets/fonts/Architect_Bold.ttf
+          weight: 700
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         style: italic
+  #
+  
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
