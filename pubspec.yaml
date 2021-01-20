@@ -1,4 +1,4 @@
-name: connecting_hearts
+name: Connecting Hearts
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -81,6 +81,7 @@ dependencies:
   timeago: ^2.0.26
   flutter_automation: ^1.4.0
   flutter_currency_converter:
+  mime: ^0.9.7
 dev_dependencies:
   flutter_test:
     sdk: flutter

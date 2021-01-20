@@ -45,8 +45,6 @@ class _HomeState extends State<Home> {
       });
     });
 
-   
-
     _zamzamUpdates = WebServices(this.mApiListener).getZamzamUpdateData();
   }
 
@@ -55,102 +53,100 @@ class _HomeState extends State<Home> {
     return SafeArea(
         child: Scaffold(
             backgroundColor: Colors.grey[200],
-            body: CustomScrollView(
-              slivers: <Widget>[
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
-                      return Container(
-                          alignment: Alignment.center,
-                          child: Container(
-                              child: Column(
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 3),
-                                child:
-                                    _zamzamUpdatesSlider(), //Error: ${snapshot.error}
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                      alignment: Alignment.center,
+                      child: Container(
+                          child: Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 3),
+                            child:
+                                _zamzamUpdatesSlider(), //Error: ${snapshot.error}
+                          ),
+
+                          _dashboardGrid(),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          ListTile(
+                              contentPadding: EdgeInsets.only(
+                                left: MediaQuery.of(context).size.width * .03,
+                                right: MediaQuery.of(context).size.width * .03,
                               ),
+                              leading: Icon(Icons.star),
+                              title: Center(
+                                child: Text(
+                                  "Our Success Stories",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                              ),
+                              trailing: Icon(Icons.star),
+                              tileColor: Color.fromRGBO(80, 172, 225, 1)),
+                          //              FutureBuilder<dynamic>(
+                          //   future: WebServices(this.mApiListener)
+                          //       .getProjectData(), // a previously-obtained Future<String> or null
+                          //   builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                          //     List<Widget> children;
 
-                              _dashboardGrid(),
-                              ListTile(
-                                  contentPadding: EdgeInsets.only(
-                                    left:
-                                        MediaQuery.of(context).size.width * .03,
-                                    right:
-                                        MediaQuery.of(context).size.width * .03,
-                                  ),
-                                  leading: Icon(Icons.star),
-                                  title: Center(
-                                    child: Text(
-                                      "Our Success Stories",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
-                                    ),
-                                  ),
-                                  trailing: Icon(Icons.star),
-                                  tileColor: Color.fromRGBO(80, 172, 225, 1)),
-                              //              FutureBuilder<dynamic>(
-                              //   future: WebServices(this.mApiListener)
-                              //       .getProjectData(), // a previously-obtained Future<String> or null
-                              //   builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                              //     List<Widget> children;
+                          //     if (snapshot.hasData) {
+                          //       var data = snapshot.data
+                          //           .where((el) =>
 
-                              //     if (snapshot.hasData) {
-                              //       var data = snapshot.data
-                              //           .where((el) =>
+                          //               el['amount'] != el['collected'])
+                          //           .toList();
 
-                              //               el['amount'] != el['collected'])
-                              //           .toList();
-
-                              //       children = <Widget>[
-                              //         for (var item in data) projectCard(item),
-                              //       ];
-                              //     } else if (snapshot.hasError) {
-                              //       children = <Widget>[
-                              //         Icon(
-                              //           Icons.error_outline,
-                              //           color: Colors.red,
-                              //           size: 60,
-                              //         ),
-                              //         Padding(
-                              //           padding: const EdgeInsets.only(top: 16),
-                              //           child: Text('something Went Wrong !'), //Error: ${snapshot.error}
-                              //         )
-                              //       ];
-                              //     } else {
-                              //       children = <Widget>[
-                              //         SizedBox(
-                              //           child: SpinKitPulse(
-                              //             color: Colors.grey,
-                              //             size: 120.0,
-                              //           ),
-                              //           width: 50,
-                              //           height: 50,
-                              //         ),
-                              //         const Padding(
-                              //           padding: EdgeInsets.only(top: 16),
-                              //           child: Text(''),
-                              //         )
-                              //       ];
-                              //     }
-                              //     return Center(
-                              //       child: Column(
-                              //         mainAxisAlignment: MainAxisAlignment.center,
-                              //         crossAxisAlignment: CrossAxisAlignment.center,
-                              //         children: children,
-                              //       ),
-                              //     );
-                              //   },
-                              // )
-                            ],
-                          )));
-                    },
-                    childCount: 1,
-                  ),
-                ),
-                if (completedProjectData.length > 0) _buildProjectList()
-              ],
+                          //       children = <Widget>[
+                          //         for (var item in data) projectCard(item),
+                          //       ];
+                          //     } else if (snapshot.hasError) {
+                          //       children = <Widget>[
+                          //         Icon(
+                          //           Icons.error_outline,
+                          //           color: Colors.red,
+                          //           size: 60,
+                          //         ),
+                          //         Padding(
+                          //           padding: const EdgeInsets.only(top: 16),
+                          //           child: Text('something Went Wrong !'), //Error: ${snapshot.error}
+                          //         )
+                          //       ];
+                          //     } else {
+                          //       children = <Widget>[
+                          //         SizedBox(
+                          //           child: SpinKitPulse(
+                          //             color: Colors.grey,
+                          //             size: 120.0,
+                          //           ),
+                          //           width: 50,
+                          //           height: 50,
+                          //         ),
+                          //         const Padding(
+                          //           padding: EdgeInsets.only(top: 16),
+                          //           child: Text(''),
+                          //         )
+                          //       ];
+                          //     }
+                          //     return Center(
+                          //       child: Column(
+                          //         mainAxisAlignment: MainAxisAlignment.center,
+                          //         crossAxisAlignment: CrossAxisAlignment.center,
+                          //         children: children,
+                          //       ),
+                          //     );
+                          //   },
+                          // )
+                        ],
+                      ))),
+                  if (completedProjectData.length > 0)
+                    for (var item in completedProjectData)
+                      _buildProjectList(item)
+                ],
+              ),
             )));
   }
 
@@ -421,8 +417,6 @@ class _HomeState extends State<Home> {
                 //     CupertinoPageRoute<Null>(builder: (BuildContext context) {
                 //   return new VideoApp();
                 // }));
-                
-                
               }),
           InkWell(
               child: GridItem(
@@ -477,11 +471,17 @@ class _HomeState extends State<Home> {
                   .toList();
               children = <Widget>[
                 CarouselSlider(
-                  
                   // pauseAutoPlayOnTouch: Duration(seconds: 4),
-                
-                  options:CarouselOptions(aspectRatio: 16 / 9,viewportFraction: 1.0,initialPage: 0,autoPlayInterval: Duration(seconds: 4),
-                  autoPlayAnimationDuration: Duration(milliseconds: 500),enlargeCenterPage: true,autoPlay: true,),
+
+                  options: CarouselOptions(
+                    aspectRatio: 16 / 9,
+                    viewportFraction: 1.0,
+                    initialPage: 0,
+                    autoPlayInterval: Duration(seconds: 4),
+                    autoPlayAnimationDuration: Duration(milliseconds: 1000),
+                    enlargeCenterPage: true,
+                    autoPlay: true,
+                  ),
                   items: carouselSliderList(data),
                 ),
               ];
@@ -518,101 +518,96 @@ class _HomeState extends State<Home> {
   }
 
   // ignore: missing_return
-  Widget _buildProjectList() {
-    return SliverStaggeredGrid.countBuilder(
-        crossAxisCount: 4,
-        staggeredTileBuilder: (int index) => new StaggeredTile.fit(2),
-        itemBuilder: (BuildContext context, int index) {
-          
-          var formattedAmount = FlutterMoneyFormatter(
-                  amount:
-                      double.parse('${completedProjectData[index]['amount']}'))
-              .output
-              .withoutFractionDigits;
-          return Card(
-            child: GestureDetector(
-              child: Column(
-                children: <Widget>[
-                  Stack(children: <Widget>[
-                    CachedNetworkImage(
-                      imageUrl: completedProjectData[index]['featured_image'],
-                      placeholder: (context, url) =>
-                          Image.asset('assets/placeholder.png'),
-                      fit: BoxFit.cover,
-                    ),
-                      Positioned(
-                      top: 2,
-                      left: 4,
-                      
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            "${completedProjectData[index]['completed_date']}",
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.white,
-                              shadows: <Shadow>[
-                                Shadow(
-                                  offset: Offset(0.5, 0.5),
-                                  blurRadius: 3.0,
-                                  color: Colors.black,
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                 
-                    Positioned(
-                      bottom: 2,
-                      left: 4,
-                      right: 4,
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            "${completedProjectData[index]['city']}, ${completedProjectData[index]['district']}",
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.white,
-                              shadows: <Shadow>[
-                                Shadow(
-                                  offset: Offset(0.5, 0.5),
-                                  blurRadius: 3.0,
-                                  color: Colors.black,
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                 
-                  ]),
-                  Padding(
-                    padding: const EdgeInsets.all(6),
-                    child: Column(children: <Widget>[
-                      Text(
-                          "${completedProjectData[index]['short_description']}",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                          )),
-                      SizedBox(
-                        height: 6.0,
-                      ),
-                      Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Text("${currentUserData['currency']}. $formattedAmount"),
-                      ),
-                    ]),
-                  )
-                ],
+  Widget _buildProjectList(item) {
+    var formattedAmount =
+        FlutterMoneyFormatter(amount: double.parse('${item['amount']}'))
+            .output
+            .withoutFractionDigits;
+    return Card(
+      child: GestureDetector(
+        child: Column(
+          children: <Widget>[
+            Stack(children: <Widget>[
+              CachedNetworkImage(
+                imageUrl: item['featured_image'],
+                placeholder: (context, url) =>
+                    Image.asset('assets/placeholder.png'),
+                fit: BoxFit.cover,
               ),
-              onTap: () {},
-            ),
-          );
-        },
-        itemCount: completedProjectData.length);
+              Positioned(
+                top: 2,
+                left: 4,
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      "${item['completed_date']}",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                        shadows: <Shadow>[
+                          Shadow(
+                            offset: Offset(0.5, 0.5),
+                            blurRadius: 3.0,
+                            color: Colors.black,
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Positioned(
+                bottom: 2,
+                left: 4,
+                right: 4,
+                child: Column(
+                  children: <Widget>[
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Text(
+                        "${item['city']}, ${item['district']}",
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          shadows: <Shadow>[
+                            Shadow(
+                              offset: Offset(0.5, 0.5),
+                              blurRadius: 3.0,
+                              color: Colors.black,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ]),
+            Padding(
+              padding: const EdgeInsets.all(6),
+              child: Column(children: <Widget>[
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Text("${item['short_description']}",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500, 
+                      )),
+                ),
+                SizedBox(
+                  height: 6.0,
+                ),
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child:
+                      Text("${currentUserData['currency']}. $formattedAmount"),
+                ),
+              ]),
+            )
+          ],
+        ),
+        onTap: () {},
+      ),
+    );
   }
 
   Card projectCard(dynamic data) {

@@ -93,59 +93,64 @@ class _SigninPageState extends State<Signin> {
                     style: TextStyle(fontFamily: "Exo2", color: Colors.white)),
               ),
               body: Padding(
-                padding: EdgeInsets.only(
-                  top: deviceHeight(context) * 0.3,
-                  // left: deviceWidth(context) * 0.09,
-                  // bottom: deviceHeight(context) * 0.06,
-                ),
-                child: 
-                Padding(
-                padding: EdgeInsets.all(5),
-                child:Center(
-                  child: Column(
-                    children: <Widget>[
-                      Text("Enter the 6 digit code sent to ${this.phoneNo}",
-                          style: TextStyle(
-                              fontFamily: "Exo2",
-                              color: Colors.black,
-                              fontSize: 19,
-                              fontWeight: FontWeight.bold)),
-                      new VerificationCodeInput(
-                        keyboardType: TextInputType.number,
-                        length: 6,
-                        onCompleted: (String value) {
-                          this.smsCode = value;
-                        },
-                      ),
-                      Spacer(),
-                      Container(
-                        child: Ink(
-                          decoration: ShapeDecoration(
-                            color: Colors.black,
-                            shape: CircleBorder(),
+                  padding: EdgeInsets.only(
+                    top: deviceHeight(context) * 0.3,
+                    // left: deviceWidth(context) * 0.09,
+                    // bottom: deviceHeight(context) * 0.06,
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Center(
+                      child: Column(
+                        children: <Widget>[
+                          ListTile(
+                            title: Center(
+                              child: Text(
+                                  "Enter the 6 digit code sent to ${this.phoneNo}",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold)),
+                            ),
                           ),
-                          child: IconButton(
-                            icon: Icon(Icons.arrow_forward),
-                            color: Colors.white,
-                            onPressed: () {
-                              FirebaseAuth.instance.currentUser().then((user) {
-                                if (user != null) {
-                                  Navigator.of(context).pop();
-                                  Navigator.of(context)
-                                      .pushReplacementNamed(HOME_PAGE);
-                                } else {
-                                  Navigator.of(context).pop();
-                                  signIn();
-                                }
-                              });
+                          new VerificationCodeInput(
+                            keyboardType: TextInputType.number,
+                            length: 6,
+                            onCompleted: (String value) {
+                              this.smsCode = value;
                             },
                           ),
-                        ),
+                          Spacer(),
+                          Container(
+                            child: Ink(
+                              decoration: ShapeDecoration(
+                                color: Colors.black,
+                                shape: CircleBorder(),
+                              ),
+                              child: IconButton(
+                                icon: Icon(Icons.arrow_forward),
+                                color: Colors.white,
+                                onPressed: () {
+                                  FirebaseAuth.instance
+                                      .currentUser()
+                                      .then((user) {
+                                    if (user != null) {
+                                      Navigator.of(context).pop();
+                                      Navigator.of(context)
+                                          .pushReplacementNamed(HOME_PAGE);
+                                    } else {
+                                      Navigator.of(context).pop();
+                                      signIn();
+                                    }
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
-              )));
+                    ),
+                  )));
         });
   }
 
@@ -224,7 +229,7 @@ class _SigninPageState extends State<Signin> {
                     child: Text("You make a difference, We make it easy",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontFamily: 'Architekt',
+                            fontFamily: 'Architekt',
                             color: Colors.white,
                             fontSize: 28,
                             fontWeight: FontWeight.bold)),
@@ -359,7 +364,6 @@ class _SigninPageState extends State<Signin> {
                               _signoutProgress = null;
                             });
                           }
-                          
                         },
                         child: Text('Signin to Continue',
                             style: TextStyle(color: Colors.white)),
@@ -508,9 +512,12 @@ class _DetailsState extends State<Details> {
                             SizedBox(height: 15.0),
                             Row(
                               children: [
-                                Text("Currency: ",style: TextStyle(
-                                    fontSize: 16, fontFamily: "Exo2")),
-                                    SizedBox(width: 8,),
+                                Text("Currency: ",
+                                    style: TextStyle(
+                                        fontSize: 16, fontFamily: "Exo2")),
+                                SizedBox(
+                                  width: 8,
+                                ),
                                 CurrencyPickerDropdown(
                                   initialValue: 'lk',
                                   itemBuilder: _buildDropdownItem,

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:mime/mime.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:connecting_hearts/constant/Constant.dart';
@@ -13,6 +14,8 @@ import 'package:connecting_hearts/utils/read_more_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:connecting_hearts/ui/screens/chat_detail.dart';
 import 'package:connecting_hearts/utils/dialogs.dart';
+
+import 'image_picker.dart';
 
 class ContributedProject extends StatefulWidget {
   @override
@@ -145,15 +148,13 @@ status_color=Colors.green;
         _trailing = RaisedButton(
           color: Colors.red,
           onPressed: () async {
-            WidgetsFlutterBinding.ensureInitialized();
-            final cameras = await availableCameras();
-            final firstCamera = cameras.first;
+           
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (BuildContext context) => TakePictureScreen(
+                  builder: (BuildContext context) => PickImage(
                     "${widget.projectData['payment_id']}",
-                    firstCamera,
+                    
                   ),
                 ));
           },
@@ -781,8 +782,10 @@ status_color=Colors.green;
 
                   if (snapshot.hasData) {
                     dynamic data = snapshot.data;
+                   
                     children = <Widget>[
                       for (var item in data)
+                      if(lookupMimeType(item).startsWith("image/"))
                         CachedNetworkImage(
                           imageUrl: item,
                           placeholder: (context, url) =>

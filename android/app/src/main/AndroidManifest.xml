@@ -11,7 +11,7 @@
     <application
         
         android:name="io.flutter.app.FlutterApplication"
-        android:label="connecting_hearts"
+        android:label="Connecting Hearts"
         android:icon="@mipmap/ic_launcher"
         tools:replace="android:label">
         <activity

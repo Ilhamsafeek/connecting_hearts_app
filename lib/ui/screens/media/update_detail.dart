@@ -20,7 +20,11 @@ class _UpdatesState extends State<UpdateDetail> {
   Future _updateImages;
   ApiListener mApiListener;
   VideoPlayerController _controller;
-
+  Icon _playStatusIcon = Icon(
+    Icons.play_arrow,
+    size: 70,
+    color: Colors.white,
+  );
   @override
   void initState() {
     _updateImages = WebServices(this.mApiListener)
@@ -77,6 +81,10 @@ class _UpdatesState extends State<UpdateDetail> {
                       subtitle: Text(widget.detail['description']),
                       tileColor: Colors.grey[100]),
                   Divider(height: 0),
+                  SizedBox(
+                    height: 8,
+                  ),
+
                   // Video
                   if (widget.detail['video_url'] != '')
                     Center(
@@ -96,18 +104,40 @@ class _UpdatesState extends State<UpdateDetail> {
                         aspectRatio: 16 / 9,
                       ),
                     ),
+                   SizedBox(
+                    height: 8,
+                  ),
                   if (widget.detail['local_video'] != '')
                     Container(
                       child: _controller.value.initialized
                           ? AspectRatio(
                               aspectRatio: _controller.value.aspectRatio,
                               child: InkWell(
-                                child: VideoPlayer(_controller),
+                                child: Stack(
+                                  children: [
+                                    VideoPlayer(_controller),
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: _playStatusIcon,
+                                    ),
+                                  ],
+                                ),
                                 onTap: () {
                                   setState(() {
                                     _controller.value.isPlaying
                                         ? _controller.pause()
                                         : _controller.play();
+                                    _controller.value.isPlaying
+                                        ? _playStatusIcon = Icon(
+                                            Icons.pause,
+                                            size: 70,
+                                            color: Colors.white,
+                                          )
+                                        : _playStatusIcon = Icon(
+                                            Icons.play_arrow,
+                                            size: 70,
+                                            color: Colors.white,
+                                          );
                                   });
                                 },
                               ))
@@ -124,7 +154,10 @@ class _UpdatesState extends State<UpdateDetail> {
                                 ),
                               ),
                             ),
-                    )
+                    ),
+                  SizedBox(
+                    height: 8,
+                  ),
                 ],
               ),
             ),
