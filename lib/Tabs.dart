@@ -36,7 +36,7 @@ class MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
 
   ApiListener mApiListener;
 
-  int _currentIndex = 0;
+  int currentIndex = 0;
   PageController _pageController;
   int _tabBarNotificationCount = 0;
   // final ScrollController controller = ScrollController();
@@ -232,7 +232,7 @@ class MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
                             physics: NeverScrollableScrollPhysics(),
                             controller: _pageController,
                             onPageChanged: (index) {
-                              setState(() => _currentIndex = index);
+                              setState(() => currentIndex = index);
                             },
                             children: <Widget>[
                               Home(),
@@ -256,9 +256,9 @@ class MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
           ),
           bottomNavigationBar: BottomNavyBar(
             
-            selectedIndex: _currentIndex,
+            selectedIndex: currentIndex,
             onItemSelected: (index) {
-              setState(() => _currentIndex = index);
+              setState(() => currentIndex = index);
               _pageController.jumpToPage(index);
             },
             items: <BottomNavyBarItem>[
@@ -305,8 +305,8 @@ class MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
         ),
         onWillPop: () {
           print('Back button pressed');
-          if (_currentIndex != 0) {
-            setState(() => _currentIndex = 0);
+          if (currentIndex != 0) {
+            setState(() => currentIndex = 0);
             _pageController.jumpToPage(0);
             return new Future(() => false);
           }

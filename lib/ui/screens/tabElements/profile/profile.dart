@@ -27,7 +27,6 @@ class ProfileState extends State<Profile> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
   Widget _signoutProgress;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,6 +72,10 @@ class ProfileState extends State<Profile> {
                           text: "${snapshot.data['lastname']}");
                       dynamic _country = "${snapshot.data['country']}";
                       dynamic _currencyCode = "${snapshot.data['currency']}";
+                      var _receive_notifications = false;
+                      _receive_notifications =
+                          snapshot.data['receive_notification'].toLowerCase() ==
+                              'true';
 
                       children = <Widget>[
                         Padding(
@@ -180,6 +183,28 @@ class ProfileState extends State<Profile> {
                             ],
                           ),
                         ),
+                        SwitchListTile(
+                          value: _receive_notifications,
+                          onChanged: (value) async {
+                            setState(() {
+                              _receive_notifications = value;
+                            });
+                             showWaitingProgress(context);
+                            await WebServices(this.mApiListener).updateUser(
+                                _currencyCode,
+                                _emailController.text,
+                                _firstNameController.text,
+                                _lastNameController.text,
+                                _receive_notifications);
+                                Navigator.pop(context);
+                                _scaffoldKey.currentState
+                                                  .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    "Notification Setting updated."),
+                                              backgroundColor: Colors.green,));
+                          },
+                          title: Text('Receive All Notifications'),
+                        ),
                         ListTile(
                             title: Padding(
                               padding: EdgeInsets.only(
@@ -197,7 +222,8 @@ class ProfileState extends State<Profile> {
                                                   _currencyCode,
                                                   _emailController.text,
                                                   _firstNameController.text,
-                                                  _lastNameController.text)
+                                                  _lastNameController.text,
+                                                  _receive_notifications)
                                               .then((value) async {
                                             await WebServices(mApiListener)
                                                 .getUserData()
@@ -224,13 +250,13 @@ class ProfileState extends State<Profile> {
                                                   .showSnackBar(SnackBar(
                                                 content: Text(
                                                     "Profile Updated Successfully"),
-                                              ));
+                                              backgroundColor: Colors.green,));
                                             } else {
                                               _scaffoldKey.currentState
                                                   .showSnackBar(SnackBar(
                                                 content: Text(
                                                     "Something went wrong. Please try again."),
-                                              ));
+                                              backgroundColor: Colors.red,));
                                             }
                                           });
                                         }
@@ -343,7 +369,7 @@ class ProfileState extends State<Profile> {
                 }));
               },
             ),
-             ListTile(
+            ListTile(
               leading: Icon(Icons.admin_panel_settings_sharp),
               title: Text('Privacy Policy'),
               onTap: () {
