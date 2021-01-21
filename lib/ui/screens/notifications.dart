@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:connecting_hearts/constant/Constant.dart';
 import 'package:connecting_hearts/services/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:connecting_hearts/ui/project_detail.dart';
-import 'package:connecting_hearts/ui/single_video.dart';
+import 'package:connecting_hearts/ui/screens/tabElements/home/dashboardContent/echarity/project_detail.dart';
+import 'package:connecting_hearts/miscellaneous/single_video.dart';
 
 
 

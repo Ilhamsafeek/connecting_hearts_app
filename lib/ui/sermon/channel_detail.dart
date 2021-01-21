@@ -5,7 +5,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:connecting_hearts/services/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:connecting_hearts/ui/single_video.dart';
+import 'package:connecting_hearts/miscellaneous/single_video.dart';
 
 class ChannelDetail extends StatefulWidget {
   @override

@@ -6,7 +6,7 @@ import 'package:connecting_hearts/services/services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-import '../../single_video.dart';
+import '../../../miscellaneous/single_video.dart';
 
 class Channel extends StatefulWidget {
   Channel({Key key}) : super(key: key);

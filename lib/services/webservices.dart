@@ -107,6 +107,9 @@ class WebServices {
       'phone': CURRENT_USER,
     });
     var jsonServerData = json.decode(response.body);
+    
+  
+  print("Response======>>>> ${response.body}");
     return jsonServerData;
   }
 
@@ -133,13 +136,17 @@ class WebServices {
 
   Future<dynamic> createPayment(amount, projectData, method, status,isRecurring) async {
     print('Calling API createPayment --------->>>>>>>');
-
+    dynamic lkr_amount=0;
+    await WebServices(mApiListener).convertCurrency(currentUserData['currency'],'LKR','$amount').then((value) {
+    if (value != null) {  
+      lkr_amount = value;
+    }
+  });
     var timestamp = new DateTime.now().millisecondsSinceEpoch;
-    print(' --------->>>>>>>$timestamp');
     var url = base_url + 'createpayment';
     var response = await http.post(url, body: {
       'user_id': CURRENT_USER,
-      'paid_amount': '$amount',
+      'paid_amount': '$lkr_amount',
       'project_id': projectData['appeal_id'],
       'receipt_no': '$timestamp',
       'method': method,
@@ -317,15 +324,18 @@ class WebServices {
   }
 
   Future convertCurrency(String from, String to, String amount) async {
+    print("Testingggggg.....");
     var url = base_url + 'convertCurrency';
 
     var response = await http.post(url, body: {
-      'from_currency': '$from',
-      'to_currency': '$to',
+      'from': '$from',
+      'to': '$to',
       'amount': '$amount',
     });
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
+    print('Currency Response status: ${response.statusCode}');
+    print('Currency Response body: ${response.body}');
     return response.body;
   }
+
+
 }

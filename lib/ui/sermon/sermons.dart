@@ -6,7 +6,7 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:connecting_hearts/model/Gridmodel.dart';
 import 'package:connecting_hearts/services/services.dart';
 import 'package:connecting_hearts/ui/sermon/channels.dart';
-import 'package:connecting_hearts/ui/single_video.dart';
+import 'package:connecting_hearts/miscellaneous/single_video.dart';
 
 class Sermons extends StatefulWidget {
   Sermons({Key key}) : super(key: key);

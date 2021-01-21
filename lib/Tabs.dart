@@ -3,25 +3,23 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_offline/flutter_offline.dart';
-import 'package:connecting_hearts/management_webview.dart';
-import 'package:connecting_hearts/ui/my_contribution.dart';
-import 'package:connecting_hearts/ui/screens/offline.dart';
-import 'package:connecting_hearts/ui/screens/home.dart';
-import 'package:connecting_hearts/ui/screens/charity.dart';
+import 'package:connecting_hearts/ui/screens/tabElements/management_webview.dart';
+import 'package:connecting_hearts/ui/screens/tabElements/contribution/my_contribution.dart';
+import 'package:connecting_hearts/offline.dart';
+import 'package:connecting_hearts/ui/screens/tabElements/home/dashboardContent/home.dart';
 import 'package:connecting_hearts/ui/screens/notifications.dart';
-import 'package:connecting_hearts/ui/screens/chat.dart';
+import 'package:connecting_hearts/ui/screens/tabElements/chat/chat.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:connecting_hearts/services/services.dart';
-import 'package:connecting_hearts/ui/profile.dart';
-import 'package:connecting_hearts/ui/single_video.dart';
-import 'package:connecting_hearts/data_search.dart';
+import 'package:connecting_hearts/ui/screens/tabElements/profile/profile.dart';
+import 'package:connecting_hearts/miscellaneous/single_video.dart';
+import 'package:connecting_hearts/miscellaneous/data_search.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:async';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:connecting_hearts/webview.dart';
 
-import 'badge_icon.dart';
+import 'utils/badge_icon.dart';
 import 'constant/Constant.dart';
 
 // Main code for all the tabs
@@ -133,6 +131,7 @@ class MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
         onSelectNotification: _selectNotification);
 
     super.didChangeDependencies();
+    
   }
 
   Future _selectNotification(payload) {

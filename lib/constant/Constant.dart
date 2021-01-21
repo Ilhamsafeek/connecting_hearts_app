@@ -12,6 +12,8 @@ PLAY ="/Play";
 
 dynamic currentUserData;
 
+dynamic currencyValue=1;
+
 const String YOUTUBE_API_KEY="AIzaSyA25VFDwm41aOWOfH5GIiVwN6T-GxrXn1w";
 
 

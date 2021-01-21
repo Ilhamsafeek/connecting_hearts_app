@@ -3,10 +3,10 @@ import 'package:connecting_hearts/Tabs.dart';
 import 'package:connecting_hearts/constant/Constant.dart';
 import 'package:connecting_hearts/services/services.dart';
 import 'package:connecting_hearts/services/webservices.dart';
-import 'package:connecting_hearts/ui/splashscreen.dart';
+import 'package:connecting_hearts/splashscreen.dart';
 import 'package:connecting_hearts/signin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:connecting_hearts/ui/onboarding_page.dart';
+import 'package:connecting_hearts/onboarding_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 int initScreen;
@@ -29,6 +29,8 @@ Future<void> main() async {
       currentUserData = value;
     }
   });
+ 
+  
 
   runApp(MyApp());
 }

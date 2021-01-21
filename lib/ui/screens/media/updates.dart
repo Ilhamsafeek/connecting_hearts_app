@@ -6,7 +6,7 @@ import 'package:connecting_hearts/model/Gridmodel.dart';
 import 'package:connecting_hearts/model/ImageSliderModel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:connecting_hearts/services/services.dart';
-import 'package:connecting_hearts/ui/project.dart';
+import 'package:connecting_hearts/ui/screens/tabElements/home/dashboardContent/echarity/project.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
