@@ -19,8 +19,10 @@ class Checkout extends StatefulWidget {
   final dynamic paymentAmount;
   final dynamic method;
   final dynamic is_recurring;
+  final dynamic project_type;
+  final dynamic payment_description;
   Checkout(this.projectData, this.paymentAmount, this.method,
-      this.is_recurring,
+      this.is_recurring,this.project_type, this.payment_description,
       {Key key})
       : super(key: key);
 }
@@ -74,6 +76,8 @@ class _CheckoutState extends State<Checkout> {
                         ),
                         tileColor: Color.fromRGBO(80, 172, 225, 1)),
                     Divider(height: 5),
+                    if(widget.projectData!=null)
+                    
                     ListTile(
                       title: RichText(
                         text: new TextSpan(
@@ -114,6 +118,37 @@ class _CheckoutState extends State<Checkout> {
                         ),
                       ),
                     ),
+                    if(widget.projectData==null)
+                    ListTile(
+                    title: RichText(
+                      text: new TextSpan(
+                        style: new TextStyle(
+                          color: Colors.black,
+                        ),
+                        children: <TextSpan>[
+                          new TextSpan(
+                              text: 'Donation Category :',
+                              style: TextStyle(fontWeight: FontWeight.w600)),
+                          new TextSpan(
+                              text: " ${widget.payment_description}\n\n"),
+                         
+                        
+                          new TextSpan(
+                              text: 'My Contribution Amount :',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600, fontSize: 20)),
+                          new TextSpan(
+                              text: " ${formattedAmount.output.nonSymbol}\n\n",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600, fontSize: 20)),
+                          new TextSpan(
+                              text:
+                                  "I confirm that this donation is through my own sources of funding, legally compliant and i take responsibility / complete liability for all information provided. (full t&c)"),
+                        ],
+                      ),
+                    ),
+                  ),
+                 
                     ListTile(
                       leading: Checkbox(
                           value: _is_agree,
@@ -147,6 +182,7 @@ class _CheckoutState extends State<Checkout> {
                         ),
                         tileColor: Color.fromRGBO(80, 172, 225, 1)),
                     Divider(height: 5),
+                    if(widget.projectData!=null)
                     ListTile(
                       title: RichText(
                         text: new TextSpan(
@@ -188,6 +224,49 @@ class _CheckoutState extends State<Checkout> {
                         ),
                       ),
                     ),
+                    if(widget.projectData==null)
+                    ListTile(
+                      title: RichText(
+                        text: new TextSpan(
+                          style: new TextStyle(
+                            color: Colors.black,
+                          ),
+                          children: <TextSpan>[
+                            new TextSpan(
+                                text: 'Account Name :',
+                                style: TextStyle(fontWeight: FontWeight.w600)),
+                            new TextSpan(
+                                text:
+                                    " ZamZam Foundation\n\n"),
+                            new TextSpan(
+                                text: 'Account Number :',
+                                style: TextStyle(fontWeight: FontWeight.w600)),
+                            new TextSpan(
+                                text:
+                                    " 23535765878465356\n\n"),
+                            new TextSpan(
+                                text: 'Bank :',
+                                style: TextStyle(fontWeight: FontWeight.w600)),
+                            new TextSpan(
+                                text:
+                                    " Commercial Bank\n\n"),
+                            new TextSpan(
+                                text: 'Branch :',
+                                style: TextStyle(fontWeight: FontWeight.w600)),
+                            new TextSpan(
+                                text: " Wellawatte\n\n",
+                                style: TextStyle(fontWeight: FontWeight.w600)),
+                            new TextSpan(
+                                text: 'Swift Code :',
+                                style: TextStyle(fontWeight: FontWeight.w600)),
+                            new TextSpan(
+                                text: " 23534",
+                                style: TextStyle(fontWeight: FontWeight.w600)),
+                          ],
+                        ),
+                      ),
+                    ),
+                    
                     Divider(height: 5),
                   ],
                 ),
@@ -272,14 +351,14 @@ class _CheckoutState extends State<Checkout> {
   Widget doCharging() {
     return FutureBuilder<dynamic>(
       future: WebServices(this.mApiListener).createPayment(widget.paymentAmount,
-          widget.projectData, widget.method, 'pending', widget.is_recurring),
+          widget.projectData, widget.method, 'pending', widget.is_recurring,widget.project_type,widget.payment_description),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         List<Widget> children;
 
         if (snapshot.hasData) {
           var data = snapshot.data;
 
-          if (data == 200) {
+          if (data.statusCode == 200) {
             children = <Widget>[
               Icon(
                 Icons.check_circle_outline,
@@ -339,7 +418,7 @@ class _CheckoutState extends State<Checkout> {
                             Navigator.of(context).push(CupertinoPageRoute<Null>(
                                 builder: (BuildContext context) {
                               return new PickImage(
-                                "${widget.projectData['payment_id']}",
+                                "${data.body}",
                               );
                             }));
                           },

@@ -102,7 +102,7 @@ class _CharityState extends State<Charity> {
                         width: 30,
                       ),
                     title: Text(
-                      "My Special Occations",
+                      "My Special occasion",
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: Colors.white),
                     ),

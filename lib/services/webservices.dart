@@ -18,8 +18,6 @@ class WebServices {
     return jsonServerData;
   }
 
-  
-
   Future<dynamic> getCompletedProjectData() async {
     var response = await http.get(base_url + "completedProjects");
     var jsonServerData = json.decode(response.body);
@@ -107,9 +105,8 @@ class WebServices {
       'phone': CURRENT_USER,
     });
     var jsonServerData = json.decode(response.body);
-    
-  
-  print("Response======>>>> ${response.body}");
+
+    print("Response======>>>> ${response.body}");
     return jsonServerData;
   }
 
@@ -122,7 +119,7 @@ class WebServices {
 
   Future<dynamic> getImageFromFolder(folder, type) async {
     print("=========>>>>>" + folder);
-    var url = base_url + 'getimagefile/'+type;
+    var url = base_url + 'getimagefile/' + type;
     var response = await http.post(url, body: {
       'folder': folder,
     });
@@ -134,28 +131,40 @@ class WebServices {
 
   // Payment records
 
-  Future<dynamic> createPayment(amount, projectData, method, status,isRecurring) async {
+  Future<dynamic> createPayment(amount, projectData, method, status,
+      isRecurring, type, signupPaymentDescription) async {
     print('Calling API createPayment --------->>>>>>>');
-    dynamic lkr_amount=0;
-    await WebServices(mApiListener).convertCurrency(currentUserData['currency'],'LKR','$amount').then((value) {
-    if (value != null) {  
-      lkr_amount = value;
+    dynamic lkrAmount = 0;
+    await WebServices(mApiListener)
+        .convertCurrency(currentUserData['currency'], 'LKR', '$amount')
+        .then((value) {
+      if (value != null) {
+        lkrAmount = value;
+      }
+    });
+    dynamic projectId;
+    if (projectData == null) {
+      projectId = "";
+    } else {
+      projectId = projectData['appeal_id'];
     }
-  });
+    print('Going to pay...');
     var timestamp = new DateTime.now().millisecondsSinceEpoch;
     var url = base_url + 'createpayment';
     var response = await http.post(url, body: {
       'user_id': CURRENT_USER,
-      'paid_amount': '$lkr_amount',
-      'project_id': projectData['appeal_id'],
+      'paid_amount': '$lkrAmount',
+      'project_id': '$projectId',
       'receipt_no': '$timestamp',
       'method': method,
       'status': status,
-      'recurring':'$isRecurring'
+      'recurring': '$isRecurring',
+      'payment_type': type,
+      'signup_payment_description': signupPaymentDescription
     });
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
-    return response.statusCode;
+    print('Payment Response status: ${response.statusCode}');
+    print('Payment Response body: ${response.body}');
+    return response;
   }
 
   Future<dynamic> getPaymentData() async {
@@ -336,6 +345,4 @@ class WebServices {
     print('Currency Response body: ${response.body}');
     return response.body;
   }
-
-
 }

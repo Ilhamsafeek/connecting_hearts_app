@@ -24,7 +24,7 @@ class _SpecialOccationState extends State<SpecialOccation> {
   final _formKey = GlobalKey<FormState>();
   final _amount = TextEditingController(text: "");
   String selectedMethod = "bank";
-  String selectedOccation = "birthday";
+  String selectedOccation = "Birth";
   ApiListener mApiListener;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   bool _is_agree = false;
@@ -63,7 +63,7 @@ class _SpecialOccationState extends State<SpecialOccation> {
                                     flex: 5,
                                     child: RadioListTile(
                                         activeColor: Colors.black,
-                                        value: 'birthday',
+                                        value: 'Birth',
                                         groupValue: selectedOccation,
                                         onChanged: (T) {
                                           print(T);
@@ -81,7 +81,7 @@ class _SpecialOccationState extends State<SpecialOccation> {
                                     flex: 5,
                                     child: RadioListTile(
                                         activeColor: Colors.black,
-                                        value: 'anniversary',
+                                        value: 'Anniversary',
                                         groupValue: selectedOccation,
                                         onChanged: (T) {
                                           print(T);
@@ -99,7 +99,7 @@ class _SpecialOccationState extends State<SpecialOccation> {
                                     flex: 5,
                                     child: RadioListTile(
                                         activeColor: Colors.black,
-                                        value: 'giftinmemory',
+                                        value: 'Gift in Memory',
                                         groupValue: selectedOccation,
                                         onChanged: (T) {
                                           print(T);
@@ -117,7 +117,7 @@ class _SpecialOccationState extends State<SpecialOccation> {
                                     flex: 5,
                                     child: RadioListTile(
                                         activeColor: Colors.black,
-                                        value: 'fulfilavow',
+                                        value: 'Fulfil a Vow',
                                         groupValue: selectedOccation,
                                         onChanged: (T) {
                                           print(T);
@@ -135,7 +135,7 @@ class _SpecialOccationState extends State<SpecialOccation> {
                                     flex: 5,
                                     child: RadioListTile(
                                         activeColor: Colors.black,
-                                        value: 'ifeelhappy ',
+                                        value: 'I feel happy',
                                         groupValue: selectedOccation,
                                         onChanged: (T) {
                                           print(T);
@@ -332,15 +332,15 @@ class _SpecialOccationState extends State<SpecialOccation> {
 
   _navigateToPayment() async {
     if (this.selectedMethod == 'bank') {
-      Navigator.pop(context);
+      // Navigator.pop(context);
       Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => Checkout(null,
-                _amount.text.replaceAll(",", ""), 'bank', "")),
+                _amount.text.replaceAll(",", ""), 'bank', "",'occasion',selectedOccation)),
       );
     } else {
-      Navigator.pop(context);
+      // Navigator.pop(context);
       // _doCardCharging();
       cardPaymentAgreementBottomSheet(context);
     }
@@ -379,7 +379,7 @@ class _SpecialOccationState extends State<SpecialOccation> {
     showWaitingProgress(context);
     if (data['status'] == 'success') {
       var saleResponse = await Braintree(mApiListener).sale(usd_amount,lkrAmount,
-          data['paymentNonce'], null, 'card', 'pending');
+          data['paymentNonce'], null, 'card', 'pending','occasion',selectedOccation);
 
       print("===============" + saleResponse);
 
@@ -452,6 +452,7 @@ class _SpecialOccationState extends State<SpecialOccation> {
                       ),
                     ),
                   ),
+                 
                   ListTile(
                     leading: Checkbox(
                         value: _is_agree,
@@ -475,7 +476,7 @@ class _SpecialOccationState extends State<SpecialOccation> {
                           onPressed: () {
                             if (_is_agree) {
                               setState(() {
-                                Navigator.pop(context);
+                               Navigator.pop(context);
 
                                 _doCardCharging();
                               });

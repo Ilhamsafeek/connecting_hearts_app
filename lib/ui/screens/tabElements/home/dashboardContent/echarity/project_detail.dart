@@ -791,7 +791,7 @@ class _ProjectDetailPageState extends State<ProjectDetail> {
         context,
         MaterialPageRoute(
             builder: (context) => Checkout( widget.projectData,
-                _amount.text.replaceAll(",", ""), 'bank', _recurring_value)),
+                _amount.text.replaceAll(",", ""), 'bank', _recurring_value,'project payment','')),
       );
     } else {
       Navigator.pop(context);
@@ -843,7 +843,7 @@ class _ProjectDetailPageState extends State<ProjectDetail> {
     showWaitingProgress(context);
     if (data['status'] == 'success') {
       var saleResponse = await Braintree(mApiListener).sale(usd_amount,lkrAmount,
-          data['paymentNonce'], widget.projectData, 'card', 'pending');
+          data['paymentNonce'], widget.projectData, 'card', 'pending','project payment','');
 
       print("===============" + saleResponse);
 

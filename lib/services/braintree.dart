@@ -10,7 +10,7 @@ class Braintree {
   Braintree(this.mApiListener);
 
   Future<dynamic> sale(amount, lkrAmount, paymentMethodNonce, projectData,
-      method, status) async {
+      method, status, type, signup_payment_description) async {
     print("lkr_amount=====>>>" + lkrAmount);
     var appealId;
     if (projectData == null) {
@@ -28,7 +28,9 @@ class Braintree {
       'project_id': appealId,
       'receipt_no': '$timestamp',
       'method': method,
-      'status': status
+      'status': status,
+      'payment_type': type,
+      'signup_payment_description': signup_payment_description
     });
     // var jsonServerData = json.decode(response.body);
     return response.body;

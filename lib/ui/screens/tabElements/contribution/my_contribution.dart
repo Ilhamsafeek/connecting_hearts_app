@@ -40,8 +40,9 @@ class _MyContributionState extends State<MyContribution> {
 
   @override
   Widget build(BuildContext context) {
-    FlutterMoneyFormatter formattedAmount =
-        FlutterMoneyFormatter(amount: double.parse('$totalContribution')*double.parse('$currencyValue'));
+    FlutterMoneyFormatter formattedAmount = FlutterMoneyFormatter(
+        amount: double.parse('$totalContribution') *
+            double.parse('$currencyValue'));
     return Scaffold(
         key: _scaffoldKey,
         backgroundColor: Colors.grey[200],
@@ -73,8 +74,7 @@ class _MyContributionState extends State<MyContribution> {
                               fontSize: 20,
                             )),
                         new TextSpan(
-                            text:
-                                '${formattedAmount.output.nonSymbol}',
+                            text: '${formattedAmount.output.nonSymbol}',
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 25,
@@ -174,18 +174,26 @@ class _MyContributionState extends State<MyContribution> {
   }
 
   Widget contributionCard(item) {
-    FlutterMoneyFormatter formattedAmount =
-        FlutterMoneyFormatter(amount: double.parse('${item['paid_amount']}')*double.parse('$currencyValue'));
+    FlutterMoneyFormatter formattedAmount = FlutterMoneyFormatter(
+        amount: double.parse('${item['paid_amount']}') *
+            double.parse('$currencyValue'));
     Widget _trailing;
-    dynamic _moreDetailsLeading = FlatButton.icon(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => ContributedProject(item)),
-          );
-        },
-        icon: Icon(Icons.list),
-        label: Text('More details'));
+    dynamic _moreDetailsLeading;
+    if (item['payment_type'] == 'subscription' ||
+        item['payment_type'] == 'occasion') {
+      _moreDetailsLeading = null;
+    } else {
+      _moreDetailsLeading = FlatButton.icon(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ContributedProject(item)),
+            );
+          },
+          icon: Icon(Icons.list),
+          label: Text('More details'));
+    }
+
     Icon _statusIcon = Icon(
       Icons.check_circle,
       color: Colors.green,
@@ -197,12 +205,10 @@ class _MyContributionState extends State<MyContribution> {
         _trailing = RaisedButton(
           color: Colors.orange,
           onPressed: () async {
-           
             Navigator.of(context)
                 .push(CupertinoPageRoute<Null>(builder: (BuildContext context) {
               return new PickImage(
                 "${item['payment_id']}",
-              
               );
             }));
           },
@@ -227,12 +233,10 @@ class _MyContributionState extends State<MyContribution> {
           ),
           color: Colors.blue,
           onPressed: () async {
-           
             Navigator.of(context)
                 .push(CupertinoPageRoute<Null>(builder: (BuildContext context) {
               return new PickImage(
                 "${item['payment_id']}",
-              
               );
             }));
           },
@@ -245,7 +249,7 @@ class _MyContributionState extends State<MyContribution> {
         _text = "Thank You ! \nWe are Reviewing you Donation.";
       }
     } else if (item['status'] == 'cancelled') {
-      _moreDetailsLeading=null;
+      _moreDetailsLeading = null;
       _trailing = FlatButton(
         color: Colors.red,
         onPressed: () {},
@@ -277,7 +281,7 @@ class _MyContributionState extends State<MyContribution> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           ListTile(
-            title: Text('${item['short_description']}'),
+            title: (item['payment_type']=='subscription'||item['payment_type']=='occasion')?Text('${item['payment_type']}-${item['signup_payment_description']}'):Text('${item['short_description']}'),
             subtitle: Text(
               '${item['date_time']}  ${item['method']} payment',
               style: TextStyle(fontSize: 12),
