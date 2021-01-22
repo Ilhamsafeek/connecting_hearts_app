@@ -1,6 +1,7 @@
 import 'package:braintree_payment/braintree_payment.dart';
 import 'package:connecting_hearts/services/braintree.dart';
 import 'package:connecting_hearts/services/services.dart';
+import 'package:connecting_hearts/utils/currency_formatter.dart';
 import 'package:connecting_hearts/utils/dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,8 +12,6 @@ import 'package:connecting_hearts/constant/Constant.dart';
 
 import '../payment_result.dart';
 import '../project_detail.dart';
-
-
 
 class SpecialOccation extends StatefulWidget {
   SpecialOccation({Key key}) : super(key: key);
@@ -38,7 +37,7 @@ class _SpecialOccationState extends State<SpecialOccation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key:_scaffoldKey,
+        key: _scaffoldKey,
         appBar: AppBar(title: Text('My Special Occations')),
         body: SingleChildScrollView(
           child: Center(
@@ -199,6 +198,9 @@ class _SpecialOccationState extends State<SpecialOccation> {
                                               if (value.isEmpty) {
                                                 return "Please input amount";
                                               }
+                                              if (value == '0') {
+                                                return "Please input amount";
+                                              }
                                             },
                                             inputFormatters: <
                                                 TextInputFormatter>[
@@ -332,12 +334,17 @@ class _SpecialOccationState extends State<SpecialOccation> {
 
   _navigateToPayment() async {
     if (this.selectedMethod == 'bank') {
-      // Navigator.pop(context);
+      Navigator.pop(context);
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => Checkout(null,
-                _amount.text.replaceAll(",", ""), 'bank', "",'occasion',selectedOccation)),
+            builder: (context) => Checkout(
+                null,
+                _amount.text.replaceAll(",", ""),
+                'bank',
+                "",
+                'occasion',
+                selectedOccation)),
       );
     } else {
       // Navigator.pop(context);
@@ -348,7 +355,7 @@ class _SpecialOccationState extends State<SpecialOccation> {
 
   _doCardCharging() async {
     showWaitingProgress(context);
-  
+
     dynamic usd_amount = 0;
     await WebServices(mApiListener)
         .convertCurrency(currentUserData['currency'], 'USD',
@@ -359,7 +366,7 @@ class _SpecialOccationState extends State<SpecialOccation> {
       }
     });
 
-  dynamic lkrAmount = 0;
+    dynamic lkrAmount = 0;
     await WebServices(mApiListener)
         .convertCurrency(currentUserData['currency'], 'LKR',
             "${_amount.text.replaceAll(',', '')}")
@@ -378,8 +385,15 @@ class _SpecialOccationState extends State<SpecialOccation> {
     print("Response of the payment $data");
     showWaitingProgress(context);
     if (data['status'] == 'success') {
-      var saleResponse = await Braintree(mApiListener).sale(usd_amount,lkrAmount,
-          data['paymentNonce'], null, 'card', 'pending','occasion',selectedOccation);
+      var saleResponse = await Braintree(mApiListener).sale(
+          usd_amount,
+          lkrAmount,
+          data['paymentNonce'],
+          null,
+          'card',
+          'pending',
+          'occasion',
+          selectedOccation);
 
       print("===============" + saleResponse);
 
@@ -433,10 +447,7 @@ class _SpecialOccationState extends State<SpecialOccation> {
                           new TextSpan(
                               text: 'Donation Category :',
                               style: TextStyle(fontWeight: FontWeight.w600)),
-                          new TextSpan(
-                              text: " $selectedOccation\n\n"),
-                         
-                        
+                          new TextSpan(text: " $selectedOccation\n\n"),
                           new TextSpan(
                               text: 'My Contribution Amount :',
                               style: TextStyle(
@@ -452,7 +463,6 @@ class _SpecialOccationState extends State<SpecialOccation> {
                       ),
                     ),
                   ),
-                 
                   ListTile(
                     leading: Checkbox(
                         value: _is_agree,
@@ -462,10 +472,12 @@ class _SpecialOccationState extends State<SpecialOccation> {
                           });
                         }),
                     title: _warning,
-                     onTap: (){
-                       setState(() {
-                           _is_agree==true? _is_agree = false:_is_agree=true;
-                          });
+                    onTap: () {
+                      setState(() {
+                        _is_agree == true
+                            ? _is_agree = false
+                            : _is_agree = true;
+                      });
                     },
                   ),
                   Divider(height: 10),
@@ -476,7 +488,7 @@ class _SpecialOccationState extends State<SpecialOccation> {
                           onPressed: () {
                             if (_is_agree) {
                               setState(() {
-                               Navigator.pop(context);
+                                Navigator.pop(context);
 
                                 _doCardCharging();
                               });
@@ -501,17 +513,12 @@ class _SpecialOccationState extends State<SpecialOccation> {
                         )
                       ],
                     ),
-                  )
-                  ,SizedBox(height:MediaQuery.of(context).size.height / 3)
-                
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 3)
                 ],
               ),
             );
           });
         });
   }
-
-
-
-
 }

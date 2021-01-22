@@ -78,6 +78,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                             'Connecting Hearts applies a group of data security procedures that ensure the safety, accuracy and updating of data. Connecting Hearts will not sell, rent or disclose your personal information with a third party.\n',
                           )),
                         ],
+                      
                       ),
                     ),
                   ],

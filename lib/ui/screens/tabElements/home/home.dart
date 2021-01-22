@@ -13,6 +13,7 @@ import 'package:connecting_hearts/ui/screens/tabElements/home/dashboardContent/e
 import 'package:connecting_hearts/ui/screens/media/update_detail.dart';
 import 'dart:async';
 
+import '../../../../onboarding_page.dart';
 import '../dashboardContent/donate_points.dart';
 import 'dashboardContent/updates/media.dart';
 import 'dashboardContent/details/categories.dart';
@@ -413,6 +414,8 @@ class _HomeState extends State<Home> {
                 //     CupertinoPageRoute<Null>(builder: (BuildContext context) {
                 //   return new OnBoardingPage();
                 // }));
+                
+                
               }),
           InkWell(
               child: GridItem(

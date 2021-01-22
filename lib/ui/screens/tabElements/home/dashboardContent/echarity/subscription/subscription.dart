@@ -2,6 +2,7 @@ import 'package:braintree_payment/braintree_payment.dart';
 import 'package:connecting_hearts/services/braintree.dart';
 import 'package:connecting_hearts/services/services.dart';
 import 'package:connecting_hearts/services/webservices.dart';
+import 'package:connecting_hearts/utils/currency_formatter.dart';
 import 'package:connecting_hearts/utils/dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -27,6 +28,8 @@ class _SubscriptionState extends State<Subscription> {
   final _amount = TextEditingController(text: "");
   String selectedMethod = "bank";
   String selectedPeriod = "Daily";
+  String selectedPaymentPackage = "Monthly";
+
   dynamic daily_amount = 0;
   dynamic weekly_amount = 0;
   dynamic monthly_amount = 0;
@@ -34,6 +37,7 @@ class _SubscriptionState extends State<Subscription> {
   bool _is_agree = false;
   Widget _warning = Text('I Agree With Above Details');
   dynamic chargin_amount = 0;
+  dynamic _decissionPanel = null;
   // List<String> _currencies = ['LKR','USD', 'EUR', 'JPY', 'GBP','AUD', 'KWD', 'CNH', 'GBP'];
   // String _selectedCurrency;
   @override
@@ -55,13 +59,16 @@ class _SubscriptionState extends State<Subscription> {
                 StatefulBuilder(
                     builder: (BuildContext context, StateSetter setState) {
                   return Container(
-                    child: new Wrap(
+                    child: new Column(
                       children: <Widget>[
+                         SizedBox(
+                          height: 10,
+                        ),
                         GridView.count(
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
                             crossAxisCount: 2,
-                            childAspectRatio: (16 / 5),
+                            childAspectRatio: (16 / 7),
                             children: <Widget>[
                               Row(
                                 children: <Widget>[
@@ -75,29 +82,30 @@ class _SubscriptionState extends State<Subscription> {
                                           print(T);
                                           setState(() {
                                             selectedPeriod = T;
+                                            _decissionPanel = decissionPanel();
                                           });
                                         },
                                         title: Container(
-                                            height: 92,
+                                            height: 70,
                                             color: Colors.blue,
                                             child: Center(
                                               child: Column(
                                                 children: [
                                                   SizedBox(
-                                                    height: 8,
+                                                    height: 25,
                                                   ),
                                                   Text(
                                                     'Daily',
                                                     style: TextStyle(
                                                         color: Colors.white),
                                                   ),
-                                                  Text(
-                                                    '$daily_amount',
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  )
+                                                  // Text(
+                                                  //   '$daily_amount',
+                                                  //   style: TextStyle(
+                                                  //       color: Colors.white,
+                                                  //       fontWeight:
+                                                  //           FontWeight.bold),
+                                                  // )
                                                 ],
                                               ),
                                             ))),
@@ -110,35 +118,37 @@ class _SubscriptionState extends State<Subscription> {
                                     flex: 5,
                                     child: RadioListTile(
                                         activeColor: Colors.black,
-                                        value: 'weekly',
+                                        value: 'Weekly',
                                         groupValue: selectedPeriod,
                                         onChanged: (T) {
                                           print(T);
                                           setState(() {
                                             selectedPeriod = T;
+
+                                            _decissionPanel = decissionPanel();
                                           });
                                         },
                                         title: Container(
-                                            height: 92,
-                                            color: Colors.blue,
+                                            height: 70,
+                                            color: Colors.yellow[700],
                                             child: Center(
                                               child: Column(
                                                 children: [
                                                   SizedBox(
-                                                    height: 8,
+                                                    height: 25,
                                                   ),
                                                   Text(
                                                     'Weekly',
                                                     style: TextStyle(
                                                         color: Colors.white),
                                                   ),
-                                                  Text(
-                                                    '$weekly_amount',
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  )
+                                                  // Text(
+                                                  //   '$weekly_amount',
+                                                  //   style: TextStyle(
+                                                  //       color: Colors.white,
+                                                  //       fontWeight:
+                                                  //           FontWeight.bold),
+                                                  // )
                                                 ],
                                               ),
                                             ))),
@@ -157,29 +167,30 @@ class _SubscriptionState extends State<Subscription> {
                                           print(T);
                                           setState(() {
                                             selectedPeriod = T;
+                                            _decissionPanel = decissionPanel();
                                           });
                                         },
                                         title: Container(
-                                            height: 92,
+                                            height: 70,
                                             color: Colors.green[300],
                                             child: Center(
                                               child: Column(
                                                 children: [
                                                   SizedBox(
-                                                    height: 8,
+                                                    height: 25,
                                                   ),
                                                   Text(
                                                     'Monthly',
                                                     style: TextStyle(
                                                         color: Colors.white),
                                                   ),
-                                                  Text(
-                                                    '$monthly_amount',
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  )
+                                                  // Text(
+                                                  //   '$monthly_amount',
+                                                  //   style: TextStyle(
+                                                  //       color: Colors.white,
+                                                  //       fontWeight:
+                                                  //           FontWeight.bold),
+                                                  // )
                                                 ],
                                               ),
                                             ))),
@@ -187,7 +198,9 @@ class _SubscriptionState extends State<Subscription> {
                                 ],
                               ),
                               Row(
+                                
                                 children: <Widget>[
+                                  
                                   Expanded(
                                     flex: 5,
                                     child: RadioListTile(
@@ -198,29 +211,30 @@ class _SubscriptionState extends State<Subscription> {
                                           print(T);
                                           setState(() {
                                             selectedPeriod = T;
+                                            _decissionPanel = decissionPanel();
                                           });
                                         },
                                         title: Container(
-                                            height: 100,
-                                            color: Colors.pinkAccent[700],
+                                            height: 70,
+                                            color: Colors.pink[900],
                                             child: Center(
                                               child: Column(
                                                 children: [
                                                   SizedBox(
-                                                    height: 8,
+                                                    height: 25,
                                                   ),
                                                   Text(
                                                     'Annually',
                                                     style: TextStyle(
                                                         color: Colors.white),
                                                   ),
-                                                  Text(
-                                                    '$annual_amount',
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  )
+                                                  // Text(
+                                                  //   '$annual_amount',
+                                                  //   style: TextStyle(
+                                                  //       color: Colors.white,
+                                                  //       fontWeight:
+                                                  //           FontWeight.bold),
+                                                  // )
                                                 ],
                                               ),
                                             ))),
@@ -228,6 +242,9 @@ class _SubscriptionState extends State<Subscription> {
                                 ],
                               ),
                             ]),
+                           SizedBox(
+                          height: 10,
+                        ),
                         ListTile(
                             title: Text(
                               'Donating Amount',
@@ -237,11 +254,9 @@ class _SubscriptionState extends State<Subscription> {
                               ),
                             ),
                             tileColor: Color.fromRGBO(80, 172, 225, 1)),
-                        Divider(
-                          height: 0,
-                        ),
+                       
                         SizedBox(
-                          height: 20,
+                          height: 10,
                         ),
                         Form(
                             key: _formKey,
@@ -273,16 +288,20 @@ class _SubscriptionState extends State<Subscription> {
                                             CrossAxisAlignment.end,
                                         children: [
                                           TextFormField(
-                                            textAlign: TextAlign.center,
+                                             textAlign: TextAlign.center,
                                             controller: _amount,
                                             validator: (value) {
                                               if (value.isEmpty) {
                                                 return "Please input amount";
                                               }
+                                              if (value == '0') {
+                                                return "Please input amount";
+                                              }
                                             },
                                             inputFormatters: <
                                                 TextInputFormatter>[
-                                              // WhitelistingTextInputFormatter.digitsOnly,
+                                              WhitelistingTextInputFormatter
+                                                  .digitsOnly,
                                               CurrencyInputFormatter()
                                             ],
                                             keyboardType: TextInputType.number,
@@ -298,45 +317,9 @@ class _SubscriptionState extends State<Subscription> {
                                             ),
                                             onChanged: (value) {
                                               setState(() {
-                                                if (value == '') {
-                                                  value = '0';
-                                                } else {
-                                                  value =
-                                                      value.replaceAll(",", "");
-                                                }
-                                                daily_amount =
-                                                    double.parse("$value") * 30;
-                                                weekly_amount =
-                                                    double.parse("$value") * 4;
-                                                monthly_amount =
-                                                    double.parse("$value");
-                                                annual_amount =
-                                                    double.parse("$value") * 12;
-                                                if (selectedPeriod == 'Daily') {
-                                                  chargin_amount = daily_amount.toString();
-                                                } else if (selectedPeriod ==
-                                                    'Weekly') {
-                                                  chargin_amount =
-                                                      weekly_amount.toString();
-                                                } else if (selectedPeriod ==
-                                                    'Monthly') {
-                                                  chargin_amount =
-                                                      monthly_amount.toString();
-                                                } else if (selectedPeriod ==
-                                                    'Annually') {
-                                                  chargin_amount =
-                                                      annual_amount.toString();
-                                                }
+                                                _decissionPanel =
+                                                    decissionPanel();
                                               });
-                                              FlutterMoneyFormatter
-                                                  formattedAmount =
-                                                  FlutterMoneyFormatter(
-                                                      amount: double.parse(
-                                                          '${_amount.text}'));
-                                              print(
-                                                  "====================${formattedAmount.output.withoutFractionDigits}");
-                                              // value = formattedAmount.output.withoutFractionDigits;
-                                              //_amount.text=formattedAmount.output.withoutFractionDigits;
                                             },
                                           ),
                                         ],
@@ -364,6 +347,12 @@ class _SubscriptionState extends State<Subscription> {
                                     ),
                                   ],
                                 ),
+                              ),
+                              SizedBox(
+                          height: 10,
+                        ),
+                              Container(
+                                child: _decissionPanel,
                               ),
                               ListTile(
                                   title: Text(
@@ -429,7 +418,7 @@ class _SubscriptionState extends State<Subscription> {
                                     flex: 11,
                                     child: RadioListTile(
                                       activeColor: Colors.black,
-                                      value: 'direct',
+                                      value: 'direct debit',
                                       groupValue: selectedMethod,
                                       onChanged: (T) {
                                         print(T);
@@ -460,7 +449,9 @@ class _SubscriptionState extends State<Subscription> {
                                         Expanded(
                                             child: RaisedButton(
                                           onPressed: () {
-                                            _navigateToPayment();
+                                            _formKey.currentState.validate()
+                                                ? _navigateToPayment()
+                                                : null;
                                           },
                                           child: Text("Donate Now",
                                               style: TextStyle(fontSize: 16)),
@@ -471,6 +462,8 @@ class _SubscriptionState extends State<Subscription> {
                                   ),
                                   onTap: () => {}),
                             ])),
+                      
+                        
                       ],
                     ),
                   );
@@ -482,21 +475,20 @@ class _SubscriptionState extends State<Subscription> {
   }
 
   _navigateToPayment() async {
-    if (this.selectedMethod == 'bank') {
-      // Navigator.pop(context);
+    if (this.selectedMethod == 'bank'||this.selectedMethod == 'direct debit') {
+      Navigator.pop(context);
       Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => Checkout(
                 null,
                 chargin_amount.replaceAll(",", ""),
-                'bank',
+                this.selectedMethod,
                 "",
                 'subscription',
                 selectedPeriod)),
       );
-    } else if (selectedMethod == 'direct') {
-      directDepositModalBottomSheet(context);
+    
     } else if (selectedMethod == 'card') {
       cardPaymentAgreementBottomSheet(context);
     }
@@ -806,5 +798,146 @@ class _SubscriptionState extends State<Subscription> {
             );
           });
         });
+  }
+
+  Widget decissionPanel() {
+    dynamic value;
+    if (value == '') {
+      value = '0';
+    } else {
+      value = _amount.text.replaceAll(",", "");
+    }
+    _setFinalAmounts(value);
+    if (selectedPeriod != 'Annually' || value == '0') {
+      return GridView.count(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          crossAxisCount: 1,
+          childAspectRatio: (16 / 5),
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Expanded(
+                  flex: 5,
+                  child: RadioListTile(
+                      activeColor: Colors.black,
+                      value: 'Monthly',
+                      groupValue: selectedPaymentPackage,
+                      onChanged: (value) {
+                        print(value);
+                        setState(() {
+                          selectedPaymentPackage = value;
+                          _decissionPanel = decissionPanel(); //Refreshing it
+                        });
+                      },
+                      title: Container(
+                          height: 100,
+                          color: Colors.grey[350],
+                          child: Center(
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 18,
+                                ),
+                                Text(
+                                  'Donate for this month',
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Text(
+                                  '${currentUserData['currency']} $monthly_amount',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 30),
+                                )
+                              ],
+                            ),
+                          ))),
+                ),
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  flex: 5,
+                  child: RadioListTile(
+                      activeColor: Colors.black,
+                      value: 'Annually',
+                      groupValue: selectedPaymentPackage,
+                      onChanged: (value) {
+                        print(value);
+                        setState(() {
+                          selectedPaymentPackage = value;
+                          _decissionPanel = decissionPanel(); //Refreshing it
+                        });
+                      },
+                      title: Container(
+                          height: 100,
+                          color: Colors.pink[900],
+                          child: Center(
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 18,
+                                ),
+                                Text(
+                                  'Donate for this year',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Text(
+                                    '${currentUserData['currency']} $annual_amount',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 30,
+                                    ))
+                              ],
+                            ),
+                          ))),
+                ),
+              ],
+            ),
+          ]);
+    } else {
+      return null;
+    }
+  }
+
+  _setFinalAmounts(value) {
+    setState(() {
+      if (selectedPeriod == 'Daily') {
+        monthly_amount = double.parse("$value") * 30;
+        annual_amount = monthly_amount * 12;
+      } else if (selectedPeriod == 'Weekly') {
+        monthly_amount = double.parse("$value") * 4;
+        annual_amount = monthly_amount * 12;
+      } else if (selectedPeriod == 'Monthly') {
+        monthly_amount = double.parse("$value");
+        annual_amount = monthly_amount * 12;
+      } else if (selectedPeriod == 'Annually') {
+        annual_amount = double.parse("$value");
+      }
+
+      monthly_amount =
+          FlutterMoneyFormatter(amount: double.parse('$monthly_amount'))
+              .output
+              .withoutFractionDigits;
+      annual_amount =
+          FlutterMoneyFormatter(amount: double.parse('$annual_amount'))
+              .output
+              .withoutFractionDigits;
+
+      if (selectedPaymentPackage == 'Monthly') {
+        chargin_amount = monthly_amount.toString();
+      } else if (selectedPaymentPackage == 'Annually') {
+        chargin_amount = annual_amount.toString();
+      }
+    });
   }
 }

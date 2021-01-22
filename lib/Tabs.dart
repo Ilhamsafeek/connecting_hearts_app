@@ -6,7 +6,6 @@ import 'package:flutter_offline/flutter_offline.dart';
 import 'package:connecting_hearts/ui/screens/tabElements/management_webview.dart';
 import 'package:connecting_hearts/ui/screens/tabElements/contribution/my_contribution.dart';
 import 'package:connecting_hearts/offline.dart';
-import 'package:connecting_hearts/ui/screens/tabElements/home/dashboardContent/home.dart';
 import 'package:connecting_hearts/ui/screens/notifications.dart';
 import 'package:connecting_hearts/ui/screens/tabElements/chat/chat.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -19,6 +18,7 @@ import 'dart:async';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'ui/screens/tabElements/home/home.dart';
 import 'utils/badge_icon.dart';
 import 'constant/Constant.dart';
 
@@ -74,7 +74,6 @@ class MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
     messaging.configure(
       onLaunch: (Map<String, dynamic> event) async {
         // dynamic data = json.decode(event['data']['args']);
-        
 
         // Navigator.push(
         //   context,
@@ -86,7 +85,7 @@ class MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
         // foreground
 
         // dynamic data = json.decode(event['data']['args']);
-        
+
         // Navigator.push(
         //   context,
         //   MaterialPageRoute(builder: (context) => Play(video)),
@@ -103,10 +102,12 @@ class MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
         updateNotificationCount(_tabBarNotificationCount);
         // dynamic video = json.decode(event['data']['args']);
 
-      return Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => Notifications()),
-    );
+        return Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  Notifications(pageController: _pageController)),
+        );
       },
     );
     // messaging.subscribeToTopic('all');
@@ -131,7 +132,6 @@ class MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
         onSelectNotification: _selectNotification);
 
     super.didChangeDependencies();
-    
   }
 
   Future _selectNotification(payload) {
@@ -140,7 +140,7 @@ class MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
     }
     return Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => Notifications()),
+      MaterialPageRoute(builder: (context) => Notifications(pageController: _pageController)),
     );
   }
 
@@ -155,12 +155,12 @@ class MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
         payload: "send message");
   }
 
-  // @override
-  // void dispose() {
-  //   _pageController.dispose();
-  //   _countController.close();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    _pageController.dispose();
+    _countController.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -174,11 +174,13 @@ class MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
                 color: Colors.white60,
               ),
               leadingWidth: 40,
-              title: Text(
-                'Connecting Hearts',
-                style: TextStyle(fontFamily: 'Architekt', fontWeight: FontWeight.bold, color: Colors.white70,)
-              ),
-              titleSpacing :8,
+              title: Text('Connecting Hearts',
+                  style: TextStyle(
+                    fontFamily: 'Architekt',
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white70,
+                  )),
+              titleSpacing: 8,
               actions: <Widget>[
                 IconButton(
                   onPressed: () async {
@@ -206,7 +208,7 @@ class MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Notifications()),
+                      MaterialPageRoute(builder: (context) => Notifications(pageController: _pageController)),
                     );
                     _tabBarNotificationCount = 0;
                     _countController.sink.add(_tabBarNotificationCount);
@@ -237,7 +239,9 @@ class MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
                             children: <Widget>[
                               Home(),
                               MyContribution(),
-                              USER_ROLE == 'Management' ? MAnagementWebView() : Chat(),
+                              USER_ROLE == 'Management'
+                                  ? MAnagementWebView()
+                                  : Chat(),
                               Profile(),
                             ],
                           ),
@@ -255,7 +259,6 @@ class MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
             ),
           ),
           bottomNavigationBar: BottomNavyBar(
-            
             selectedIndex: currentIndex,
             onItemSelected: (index) {
               setState(() => currentIndex = index);
@@ -301,7 +304,6 @@ class MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
               ),
             ],
           ),
-          
         ),
         onWillPop: () {
           print('Back button pressed');

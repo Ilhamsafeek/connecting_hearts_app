@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 
@@ -71,12 +72,13 @@ class _CategoriesState extends State<DonatePoints> {
                 title: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Text('077XXXXXXX', style: TextStyle(fontSize: 20),),
+                    // Text('You can now donate your Loyalty Point to Zam Zam Foundatio by producing below number to outlets that we are registered with:\n',style: TextStyle(fontSize: 14, color: Colors.white),),
+                    Text('076 665 7799', style: TextStyle(fontSize: 20, color: Colors.white),),
                   ],
                 ),
-                tileColor: Colors.orange
+                tileColor: Colors.green
                 ,onTap: (){
-                  _launchURL("tel://077777777777");
+                  _launchURL("tel://076 665 7799");
                 },),
             
            
@@ -93,19 +95,18 @@ class _CategoriesState extends State<DonatePoints> {
                         color: Colors.green,
                       ),
                       onPressed: () {
-                        // Share.share('check out my website https://example.com',
-                        //     subject: 'Look what I made!');
-                //              Navigator.of(context).push(
-                //     CupertinoPageRoute<Null>(builder: (BuildContext context) {
-                //   return new Test();
-                // }));
+                        Share.share('You can now donate your Loyalty Point to Zam Zam Foundation by producing below number to outlets that we are registered with in Sri Lanka:\n076 665 7799\nThank You for your valuable contribution.',
+                        );                            
                       },
                       label: Text('Share'),
                     ),
                   ],
                 ),
                 tileColor: Colors.white),
-            onTap: () {}),
+            onTap: () {
+               Share.share('You can now donate your Loyalty Point to Zam Zam Foundation by producing below number to outlets that we are registered with in Sri Lanka:\n076 665 7799\nThank You for your valuable contribution.',
+                        ); 
+            }),
       ],
     );
   }

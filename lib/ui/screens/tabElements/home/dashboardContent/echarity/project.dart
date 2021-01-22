@@ -67,10 +67,23 @@ class _ProjectPageState extends State<Project> {
                       this.widget.categoryData['project_category_id'] &&
                   el['amount'] != el['collected'])
               .toList();
-
-          children = <Widget>[
-            for (var item in data) projectCard(item),
-          ];
+          if (data.length > 0) {
+            children = <Widget>[
+              for (var item in data) projectCard(item),
+            ];
+          } else {
+            children = <Widget>[
+              ListTile(
+                title: Center(
+                  child: Text(
+                      "There are no projects available under this category at the moment",
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+                ),
+              ),
+            ];
+          }
         } else if (snapshot.hasError) {
           children = <Widget>[
             Icon(
@@ -108,12 +121,12 @@ class _ProjectPageState extends State<Project> {
         );
       },
     );
-  
   }
 
   Card projectCard(dynamic data) {
-    FlutterMoneyFormatter formattedAmount =
-        FlutterMoneyFormatter(amount: double.parse('${data['amount']}')*double.parse('$currencyValue'));
+    FlutterMoneyFormatter formattedAmount = FlutterMoneyFormatter(
+        amount:
+            double.parse('${data['amount']}') * double.parse('$currencyValue'));
 
     double completedPercent = 100 *
         double.parse('${data['collected']}') /
@@ -207,17 +220,14 @@ class _ProjectPageState extends State<Project> {
                     ),
                   ),
                 ),
-              
-
               ],
             )),
-           
+
             Positioned(
               bottom: 40,
               left: 5,
               child: Column(
                 children: <Widget>[
-                 
                   Chip(
                       label: Text(
                           "Donation Amount: ${currentUserData['currency']} " +
@@ -250,7 +260,8 @@ class _ProjectPageState extends State<Project> {
                             ),
                           ],
                         ),
-                      ), backgroundColor: Colors.transparent,
+                      ),
+                      backgroundColor: Colors.transparent,
                     ),
                     alignment: MainAxisAlignment.start,
                     animation: true,
@@ -266,7 +277,6 @@ class _ProjectPageState extends State<Project> {
                     backgroundColor: Colors.grey,
                     progressColor: completedColor,
                   ),
-                
                 ],
               ),
             ),
@@ -289,19 +299,25 @@ class _ProjectPageState extends State<Project> {
                 label: Text('View more'),
               ),
             ),
-          
-             if(data['zakat_eligible']=='true')
-             Expanded(
-              child: Column(
-                children: <Widget>[
-                 FlatButton.icon(icon: Icon(Icons.check, color: Colors.green,),label: Text('Zakat Eligible',style: TextStyle(
-                      color: Colors.green[400],
-                     fontWeight: FontWeight.bold
-                    ),), onPressed: (){}),
-                ],
+            if (data['zakat_eligible'] == 'true')
+              Expanded(
+                child: Column(
+                  children: <Widget>[
+                    FlatButton.icon(
+                        icon: Icon(
+                          Icons.check,
+                          color: Colors.green,
+                        ),
+                        label: Text(
+                          'Zakat Eligible',
+                          style: TextStyle(
+                              color: Colors.green[400],
+                              fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () {}),
+                  ],
+                ),
               ),
-            ),
-
           ]))
         ],
       ),

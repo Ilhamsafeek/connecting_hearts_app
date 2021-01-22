@@ -89,22 +89,28 @@ class _SliderLayoutViewState extends State<SliderLayoutView> {
                         ],
                       ),
                     ),
-                    // Container(
-                    //   alignment: AlignmentDirectional.bottomCenter,
-                    //   margin: EdgeInsets.only(bottom: 75.0),
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     children: <Widget>[
-                    //       Text('Click to view our'),
-                    //       Text(
-                    //         ' Privacy Policy',
-                    //         style: TextStyle(
-                    //           decoration: TextDecoration.underline,
-                    //         ),
-                    //       )
-                    //     ],
-                    //   ),
-                    // ),
+                    Container(
+                      alignment: AlignmentDirectional.bottomCenter,
+                      margin: EdgeInsets.only(bottom: 75.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text('Click to view our'),
+                         GestureDetector(
+                           child:  Text(
+                            ' Privacy Policy',
+                            style: TextStyle(
+                              decoration: TextDecoration.underline, fontWeight: FontWeight.bold
+                            ),
+                          ),
+                           onTap: (){
+                             _privacyPolicy();
+                           }
+                         ),
+                         
+                        ],
+                      ),
+                    ),
                    
                     Align(
                       alignment: Alignment.bottomCenter,
@@ -122,11 +128,95 @@ class _SliderLayoutViewState extends State<SliderLayoutView> {
                         ),
                       ),
                     ),
+                 
                   ],
                 )
               ],
             )),
       );
+
+       Future _privacyPolicy() {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            contentPadding: EdgeInsets.only(left: 10, right: 10),
+            title: Center(child: Text("Privacy Policy")),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0))),
+            content: Container(
+              height: 300,
+              
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                          ListTile(
+                            title: Text(
+                                '\nPlease read the policy in order to be familiar with the way Connecting Hearts is collecting, using and processing your personal information pertaining to the usage of the Electronic Payment Gateway which is available through Connecting Hearts’s electronic services.'),
+                          ),
+                          ListTile(
+                              title: Text(
+                                  'The approval of obtaining your personal information',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.w600))),
+                          ListTile(
+                            title: Text(
+                                'Once you give an approval to provide Connecting Hearts with your personal information, you agree upon the conditions set forth in this document, and Connecting Hearts may change these conditions from time to time. Connecting Hearts does not collect any information from visitors except for what he or she provides when subscribing, or making a donation.\nConnecting Hearts does not sell, rent or publish personal information provided willingly, except for the continuation of the process of donation initiated.\nConnecting Hearts is committed to ensure the privacy of users of its electronic services, which include all electronic donation points and apps and websites of other projects'),
+                          ),
+                          ListTile(
+                              title: Text('Collecting Personal Information',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.w600))),
+                          ListTile(
+                              title: Text(
+                            'Connecting Hearts ensures the safety and privacy of users’ personal information, which may use only for the purposes it was collected for. For instance, information might be used to complete donation processes, verify personal information, remind donors of their donation dates, and to notify them of new campaigns in this regard, including information about those who expressed their intention to volunteer at the Charity',
+                          )),
+                          ListTile(
+                              title: Text('Data Security',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.w600))),
+                          ListTile(
+                              title: Text(
+                            'Connecting Hearts applies a group of data security procedures that ensure the safety, accuracy and updating of data. Connecting Hearts will not sell, rent or disclose your personal information with a third party.\n',
+                          )),
+                        ],
+                      
+                ),
+              ),
+            ),
+             actions: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                 
+                Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 100.0,),
+                        child: RaisedButton(
+                        child: new Text(
+                          'Close',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        color: Color(0xFF121A21),
+                        shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30.0),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      ),
+                    ),
+                 
+                ],
+              )
+            ]);
+      },
+    );
+  }
 }
 
 class SlideItem extends StatelessWidget {
@@ -204,7 +294,7 @@ final sliderArrayList = [
           "You may not aware of how people are needy. This is the platform for you"),
   Slider(
       sliderImageUrl: 'assets/slider_3.png',
-      sliderHeading: "Privacy Policy",
+      sliderHeading: "Support them",
       sliderSubHeading:
           "We connect needy people and donors and make a network"),
 ];

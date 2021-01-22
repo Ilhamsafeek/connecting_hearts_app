@@ -169,7 +169,7 @@ class _CheckoutState extends State<Checkout> {
                 ),
               ),
               Divider(height: 10),
-               if(widget.method=='bank')
+               if(widget.method=='bank'||widget.method=='direct debit')
               Card(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -237,30 +237,30 @@ class _CheckoutState extends State<Checkout> {
                                 style: TextStyle(fontWeight: FontWeight.w600)),
                             new TextSpan(
                                 text:
-                                    " ZamZam Foundation\n\n"),
+                                    " Zam Zam Foundation\n\n"),
                             new TextSpan(
                                 text: 'Account Number :',
                                 style: TextStyle(fontWeight: FontWeight.w600)),
                             new TextSpan(
                                 text:
-                                    " 23535765878465356\n\n"),
+                                    " 250010004400\n\n"),
                             new TextSpan(
                                 text: 'Bank :',
                                 style: TextStyle(fontWeight: FontWeight.w600)),
                             new TextSpan(
                                 text:
-                                    " Commercial Bank\n\n"),
+                                    " HNB\n\n"),
                             new TextSpan(
                                 text: 'Branch :',
                                 style: TextStyle(fontWeight: FontWeight.w600)),
                             new TextSpan(
-                                text: " Wellawatte\n\n",
+                                text: " Islamic Unit\n\n",
                                 style: TextStyle(fontWeight: FontWeight.w600)),
                             new TextSpan(
                                 text: 'Swift Code :',
                                 style: TextStyle(fontWeight: FontWeight.w600)),
                             new TextSpan(
-                                text: " 23534",
+                                text: " HBLILKLX",
                                 style: TextStyle(fontWeight: FontWeight.w600)),
                           ],
                         ),

@@ -110,9 +110,9 @@ class _EditVacancyState extends State<EditVacancy> {
                         title: TextFormField(
                           controller: _email,
                           validator: (value) {
-                            if (value.isEmpty) {
-                              return "Email cannot be empty";
-                            }
+                            // if (value.isEmpty) {
+                            //   return "Email cannot be empty";
+                            // }
                           },
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(

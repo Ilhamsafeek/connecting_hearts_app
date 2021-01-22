@@ -50,7 +50,7 @@ class _PickImageState extends State<PickImage> {
       body: Column(
         children: <Widget>[
           SizedBox(
-            height: 64,
+            height: 30,
           ),
           Center(
             child: GestureDetector(
@@ -58,37 +58,39 @@ class _PickImageState extends State<PickImage> {
                 _showPicker(context);
               },
               child: Container(
-                child: _image != null
-                    ? ClipRRect(
-                        child: Image.file(
-                          _image,
-                          height: MediaQuery.of(context).size.height *.7,
-                          fit: BoxFit.fitHeight,
-                        ),
-                      )
-                    : Center(
-                      child: Column(
-                        children: [
-                          Container(
-                        decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(50)),
-                        width: 100,
-                        height: 100,
-                        child: Icon(
-                          Icons.receipt,
-                          color: Colors.grey[800],
-                          size: 40,
-                        ),
-                      ),
-                      SizedBox(height: 5,),
-                      Text('Tap to Upload Slip')
-                        ],
-                      ),
-                    )
-                    
-                    
-              ),
+                  child: _image != null
+                      ? ClipRRect(
+                          child: Image.file(
+                            _image,
+                            height: MediaQuery.of(context).size.height * .7,
+                            fit: BoxFit.fitHeight,
+                          ),
+                        )
+                      : Center(
+                          child: Column(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.grey[200],
+                                    borderRadius: BorderRadius.circular(50)),
+                                width: 100,
+                                height: 100,
+                                child: Icon(
+                                  Icons.receipt,
+                                  color: Colors.grey[800],
+                                  size: 40,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                'Tap to Upload Slip',
+                                style: TextStyle(fontSize: 16),
+                              )
+                            ],
+                          ),
+                        )),
             ),
           ),
           if (_image != null)
@@ -135,38 +137,70 @@ class _PickImageState extends State<PickImage> {
   }
 
   void _showPicker(context) {
-    showModalBottomSheet(
-        context: context,
-        builder: (BuildContext bc) {
-          return SafeArea(
-            child: Container(
-              child: new Wrap(
-                children: <Widget>[
-                  
-                  new ListTile(
-                      leading: new Icon(Icons.photo_library),
-                      title: new Text('Photo Library'),
-                      onTap: () {
-                        _imgFromGallery();
-                        Navigator.of(context).pop();
-                      }),
-                  new ListTile(
-                    leading: new Icon(Icons.photo_camera),
-                    title: new Text('Camera'),
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text("Select image picker type\n"),
+          content: new Container(
+            child: Row(
+              children: [
+               Expanded(
+                    flex: 5,
+                    child: 
+                    GestureDetector(child:Icon(
+                      Icons.camera_alt,
+                      size: 40,
+                      color: Colors.grey,
+                    ),
                     onTap: () {
-                      _imgFromCamera();
-                      Navigator.of(context).pop();
-                    },
+                    _imgFromGallery();
+                    Navigator.of(context).pop();
+                  },
+                    ),
+                  
+                  
+                ),
+                Expanded(
+                    flex: 5,
+                    child: GestureDetector(child:Icon(
+                      Icons.image,
+                      size: 40,
+                      color: Colors.grey,
+                    ),onTap: () {
+                    _imgFromGallery();
+                    Navigator.of(context).pop();
+                  },)
                   ),
-                ],
-              ),
+                  
+                
+              ],
             ),
-          );
-        });
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            // new FlatButton(
+            //   child: new Text("Camera"),
+            //   onPressed: () {
+            //    _imgFromGallery();
+            //       Navigator.of(context).pop();
+            //   },
+            // ),
+            // new FlatButton(
+            //   child: new Text("Gallery"),
+            //   onPressed: () {
+            //      _imgFromCamera();
+            //     Navigator.of(context).pop();
+            //   },
+            // ),
+          ],
+        );
+      },
+    );
   }
-
-
-
-
-
 }

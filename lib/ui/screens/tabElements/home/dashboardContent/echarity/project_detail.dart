@@ -1,5 +1,6 @@
 import 'package:braintree_payment/braintree_payment.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:connecting_hearts/utils/currency_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:connecting_hearts/constant/Constant.dart';
@@ -424,6 +425,7 @@ class _ProjectDetailPageState extends State<ProjectDetail> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     TextFormField(
+                                      textAlign: TextAlign.center,
                                       controller: _amount,
                                       validator: (value) {
                                         FlutterMoneyFormatter
@@ -436,6 +438,9 @@ class _ProjectDetailPageState extends State<ProjectDetail> {
                                         if (value.isEmpty) {
                                           return "Please input amount";
                                         }
+                                        if (value=='0') {
+                                                return "Please input amount";
+                                              }
                                         if (remainingAmount *
                                                 double.parse('$currencyValue') <
                                             double.parse(_amount.text
@@ -472,6 +477,7 @@ class _ProjectDetailPageState extends State<ProjectDetail> {
                                         //_amount.text=formattedAmount.output.withoutFractionDigits;
                                       },
                                     ),
+                                 
                                   ],
                                 ),
                                 flex: 8,
@@ -984,24 +990,4 @@ class _ProjectDetailPageState extends State<ProjectDetail> {
         });
   }
 
-}
-
-class CurrencyInputFormatter extends TextInputFormatter {
-  TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
-    if (newValue.selection.baseOffset == 0) {
-      print(true);
-      return newValue;
-    }
-
-    double value = double.parse(newValue.text);
-
-    FlutterMoneyFormatter formattedAmount =
-        FlutterMoneyFormatter(amount: double.parse('$value'));
-
-    return newValue.copyWith(
-        text: formattedAmount.output.withoutFractionDigits,
-        selection: new TextSelection.collapsed(
-            offset: formattedAmount.output.withoutFractionDigits.length));
-  }
 }

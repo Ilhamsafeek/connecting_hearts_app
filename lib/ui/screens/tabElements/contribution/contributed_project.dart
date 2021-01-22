@@ -112,15 +112,15 @@ class _ContributedProjectState extends State<ContributedProject> {
        formattedIncome = FlutterMoneyFormatter(
           amount: double.parse('${widget.projectData['income']}')*double.parse('$currencyValue'));
     }
-    double completedPercent = 100 *
-        double.parse('${widget.projectData['collected']}') /
-        double.parse('${widget.projectData['amount']}');
+    // double completedPercent = 100 *
+    //     double.parse('${widget.projectData['collected']}') /
+    //     double.parse('${widget.projectData['amount']}');
     Color completedColor = Colors.blue;
     Color percentColor = Colors.white;
-    if (completedPercent >= 100) {
-      completedPercent = 100.0;
-      completedColor = Colors.orange;
-    }
+    // if (completedPercent >= 100) {
+    //   completedPercent = 100.0;
+    //   completedColor = Colors.orange;
+    // }
     String projectStatus='Open';
     Color status_color=Colors.orange;
     if(double.parse('${widget.projectData['collected']}')-double.parse('${widget.projectData['amount']}')==0){
@@ -131,7 +131,7 @@ projectStatus='Completed';
 status_color=Colors.green; 
         }
     
-    double percent = completedPercent / 100;
+    // double percent = completedPercent / 100;
 
     Widget _trailing = Text("Success");
     Icon _statusIcon = Icon(
@@ -141,7 +141,7 @@ status_color=Colors.green;
 
     dynamic _text = "You have donated. Now you can monitor the project status.";
     if (widget.projectData['status'] == 'pending' &&
-        widget.projectData['method'] == 'bank') {
+        (widget.projectData['method'] == 'bank'||widget.projectData['method'] == 'direct debit')) {
       if (widget.projectData['slip_url'] == "") {
         _trailing = RaisedButton(
           color: Colors.red,

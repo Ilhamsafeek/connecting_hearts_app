@@ -200,7 +200,7 @@ class _MyContributionState extends State<MyContribution> {
     );
 
     dynamic _text = "Thank You ! \nYour Donation has Confirmed";
-    if (item['status'] == 'pending' && item['method'] == 'bank') {
+    if (item['status'] == 'pending' && (item['method'] == 'bank'||item['method'] == 'direct debit')) {
       if (item['slip_url'] == "") {
         _trailing = RaisedButton(
           color: Colors.orange,
