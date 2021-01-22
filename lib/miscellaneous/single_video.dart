@@ -22,7 +22,7 @@ class _PlayState extends State<Play> {
                         initialVideoId:
                             widget.video['id']['videoId'],
                         flags: YoutubePlayerFlags(
-                          autoPlay: true,
+                         autoPlay: true,
                           mute: false,
                           hideThumbnail: false,
                           disableDragSeek: false,
