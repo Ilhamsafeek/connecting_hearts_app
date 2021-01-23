@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:braintree_payment/braintree_payment.dart';
 import 'package:connecting_hearts/services/braintree.dart';
 import 'package:connecting_hearts/services/services.dart';
@@ -403,6 +405,12 @@ class _SpecialOccationState extends State<SpecialOccation> {
       ));
     }
     Navigator.pop(context);
+    Timer(Duration(seconds: 2), () {
+  // 5s over, navigate to a new page
+  
+    Navigator.pop(context);
+     Navigator.pop(context);
+});
   }
 
   Future<bool> cardPaymentAgreementBottomSheet(context) {

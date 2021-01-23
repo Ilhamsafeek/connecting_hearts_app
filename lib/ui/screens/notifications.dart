@@ -209,6 +209,9 @@ class _NotificationsState extends State<Notifications> {
     }else if(message.contains('Zam Zam Update')){
       outline_color=Colors.amber;
       icon=Icons.new_releases_outlined;
+    }else if(message.contains('We will send you a receipt once your payment confirmed')){
+      outline_color=Colors.purple;
+      icon=Icons.beenhere_sharp;
     }
     
     return new Container(

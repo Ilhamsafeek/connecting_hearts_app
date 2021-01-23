@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:connecting_hearts/services/services.dart';
@@ -114,7 +115,13 @@ class _PickImageState extends State<PickImage> {
                           _scaffoldKey.currentState.showSnackBar(SnackBar(
                             content: Text("Slip Updated Successfully"),
                           ));
-                          Navigator.pop(context);
+
+                          Timer(Duration(seconds: 2), () {
+  // 5s over, navigate to a new page
+  
+     Navigator.pop(context);
+   
+});
                         }
                       });
                     },

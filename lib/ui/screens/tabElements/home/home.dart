@@ -18,8 +18,6 @@ import '../dashboardContent/donate_points.dart';
 import 'dashboardContent/updates/media.dart';
 import 'dashboardContent/details/categories.dart';
 
-
-
 class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);
 
@@ -44,13 +42,13 @@ class _HomeState extends State<Home> {
     });
 
     _zamzamUpdates = WebServices(this.mApiListener).getZamzamUpdateData();
-      WebServices(mApiListener).convertCurrency('LKR',currentUserData['currency'],'1').then((value) {
-    if (value != null) {  
-      currencyValue = value;
-    }
-  });
-
-
+    WebServices(mApiListener)
+        .convertCurrency('LKR', currentUserData['currency'], '1')
+        .then((value) {
+      if (value != null) {
+        currencyValue = value;
+      }
+    });
   }
 
   @override
@@ -174,10 +172,6 @@ class _HomeState extends State<Home> {
 
   Widget imageSliderItem(dynamic item) {
     return Container(
-      // padding: EdgeInsets.only(left: 8, right: 8),
-      // decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-      // width: MediaQuery.of(context).size.width,
-      // height: MediaQuery.of(context).size.height,
       child: InkWell(
         child: Stack(
           children: [
@@ -187,15 +181,30 @@ class _HomeState extends State<Home> {
                   Image.asset('assets/placeholder.png'),
               fit: BoxFit.cover,
             ),
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Chip(
-                      label: Text(
-                          "${item['tag_line']}",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                      backgroundColor: Colors.transparent),
-              
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Container(
+                  height: 50,
+                  color: const Color(0xFF0E3311).withOpacity(0.5),
+                ),
+              ],
             ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                ListTile(
+                    title: Center(
+                        child: Text("${item['tag_line']}",
+                            style: TextStyle(
+                                
+                                color: Colors.white))))
+              ],
+            )
           ],
         ),
         onTap: () {
@@ -414,8 +423,6 @@ class _HomeState extends State<Home> {
                 //     CupertinoPageRoute<Null>(builder: (BuildContext context) {
                 //   return new OnBoardingPage();
                 // }));
-                
-                
               }),
           InkWell(
               child: GridItem(
@@ -583,26 +590,49 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ]),
-            Padding(
-              padding: const EdgeInsets.all(6),
-              child: Column(children: <Widget>[
-                Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Text("${item['short_description']}",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                      )),
+            Row(
+              children: [
+                Expanded(
+                    child: Padding(
+                  padding: const EdgeInsets.all(6),
+                  child: Column(children: <Widget>[
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Text("${item['short_description']}",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                          )),
+                    ),
+                    SizedBox(
+                      height: 6.0,
+                    ),
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Text(
+                          "${currentUserData['currency']}. $formattedAmount"),
+                    ),
+                  ]),
+                )),
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      FlatButton.icon(
+                          icon: Icon(
+                            Icons.check,
+                            color: Colors.green,
+                          ),
+                          label: Text(
+                            'Completed',
+                            style: TextStyle(
+                                color: Colors.green[400],
+                                fontWeight: FontWeight.bold),
+                          ),
+                          onPressed: () {}),
+                    ],
+                  ),
                 ),
-                SizedBox(
-                  height: 6.0,
-                ),
-                Align(
-                  alignment: Alignment.bottomLeft,
-                  child:
-                      Text("${currentUserData['currency']}. $formattedAmount"),
-                ),
-              ]),
-            )
+              ],
+            ),
           ],
         ),
         onTap: () {},

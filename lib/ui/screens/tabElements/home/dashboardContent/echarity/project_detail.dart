@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:braintree_payment/braintree_payment.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:connecting_hearts/utils/currency_formatter.dart';
@@ -330,6 +332,7 @@ class _ProjectDetailPageState extends State<ProjectDetail> {
                       child: FlatButton.icon(
                     icon: Icon(Icons.touch_app, color: Colors.black),
                     onPressed: () {
+                      
                       payModalBottomSheet(context, remainingAmount);
                     },
                     label: Text(
@@ -859,6 +862,14 @@ class _ProjectDetailPageState extends State<ProjectDetail> {
       ));
     }
     Navigator.pop(context);
+    Timer(Duration(seconds: 2), () {
+  // 5s over, navigate to a new page
+  
+     Navigator.pop(context);
+    Navigator.pop(context);
+     Navigator.pop(context);
+});
+    
   }
 
   Future<bool> cardPaymentAgreementBottomSheet(context) {
