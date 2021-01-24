@@ -228,7 +228,8 @@ class _MediaState extends State<Media> {
             child: TabBar(tabs: [
               Tab(text: "Media"),
               Tab(text: "Updates"),
-            ],labelColor: Colors.black,),
+            ],labelColor: Colors.black,
+            indicatorWeight:4),
           ),
           Container(
             //Add this to give height

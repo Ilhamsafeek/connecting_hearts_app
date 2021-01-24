@@ -328,6 +328,9 @@ class _SigninPageState extends State<Signin> {
                                 if (value.isEmpty) {
                                   return 'please enter phone number.';
                                 }
+                                 if (value[0]=='0') {
+                                  return 'Please remove leading 0';
+                                }
                               },
                               keyboardType: TextInputType.phone,
                               decoration: InputDecoration(

@@ -200,23 +200,26 @@ class _MyContributionState extends State<MyContribution> {
     );
 
     dynamic _text = "Thank You ! \nYour Donation has Confirmed";
-    if (item['status'] == 'pending' && (item['method'] == 'bank'||item['method'] == 'direct debit')) {
+    if (item['status'] == 'pending' &&
+        (item['method'] == 'bank' || item['method'] == 'direct debit')) {
       if (item['slip_url'] == "") {
-        _trailing = RaisedButton(
-          color: Colors.orange,
-          onPressed: () async {
-            Navigator.of(context)
-                .push(CupertinoPageRoute<Null>(builder: (BuildContext context) {
-              return new PickImage(
-                "${item['payment_id']}",
-              );
-            }));
-          },
-          child: Text(
-            'Submit Slip',
-            style: TextStyle(color: Colors.white),
-          ),
-        );
+        _trailing = ButtonTheme(
+            minWidth: 115.0,
+            child: RaisedButton(
+              color: Colors.orange,
+              onPressed: () async {
+                Navigator.of(context).push(
+                    CupertinoPageRoute<Null>(builder: (BuildContext context) {
+                  return new PickImage(
+                    "${item['payment_id']}",
+                  );
+                }));
+              },
+              child: Text(
+                'Submit Slip',
+                style: TextStyle(color: Colors.white),
+              ),
+            ));
 
         _statusIcon = Icon(
           Icons.info_outline,
@@ -224,24 +227,23 @@ class _MyContributionState extends State<MyContribution> {
         );
         _text = "Please Submit Your Bank Slip for Your Contribution";
       } else {
-        _trailing =
-            //  CircleAvatar(child: Icon(Icons.insert_emoticon)),
-            RaisedButton(
-          child: Text(
-            'Edit Slip',
-            style: TextStyle(color: Colors.white),
-          ),
-          color: Colors.blue,
-          onPressed: () async {
-            Navigator.of(context)
-                .push(CupertinoPageRoute<Null>(builder: (BuildContext context) {
-              return new PickImage(
-                "${item['payment_id']}",
-              );
-            }));
-          },
-        );
-
+        _trailing = ButtonTheme(
+            minWidth: 115.0,
+            child: RaisedButton(
+              child: Text(
+                'Edit Slip',
+                style: TextStyle(color: Colors.white),
+              ),
+              color: Colors.blue,
+              onPressed: () async {
+                Navigator.of(context).push(
+                    CupertinoPageRoute<Null>(builder: (BuildContext context) {
+                  return new PickImage(
+                    "${item['payment_id']}",
+                  );
+                }));
+              },
+            ));
         _statusIcon = Icon(
           Icons.schedule,
           color: Colors.blue,
@@ -250,48 +252,60 @@ class _MyContributionState extends State<MyContribution> {
       }
     } else if (item['status'] == 'cancelled') {
       _moreDetailsLeading = null;
-      _trailing = FlatButton(
-        color: Colors.red,
-        onPressed: () {},
-        child: Text(
-          'Cancelled',
-          style: TextStyle(color: Colors.white),
-        ),
-      );
+      _trailing = ButtonTheme(
+          minWidth: 115.0,
+          child: FlatButton(
+            color: Colors.red,
+            onPressed: () {},
+            child: Text(
+              'Cancelled',
+              style: TextStyle(color: Colors.white),
+            ),
+          ));
 
       _statusIcon = Icon(
         Icons.info_outline,
         color: Colors.red,
       );
-      _text = item['cancel_reason'];
+      _text = "Canceled Due to Expiration of Proof of Payment Submission Deadline.";
     } else {
-      _trailing = RaisedButton(
-        color: Colors.green,
-        onPressed: () async {
-          _launchURL(item['receipt_url']);
-        },
-        child: Text(
-          'View Receipt',
-          style: TextStyle(color: Colors.white),
-        ),
-      );
+      _trailing = ButtonTheme(
+          minWidth: 115.0,
+          child: RaisedButton(
+            color: Colors.green,
+            onPressed: () async {
+              _launchURL(item['receipt_url']);
+            },
+            child: Text(
+              'View Receipt',
+              style: TextStyle(color: Colors.white),
+            ),
+          ));
     }
     return Card(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           ListTile(
-            title: (item['payment_type']=='subscription'||item['payment_type']=='occasion')?Text('${item['payment_type']}-${item['signup_payment_description']}'):Text('${item['short_description']}'),
+            title: (item['payment_type'] == 'subscription' ||
+                    item['payment_type'] == 'occasion')
+                ? Text(
+                    '${item['payment_type'][0].toUpperCase()}${item['payment_type'].substring(1)} - ${item['signup_payment_description']}')
+                : Text('${item['short_description']}'),
             subtitle: Text(
-              '${item['date_time']}  ${item['method']} payment',
+              '${item['date_time']}  ${item['method'][0].toUpperCase()}${item['method'].substring(1)} payment',
               style: TextStyle(fontSize: 12),
             ),
-            trailing: FlatButton.icon(
+            trailing: 
+            
+            FlatButton.icon(
+              
                 onPressed: () {
                   infoModalBottomSheet(context, _statusIcon, _text);
                 },
                 icon: _statusIcon,
-                label: Chip(
+                label: Align(
+                  child: Chip(
                     backgroundColor: Colors.blueGrey[50],
                     label: Text(
                         '${currentUserData['currency']} ${formattedAmount.output.nonSymbol}',
@@ -299,6 +313,9 @@ class _MyContributionState extends State<MyContribution> {
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                             fontSize: 18.0)))),
+            )
+                
+                
           ),
           Divider(height: 0),
           ListTile(

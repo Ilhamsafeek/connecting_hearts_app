@@ -63,7 +63,7 @@ class _SubscriptionState extends State<Subscription> {
                   return Container(
                     child: new Column(
                       children: <Widget>[
-                         SizedBox(
+                        SizedBox(
                           height: 10,
                         ),
                         GridView.count(
@@ -200,9 +200,7 @@ class _SubscriptionState extends State<Subscription> {
                                 ],
                               ),
                               Row(
-                                
                                 children: <Widget>[
-                                  
                                   Expanded(
                                     flex: 5,
                                     child: RadioListTile(
@@ -244,7 +242,7 @@ class _SubscriptionState extends State<Subscription> {
                                 ],
                               ),
                             ]),
-                           SizedBox(
+                        SizedBox(
                           height: 10,
                         ),
                         ListTile(
@@ -256,7 +254,6 @@ class _SubscriptionState extends State<Subscription> {
                               ),
                             ),
                             tileColor: Color.fromRGBO(80, 172, 225, 1)),
-                       
                         SizedBox(
                           height: 10,
                         ),
@@ -290,7 +287,7 @@ class _SubscriptionState extends State<Subscription> {
                                             CrossAxisAlignment.end,
                                         children: [
                                           TextFormField(
-                                             textAlign: TextAlign.center,
+                                            textAlign: TextAlign.center,
                                             controller: _amount,
                                             validator: (value) {
                                               if (value.isEmpty) {
@@ -302,9 +299,10 @@ class _SubscriptionState extends State<Subscription> {
                                             },
                                             inputFormatters: <
                                                 TextInputFormatter>[
-                                              WhitelistingTextInputFormatter
-                                                  .digitsOnly,
-                                              CurrencyInputFormatter()
+                                                  // WhitelistingTextInputFormatter.digitsOnly,
+                                              // CurrencyInputFormatter()
+                                              // FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                                              CurrencyInputFormatter(decimalRange: 2)
                                             ],
                                             keyboardType: TextInputType.number,
                                             style: TextStyle(
@@ -351,8 +349,8 @@ class _SubscriptionState extends State<Subscription> {
                                 ),
                               ),
                               SizedBox(
-                          height: 10,
-                        ),
+                                height: 10,
+                              ),
                               Container(
                                 child: _decissionPanel,
                               ),
@@ -464,8 +462,6 @@ class _SubscriptionState extends State<Subscription> {
                                   ),
                                   onTap: () => {}),
                             ])),
-                      
-                        
                       ],
                     ),
                   );
@@ -477,8 +473,9 @@ class _SubscriptionState extends State<Subscription> {
   }
 
   _navigateToPayment() async {
-    if (this.selectedMethod == 'bank'||this.selectedMethod == 'direct debit') {
-      Navigator.pop(context);
+    if (this.selectedMethod == 'bank' ||
+        this.selectedMethod == 'direct debit') {
+      // Navigator.pop(context);
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -490,7 +487,6 @@ class _SubscriptionState extends State<Subscription> {
                 'subscription',
                 selectedPeriod)),
       );
-    
     } else if (selectedMethod == 'card') {
       cardPaymentAgreementBottomSheet(context);
     }
@@ -545,13 +541,13 @@ class _SubscriptionState extends State<Subscription> {
         content: Text("$saleResponse"),
       ));
     }
-     Navigator.pop(context);
-   Timer(Duration(seconds: 2), () {
-  // 5s over, navigate to a new page
-  
     Navigator.pop(context);
-     Navigator.pop(context);
-});
+    Timer(Duration(seconds: 2), () {
+      // 5s over, navigate to a new page
+
+      Navigator.pop(context);
+      Navigator.pop(context);
+    });
   }
 
   Future<bool> cardPaymentAgreementBottomSheet(context) {
@@ -809,14 +805,15 @@ class _SubscriptionState extends State<Subscription> {
   }
 
   Widget decissionPanel() {
-    dynamic value;
-    if (value == '') {
+    dynamic value=_amount.text;
+    if (value == ''||_amount == null) {
       value = '0';
     } else {
       value = _amount.text.replaceAll(",", "");
     }
+    print('done');
     _setFinalAmounts(value);
-    if (selectedPeriod != 'Annually' || value == '0') {
+    if (selectedPeriod != 'Annually' && value != '0') {
       return GridView.count(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
@@ -929,18 +926,21 @@ class _SubscriptionState extends State<Subscription> {
         monthly_amount = double.parse("$value");
         annual_amount = monthly_amount * 12;
       } else if (selectedPeriod == 'Annually') {
+        monthly_amount = double.parse("$value");
         annual_amount = double.parse("$value");
+        print("=======<<<<"+annual_amount.toString());
       }
 
       monthly_amount =
           FlutterMoneyFormatter(amount: double.parse('$monthly_amount'))
               .output
-              .withoutFractionDigits;
+              .nonSymbol;
+              print("=======>>>>"+monthly_amount);
       annual_amount =
           FlutterMoneyFormatter(amount: double.parse('$annual_amount'))
               .output
-              .withoutFractionDigits;
-
+              .nonSymbol;
+ print("=======:Annual:>>>>"+annual_amount);
       if (selectedPaymentPackage == 'Monthly') {
         chargin_amount = monthly_amount.toString();
       } else if (selectedPaymentPackage == 'Annually') {

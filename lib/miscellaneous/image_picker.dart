@@ -67,9 +67,13 @@ class _PickImageState extends State<PickImage> {
                             fit: BoxFit.fitHeight,
                           ),
                         )
-                      : Center(
+                      : Padding(
+                         padding: EdgeInsets.only(
+                      top:MediaQuery.of(context).size.height * .3),
                           child: Column(
                             children: [
+
+                                
                               Container(
                                 decoration: BoxDecoration(
                                     color: Colors.grey[200],
@@ -77,17 +81,18 @@ class _PickImageState extends State<PickImage> {
                                 width: 100,
                                 height: 100,
                                 child: Icon(
-                                  Icons.receipt,
+                                  Icons.upload_file,
                                   color: Colors.grey[800],
                                   size: 40,
                                 ),
                               ),
+                              
                               SizedBox(
                                 height: 5,
                               ),
                               Text(
                                 'Tap to Upload Slip',
-                                style: TextStyle(fontSize: 16),
+                                style: TextStyle(fontSize: 18),
                               )
                             ],
                           ),
@@ -145,23 +150,31 @@ class _PickImageState extends State<PickImage> {
 
   void _showPicker(context) {
     showDialog(
+      
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          
           title: new Text("Select image picker type\n"),
           content: new Container(
+            height: 60,
             child: Row(
               children: [
                Expanded(
                     flex: 5,
                     child: 
-                    GestureDetector(child:Icon(
+                    GestureDetector(child:
+                    
+                    Column(
+                      children: [Icon(
                       Icons.camera_alt,
                       size: 40,
                       color: Colors.grey,
                     ),
+                    Text('Camera')],
+                    ),
                     onTap: () {
-                    _imgFromGallery();
+                    _imgFromCamera();
                     Navigator.of(context).pop();
                   },
                     ),
@@ -170,17 +183,19 @@ class _PickImageState extends State<PickImage> {
                 ),
                 Expanded(
                     flex: 5,
-                    child: GestureDetector(child:Icon(
+                    child: GestureDetector(child:Column(
+                      children: [Icon(
                       Icons.image,
                       size: 40,
                       color: Colors.grey,
+                    ),
+                    Text('Gallery')],
                     ),onTap: () {
                     _imgFromGallery();
                     Navigator.of(context).pop();
                   },)
                   ),
-                  
-                
+               
               ],
             ),
           ),

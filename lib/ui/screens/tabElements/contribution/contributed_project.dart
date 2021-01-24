@@ -637,8 +637,8 @@ status_color=Colors.green;
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      new Text('Total ${currentUserData['currency']}', style: TextStyle(fontSize: 20)),
-                      new Text('Raised ${currentUserData['currency']}', style: TextStyle(fontSize: 20)),
+                      new Text('Total ${currentUserData['currency']}', style: TextStyle(fontSize: 18)),
+                      new Text('Raised ${currentUserData['currency']}', style: TextStyle(fontSize: 18)),
                     ],
                   ),
                   flex: 6,
@@ -649,10 +649,10 @@ status_color=Colors.green;
                     children: [
                       new Text(
                           '${formattedAmount.output.nonSymbol}',
-                          style: TextStyle(fontSize: 24)),
+                          style: TextStyle(fontSize: 18)),
                       new Text(
                           '${formattedRaised.output.nonSymbol}',
-                          style: TextStyle(fontSize: 24)),
+                          style: TextStyle(fontSize: 18)),
                     ],
                   ),
                   flex: 6,
@@ -670,7 +670,7 @@ status_color=Colors.green;
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           new Text('Balance ${currentUserData['currency']}',
-                              style: TextStyle(fontSize: 20)),
+                              style: TextStyle(fontSize: 18)),
                         ],
                       ),
                       flex: 7,
@@ -681,7 +681,7 @@ status_color=Colors.green;
                         children: [
                           new Text(
                               '${formattedRemainingAmount.output.nonSymbol}',
-                              style: TextStyle(fontSize: 24)),
+                              style: TextStyle(fontSize: 18)),
                         ],
                       ),
                       flex: 6,

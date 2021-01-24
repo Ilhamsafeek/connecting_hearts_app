@@ -13,7 +13,6 @@ import 'package:connecting_hearts/ui/screens/tabElements/home/dashboardContent/e
 import 'package:connecting_hearts/ui/screens/media/update_detail.dart';
 import 'dart:async';
 
-import '../../../../onboarding_page.dart';
 import '../dashboardContent/donate_points.dart';
 import 'dashboardContent/updates/media.dart';
 import 'dashboardContent/details/categories.dart';
@@ -72,7 +71,7 @@ class _HomeState extends State<Home> {
 
                           _dashboardGrid(),
                           SizedBox(
-                            height: 8,
+                            height: 2,
                           ),
                           ListTile(
                               contentPadding: EdgeInsets.only(
@@ -200,9 +199,7 @@ class _HomeState extends State<Home> {
                 ListTile(
                     title: Center(
                         child: Text("${item['tag_line']}",
-                            style: TextStyle(
-                                
-                                color: Colors.white))))
+                            style: TextStyle(color: Colors.white))))
               ],
             )
           ],
@@ -219,6 +216,7 @@ class _HomeState extends State<Home> {
 
   Widget _dashboardGrid() {
     return GridView.count(
+      padding: const EdgeInsets.all(3),
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         crossAxisCount: 3,
@@ -298,7 +296,7 @@ class _HomeState extends State<Home> {
               }),
           InkWell(
               child: GridItem(GridModel('assets/school-with-a-smile.png',
-                  'School With a Smile', null)),
+                  'SWS', null)),
               onTap: () {
                 Navigator.of(context).push(
                     CupertinoPageRoute<Null>(builder: (BuildContext context) {
@@ -367,7 +365,7 @@ class _HomeState extends State<Home> {
               }),
           InkWell(
               child:
-                  GridItem(GridModel('assets/sankalpa.png', 'Sankalpa', null)),
+                  GridItem(GridModel('assets/sankalpa.png', 'Academy', null)),
               onTap: () {
                 Navigator.of(context).push(
                     CupertinoPageRoute<Null>(builder: (BuildContext context) {
@@ -421,7 +419,7 @@ class _HomeState extends State<Home> {
               onTap: () {
                 // Navigator.of(context).push(
                 //     CupertinoPageRoute<Null>(builder: (BuildContext context) {
-                //   return new OnBoardingPage();
+                //   return new Money();
                 // }));
               }),
           InkWell(
@@ -724,32 +722,34 @@ class GridItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(1 / 2),
-      child: Container(
-        color: Colors.white,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Image.asset(
-                gridModel.imagePath,
-                width: 60,
-                height: 60,
-                color: gridModel.color,
+        padding: const EdgeInsets.all(3),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(7.0),
+          child: Container(
+            color: Colors.white,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Image.asset(
+                    gridModel.imagePath,
+                    width: 60,
+                    height: 60,
+                    color: gridModel.color,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: Text(
+                      gridModel.title,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 12, color: Colors.black),
+                    ),
+                  ),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(5),
-                child: Text(
-                  gridModel.title,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 12, color: Colors.black),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

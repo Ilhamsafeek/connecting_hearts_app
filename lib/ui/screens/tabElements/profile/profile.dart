@@ -204,6 +204,7 @@ class ProfileState extends State<Profile> {
                                               backgroundColor: Colors.green,));
                           },
                           title: Text('Receive All Notifications'),
+                          subtitle: Text('I would like to receive all notifications'),
                         ),
                         ListTile(
                             title: Padding(

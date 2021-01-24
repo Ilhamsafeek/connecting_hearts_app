@@ -274,9 +274,9 @@ class _ProjectDetailPageState extends State<ProjectDetail> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       new Text('Total ${currentUserData['currency']}',
-                          style: TextStyle(fontSize: 20)),
+                          style: TextStyle(fontSize: 18)),
                       new Text('Raised ${currentUserData['currency']}',
-                          style: TextStyle(fontSize: 20)),
+                          style: TextStyle(fontSize: 18)),
                     ],
                   ),
                   flex: 6,
@@ -286,9 +286,9 @@ class _ProjectDetailPageState extends State<ProjectDetail> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       new Text('${formattedAmount.output.nonSymbol}',
-                          style: TextStyle(fontSize: 24)),
+                          style: TextStyle(fontSize: 18)),
                       new Text('${formattedRaised.output.nonSymbol}',
-                          style: TextStyle(fontSize: 24)),
+                          style: TextStyle(fontSize: 18)),
                     ],
                   ),
                   flex: 6,
@@ -304,7 +304,7 @@ class _ProjectDetailPageState extends State<ProjectDetail> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       new Text('Balance ${currentUserData['currency']}',
-                          style: TextStyle(fontSize: 20)),
+                          style: TextStyle(fontSize: 18)),
                     ],
                   ),
                   flex: 7,
@@ -314,7 +314,7 @@ class _ProjectDetailPageState extends State<ProjectDetail> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       new Text('${formattedRemainingAmount.output.nonSymbol}',
-                          style: TextStyle(fontSize: 24)),
+                          style: TextStyle(fontSize: 18)),
                     ],
                   ),
                   flex: 6,
@@ -454,9 +454,9 @@ class _ProjectDetailPageState extends State<ProjectDetail> {
                                         }
                                       },
                                       inputFormatters: <TextInputFormatter>[
-                                        WhitelistingTextInputFormatter
-                                            .digitsOnly,
-                                        CurrencyInputFormatter()
+                                         FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+
+                                        CurrencyInputFormatter(decimalRange: 2)
                                       ],
                                       keyboardType: TextInputType.number,
                                       style: TextStyle(

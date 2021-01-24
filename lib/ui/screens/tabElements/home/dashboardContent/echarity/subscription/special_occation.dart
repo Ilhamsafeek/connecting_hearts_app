@@ -206,9 +206,9 @@ class _SpecialOccationState extends State<SpecialOccation> {
                                             },
                                             inputFormatters: <
                                                 TextInputFormatter>[
-                                              WhitelistingTextInputFormatter
-                                                  .digitsOnly,
-                                              CurrencyInputFormatter()
+                                              FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                                            //  WhitelistingTextInputFormatter.digitsOnly,
+                                              CurrencyInputFormatter(decimalRange: 2)
                                             ],
                                             keyboardType: TextInputType.number,
                                             style: TextStyle(
@@ -222,13 +222,13 @@ class _SpecialOccationState extends State<SpecialOccation> {
                                                   fontSize: 32),
                                             ),
                                             onChanged: (value) {
-                                              FlutterMoneyFormatter
-                                                  formattedAmount =
-                                                  FlutterMoneyFormatter(
-                                                      amount: double.parse(
-                                                          '${_amount.text}'));
-                                              print(
-                                                  "====================${formattedAmount.output.withoutFractionDigits}");
+                                              // FlutterMoneyFormatter
+                                              //     formattedAmount =
+                                              //     FlutterMoneyFormatter(
+                                              //         amount: double.parse(
+                                              //             '${_amount.text}'));
+                                              // print(
+                                              //     "====================${formattedAmount.output.withoutFractionDigits}");
                                               // value = formattedAmount.output.withoutFractionDigits;
                                               //_amount.text=formattedAmount.output.withoutFractionDigits;
                                             },
@@ -336,7 +336,7 @@ class _SpecialOccationState extends State<SpecialOccation> {
 
   _navigateToPayment() async {
     if (this.selectedMethod == 'bank') {
-      Navigator.pop(context);
+      // Navigator.pop(context);
       Navigator.push(
         context,
         MaterialPageRoute(
