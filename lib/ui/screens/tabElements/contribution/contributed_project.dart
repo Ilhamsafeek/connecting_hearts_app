@@ -301,7 +301,7 @@ status_color=Colors.green;
                       "User data========>>>${widget.projectData['manager_id']}");
                   dynamic chatId = '0';
                   dynamic topic =
-                      '${widget.projectData['appeal_id']} - ${widget.projectData['sub_category']}';
+                      '${widget.projectData['short_description']} - ${widget.projectData['sub_category']}';
                   showWaitingProgress(context);
                   await WebServices(mApiListener).getChatTopics().then((value) {
                     if (value != null) {
@@ -781,7 +781,10 @@ status_color=Colors.green;
                   if (snapshot.hasData) {
                     dynamic data = snapshot.data;
                    
-                    children = <Widget>[
+                   
+
+                    if (data.length > 0) {
+             children = <Widget>[
                       for (var item in data)
                       if(lookupMimeType(item).startsWith("image/"))
                         CachedNetworkImage(
@@ -790,6 +793,19 @@ status_color=Colors.green;
                               Image.asset('assets/placeholder.png'),
                         ),
                     ];
+          } else {
+            children = <Widget>[
+              ListTile(
+                title: Center(
+                  child: Text(
+                      "There are no images uploaded under this project",
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+                ),
+              ),
+            ];
+          }
                   } else if (snapshot.hasError) {
                     children = <Widget>[
                       Icon(

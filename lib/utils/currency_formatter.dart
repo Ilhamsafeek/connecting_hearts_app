@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'dart:math' as math;
 
 class CurrencyInputFormatter extends TextInputFormatter {
@@ -16,7 +15,6 @@ class CurrencyInputFormatter extends TextInputFormatter {
     TextEditingValue newValue,
   ) {
     TextSelection newSelection = newValue.selection;
-    TextSelection oldSelection = oldValue.selection;
     String truncated = newValue.text;
 
     if (decimalRange != null) {

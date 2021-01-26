@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:connecting_hearts/constant/Constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -109,12 +110,13 @@ class _ChatState extends State<Chat> {
                         for (var item in snapshot.data)
                           ListTile(
                             leading: CircleAvatar(
+                              child: Text(item['firstname'][0]+item['lastname'][0]),
                               // backgroundImage:
                               //     NetworkImage(item['photo']),
                               radius: 30,
                             ),
                             title: Text(item['topic']),
-                            subtitle: Text("Have you completed the Project?"),
+                            subtitle: (currentUserData['user_id']!=item['from_user'])?Text(item['firstname']+" "+item['lastname']):Text(''),
                             onTap: () {
                               Navigator.of(context).push(
                                   CupertinoPageRoute<Null>(

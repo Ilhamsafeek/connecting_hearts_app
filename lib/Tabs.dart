@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +10,6 @@ import 'package:connecting_hearts/ui/screens/tabElements/chat/chat.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:connecting_hearts/services/services.dart';
 import 'package:connecting_hearts/ui/screens/tabElements/profile/profile.dart';
-import 'package:connecting_hearts/miscellaneous/single_video.dart';
 import 'package:connecting_hearts/miscellaneous/data_search.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:async';

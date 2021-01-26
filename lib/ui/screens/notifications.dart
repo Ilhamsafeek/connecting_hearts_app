@@ -21,6 +21,8 @@ class _NotificationsState extends State<Notifications> {
   ApiListener mApiListener;
   dynamic notificationData;
   dynamic projectData;
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     super.initState();
@@ -35,6 +37,7 @@ class _NotificationsState extends State<Notifications> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
         appBar: AppBar(
           title: Text('Notifications'),
         ),

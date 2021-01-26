@@ -33,9 +33,10 @@ class _SigninPageState extends State<Signin> {
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
-  Widget _signoutProgress;
+  // Widget _signoutProgress;
 
   Future<void> verifyPhone() async {
+    Navigator.pop(context);
     final PhoneCodeAutoRetrievalTimeout autoRetrive = (String verId) {
       this.verificationId = verId;
       smsCodeDialog(context);
@@ -172,8 +173,9 @@ class _SigninPageState extends State<Signin> {
   _redirect() async {
     CURRENT_USER = '${this.countryPhoneCode}${this.phoneNo}';
     var userdata = await WebServices(this.mApiListener).getUserData();
+    
     print("======User Data======$userdata");
-    if (userdata != null) {
+    if (userdata != null && userdata.length!=0) {
       currentUserData = userdata;
       if (userdata.length != 0) {
         Navigator.pop(context);
@@ -254,7 +256,7 @@ class _SigninPageState extends State<Signin> {
                     child: Column(children: <Widget>[
                       Text('Please enter your mobile number',
                           style: TextStyle(fontSize: 18, fontFamily: "Exo2")),
-                      SizedBox(height: 2.0, child: _signoutProgress),
+                      // SizedBox(height: 2.0, child: _signoutProgress),
                       SizedBox(height: 15.0),
                       Row(
                         children: <Widget>[
@@ -328,7 +330,7 @@ class _SigninPageState extends State<Signin> {
                                 if (value.isEmpty) {
                                   return 'please enter phone number.';
                                 }
-                                 if (value[0]=='0') {
+                                if (value[0] == '0') {
                                   return 'Please remove leading 0';
                                 }
                               },
@@ -351,22 +353,25 @@ class _SigninPageState extends State<Signin> {
                       RaisedButton(
                         onPressed: () {
                           setState(() {
-                            _signoutProgress = LinearProgressIndicator(
-                              backgroundColor: Colors.white,
-                              valueColor: new AlwaysStoppedAnimation<Color>(
-                                  Colors.black),
-                            );
+                            // _signoutProgress = LinearProgressIndicator(
+                            //   backgroundColor: Colors.white,
+                            //   valueColor: new AlwaysStoppedAnimation<Color>(
+                            //       Colors.black),
+                            // );
+                            showWaitingProgress(context);
+
+                            if (_formKey.currentState.validate()) {
+                              verifyPhone();
+                            } else {
+                              _scaffoldKey.currentState.showSnackBar(SnackBar(
+                                content: Text("Please check the input"),
+                              ));
+                              // setState(() {
+                              //   // _signoutProgress = null;
+                              //   Navigator.pop(context);
+                              // });
+                            }
                           });
-                          if (_formKey.currentState.validate()) {
-                            verifyPhone();
-                          } else {
-                            _scaffoldKey.currentState.showSnackBar(SnackBar(
-                              content: Text("Please check the input"),
-                            ));
-                            setState(() {
-                              _signoutProgress = null;
-                            });
-                          }
                         },
                         child: Text('Signin to Continue',
                             style: TextStyle(color: Colors.white)),
@@ -444,7 +449,8 @@ class _DetailsState extends State<Details> {
                             Text('One more step to go',
                                 style: TextStyle(
                                     fontSize: 18, fontFamily: "Exo2")),
-                            SizedBox(height: 20.0),
+
+                            SizedBox(height: 40.0),
                             Row(children: <Widget>[
                               Expanded(
                                 flex: 2,
@@ -512,7 +518,7 @@ class _DetailsState extends State<Details> {
                               ),
                               textInputAction: TextInputAction.next,
                             ),
-                            SizedBox(height: 15.0),
+                            SizedBox(height: 30.0),
                             Row(
                               children: [
                                 Text("Currency: ",
@@ -543,18 +549,19 @@ class _DetailsState extends State<Details> {
                               title:
                                   Text('I would like to receive notifications'),
                             ),
+
+                            SizedBox(height: 15.0),
                             RaisedButton(
                               onPressed: () {
                                 showWaitingProgress(context);
                                 _formKey.currentState.validate()
                                     ? WebServices(this.mApiListener)
                                         .updateUser(
-                                        _currencyCode,
-                                        _emailController.text,
-                                        _firstNameController.text,
-                                        _lastNameController.text,
-                                        ''
-                                      )
+                                            _currencyCode,
+                                            _emailController.text,
+                                            _firstNameController.text,
+                                            _lastNameController.text,
+                                            '')
                                         .then((value) {
                                         if (value == 200) {
                                           Navigator.pop(context);
@@ -575,11 +582,14 @@ class _DetailsState extends State<Details> {
                                             Text("Please check the inputs"),
                                       ));
                               },
-                              child: Text('Register and Continue'),
-                              textColor: Colors.white,
-                              elevation: 7.0,
-                              color: Colors.black,
-                            )
+                              child: Text('Register and Continue',
+                            style: TextStyle(color: Colors.white)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            side: BorderSide(
+                                color: Theme.of(context).primaryColor)),
+                        color: Theme.of(context).primaryColor,
+                      )
                           ],
                         )
                       ])))),

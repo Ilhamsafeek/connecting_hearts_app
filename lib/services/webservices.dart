@@ -57,6 +57,18 @@ class WebServices {
     return response.statusCode;
   }
 
+    Future<int> updateNotificationSetting(receiveNotification) async {
+    var url = base_url + 'updateaccount';
+    var response = await http.post(url, body: {
+      'phone': '$CURRENT_USER',
+      'receive_notification': '$receiveNotification',
+    });
+
+    print(response.statusCode);
+    print(response.body);
+    return response.statusCode;
+  }
+
   Future createAccount(String contact, String country) async {
     var url = base_url + 'createaccount';
 
