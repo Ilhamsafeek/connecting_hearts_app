@@ -137,10 +137,19 @@ class _SigninPageState extends State<Signin> {
                                       .then((user) {
                                     if (user != null) {
                                       Navigator.of(context).pop();
-                                      Navigator.of(context)
-                                          .pushReplacementNamed(HOME_PAGE);
+                                      if (currentUserData['currency'] != '') {
+                                        Navigator.of(context)
+                                            .pushReplacementNamed(HOME_PAGE);
+                                      } else {
+                                        Navigator.of(context).pushReplacement(
+                                            CupertinoPageRoute<Null>(builder:
+                                                (BuildContext context) {
+                                          return new Details();
+                                        }));
+                                      }
                                     } else {
                                       Navigator.of(context).pop();
+
                                       signIn();
                                     }
                                   });
@@ -173,13 +182,20 @@ class _SigninPageState extends State<Signin> {
   _redirect() async {
     CURRENT_USER = '${this.countryPhoneCode}${this.phoneNo}';
     var userdata = await WebServices(this.mApiListener).getUserData();
-    
+
     print("======User Data======$userdata");
-    if (userdata != null && userdata.length!=0) {
+    if (userdata != null && userdata.length != 0) {
       currentUserData = userdata;
       if (userdata.length != 0) {
         Navigator.pop(context);
-        Navigator.of(context).pushReplacementNamed(HOME_PAGE);
+        if (currentUserData['currency'] != '') {
+          Navigator.of(context).pushReplacementNamed(HOME_PAGE);
+        } else {
+          Navigator.of(context).pushReplacement(
+              CupertinoPageRoute<Null>(builder: (BuildContext context) {
+            return new Details();
+          }));
+        }
       } else {
         _registerUser();
       }
@@ -413,7 +429,7 @@ class _DetailsState extends State<Details> {
   final _emailController = TextEditingController(text: "");
   final _firstNameController = TextEditingController(text: "");
   final _lastNameController = TextEditingController(text: "");
-  dynamic _currencyCode = "";
+  dynamic _currencyCode = "LKR";
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
   bool _is_agree = false;
@@ -449,7 +465,6 @@ class _DetailsState extends State<Details> {
                             Text('One more step to go',
                                 style: TextStyle(
                                     fontSize: 18, fontFamily: "Exo2")),
-
                             SizedBox(height: 40.0),
                             Row(children: <Widget>[
                               Expanded(
@@ -549,7 +564,6 @@ class _DetailsState extends State<Details> {
                               title:
                                   Text('I would like to receive notifications'),
                             ),
-
                             SizedBox(height: 15.0),
                             RaisedButton(
                               onPressed: () {
@@ -583,13 +597,13 @@ class _DetailsState extends State<Details> {
                                       ));
                               },
                               child: Text('Register and Continue',
-                            style: TextStyle(color: Colors.white)),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            side: BorderSide(
-                                color: Theme.of(context).primaryColor)),
-                        color: Theme.of(context).primaryColor,
-                      )
+                                  style: TextStyle(color: Colors.white)),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  side: BorderSide(
+                                      color: Theme.of(context).primaryColor)),
+                              color: Theme.of(context).primaryColor,
+                            )
                           ],
                         )
                       ])))),

@@ -26,7 +26,7 @@ class _MyContributionState extends State<MyContribution> {
   void initState() {
     super.initState();
     WebServices(mApiListener).getPaymentData().then((value) {
-      print(value);
+     value=value.where((el) =>el['status'] =='approved');
       setState(() {
         dynamic total = 0;
         for (var item in value) {

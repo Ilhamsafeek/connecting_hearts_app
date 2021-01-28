@@ -269,7 +269,9 @@ class ProfileState extends State<Profile> {
               onChanged: (value) async {
                 setState(() {
                   _receive_notifications = value;
-                  currentUserData['receive_notification'] = value;
+                  currentUserData['receive_notification'] = _receive_notifications.toString();
+
+                  print(currentUserData);
                 });
                 showWaitingProgress(context);
                 await WebServices(this.mApiListener)
