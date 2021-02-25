@@ -28,8 +28,8 @@ class _ContributedProjectState extends State<ContributedProject> {
   Future _projectImages;
   @override
   void initState() {
-    _projectImages = WebServices(this.mApiListener)
-        .getImageFromFolder(widget.projectData['project_supportives'],'project_supportives');
+    _projectImages = WebServices(this.mApiListener).getImageFromFolder(
+        widget.projectData['project_supportives'], 'project_supportives');
     super.initState();
   }
 
@@ -97,20 +97,24 @@ class _ContributedProjectState extends State<ContributedProject> {
     } else {}
 
     FlutterMoneyFormatter formattedAmount = FlutterMoneyFormatter(
-        amount: double.parse('${widget.projectData['amount']}')*double.parse('$currencyValue'));
+        amount: double.parse('${widget.projectData['amount']}') *
+            double.parse('$currencyValue'));
     FlutterMoneyFormatter formattedPaid = FlutterMoneyFormatter(
-        amount: double.parse('${widget.projectData['paid_amount']}')*double.parse('$currencyValue'));
+        amount: double.parse('${widget.projectData['paid_amount']}') *
+            double.parse('$currencyValue'));
     FlutterMoneyFormatter formattedRaised = FlutterMoneyFormatter(
-        amount: double.parse('${widget.projectData['collected']}')*double.parse('$currencyValue'));
+        amount: double.parse('${widget.projectData['collected']}') *
+            double.parse('$currencyValue'));
 
     double remainingAmount = double.parse('${widget.projectData['amount']}') -
         double.parse('${widget.projectData['collected']}');
-    FlutterMoneyFormatter formattedRemainingAmount =
-        FlutterMoneyFormatter(amount: remainingAmount*double.parse('$currencyValue'));
-        FlutterMoneyFormatter formattedIncome;
+    FlutterMoneyFormatter formattedRemainingAmount = FlutterMoneyFormatter(
+        amount: remainingAmount * double.parse('$currencyValue'));
+    FlutterMoneyFormatter formattedIncome;
     if (widget.projectData['appeal_type'] == "Individual") {
-       formattedIncome = FlutterMoneyFormatter(
-          amount: double.parse('${widget.projectData['income']}')*double.parse('$currencyValue'));
+      formattedIncome = FlutterMoneyFormatter(
+          amount: double.parse('${widget.projectData['income']}') *
+              double.parse('$currencyValue'));
     }
     // double completedPercent = 100 *
     //     double.parse('${widget.projectData['collected']}') /
@@ -121,16 +125,20 @@ class _ContributedProjectState extends State<ContributedProject> {
     //   completedPercent = 100.0;
     //   completedColor = Colors.orange;
     // }
-    String projectStatus='Open';
-    Color status_color=Colors.orange;
-    if(double.parse('${widget.projectData['collected']}')-double.parse('${widget.projectData['amount']}')==0){
-        projectStatus='In Progress';  
-        status_color=Colors.blue;  
-        }else if(widget.projectData['completed_percentage']=='100'){
-projectStatus='Completed'; 
-status_color=Colors.green; 
-        }
+    String projectStatus = 'Open';
+    Color status_color = Colors.orange;
+    if (double.parse('${widget.projectData['collected']}') -
+            double.parse('${widget.projectData['amount']}') ==
+        0) {
+      projectStatus = 'In Progress';
+      status_color = Colors.blue;
+    } 
     
+    if (widget.projectData['completed_percentage'] == '100') {
+      projectStatus = 'Completed';
+      status_color = Colors.green;
+    }
+
     // double percent = completedPercent / 100;
 
     Widget _trailing = Text("Success");
@@ -141,18 +149,17 @@ status_color=Colors.green;
 
     dynamic _text = "You have donated. Now you can monitor the project status.";
     if (widget.projectData['status'] == 'pending' &&
-        (widget.projectData['method'] == 'bank'||widget.projectData['method'] == 'direct debit')) {
+        (widget.projectData['method'] == 'bank' ||
+            widget.projectData['method'] == 'direct debit')) {
       if (widget.projectData['slip_url'] == "") {
         _trailing = RaisedButton(
           color: Colors.red,
           onPressed: () async {
-           
             Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (BuildContext context) => PickImage(
                     "${widget.projectData['payment_id']}",
-                    
                   ),
                 ));
           },
@@ -276,7 +283,7 @@ status_color=Colors.green;
             ],
           ),
         ),
-       
+
         Card(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -415,7 +422,6 @@ status_color=Colors.green;
                                 label: Text('${widget.projectData['method']}')),
                       ],
                     ),
-                    
                     ListTile(
                       title: RichText(
                         text: new TextSpan(
@@ -466,7 +472,10 @@ status_color=Colors.green;
                   children: <Widget>[
                     Row(
                       children: <Widget>[
-                         Icon(FontAwesomeIcons.moneyBill,size: 15,),
+                        Icon(
+                          FontAwesomeIcons.moneyBill,
+                          size: 15,
+                        ),
                         SizedBox(
                           width: 10,
                         ),
@@ -477,7 +486,8 @@ status_color=Colors.green;
                         SizedBox(
                           width: 10,
                         ),
-                        Text('${currentUserData['currency']} ${formattedPaid.output.nonSymbol}',
+                        Text(
+                            '${currentUserData['currency']} ${formattedPaid.output.nonSymbol}',
                             style: TextStyle(color: Colors.red, fontSize: 15.0))
                       ],
                     ),
@@ -551,7 +561,7 @@ status_color=Colors.green;
             ],
           ),
         ),
-        
+
         // Card(
         //   color: Colors.cyan[50],
         //   child: Column(
@@ -635,10 +645,12 @@ status_color=Colors.green;
               children: [
                 Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      new Text('Total ${currentUserData['currency']}', style: TextStyle(fontSize: 18)),
-                      new Text('Raised ${currentUserData['currency']}', style: TextStyle(fontSize: 18)),
+                      new Text('Total ${currentUserData['currency']}',
+                          style: TextStyle(fontSize: 18)),
+                      new Text('Raised ${currentUserData['currency']}',
+                          style: TextStyle(fontSize: 18)),
                     ],
                   ),
                   flex: 6,
@@ -647,11 +659,9 @@ status_color=Colors.green;
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      new Text(
-                          '${formattedAmount.output.nonSymbol}',
+                      new Text('${formattedAmount.output.nonSymbol}',
                           style: TextStyle(fontSize: 18)),
-                      new Text(
-                          '${formattedRaised.output.nonSymbol}',
+                      new Text('${formattedRaised.output.nonSymbol}',
                           style: TextStyle(fontSize: 18)),
                     ],
                   ),
@@ -661,42 +671,38 @@ status_color=Colors.green;
             )),
 
         Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 5, horizontal: 70),
-                child: Row(
+          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 70),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          new Text('Balance ${currentUserData['currency']}',
-                              style: TextStyle(fontSize: 18)),
-                        ],
-                      ),
-                      flex: 7,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          new Text(
-                              '${formattedRemainingAmount.output.nonSymbol}',
-                              style: TextStyle(fontSize: 18)),
-                        ],
-                      ),
-                      flex: 6,
-                    ),
+                    new Text('Balance ${currentUserData['currency']}',
+                        style: TextStyle(fontSize: 18)),
                   ],
                 ),
+                flex: 7,
               ),
-           
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    new Text('${formattedRemainingAmount.output.nonSymbol}',
+                        style: TextStyle(fontSize: 18)),
+                  ],
+                ),
+                flex: 6,
+              ),
+            ],
+          ),
+        ),
 
         Card(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-
-               Padding(
+              Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: <Widget>[
@@ -718,38 +724,34 @@ status_color=Colors.green;
                         ),
                         Text(
                           projectStatus,
-                          style: TextStyle(fontWeight: FontWeight.bold, color: status_color),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: status_color),
                         ),
                         SizedBox(
                           width: 10,
                         ),
-                         Positioned(
-              bottom: 5,
-              left: 5,
-              child: Column(
-                children: <Widget>[
-                  new LinearPercentIndicator(                   
-                    alignment: MainAxisAlignment.start,
-                    animation: true,
-                    lineHeight: 14.0,
-                    animationDuration: 2000,
-                    width: 100.0,
-                    percent: double.parse('${widget.projectData['completed_percentage']}')/100,
-                    center: Text(
-                      "${widget.projectData['completed_percentage']} %",
-                      style: new TextStyle(fontSize: 12.0, color: percentColor),
-                    ),
-                    linearStrokeCap: LinearStrokeCap.roundAll,
-                    backgroundColor: Colors.grey,
-                    progressColor: completedColor,
-                  ),
-                
-                ],
-              ),
-            ),
-                        
+                        new LinearPercentIndicator(
+                                alignment: MainAxisAlignment.start,
+                                animation: true,
+                                lineHeight: 14.0,
+                                animationDuration: 2000,
+                                width: 100.0,
+                                percent: double.parse(
+                                        '${widget.projectData['completed_percentage']}') /
+                                    100,
+                                center: Text(
+                                  "${widget.projectData['completed_percentage']} %",
+                                  style: new TextStyle(
+                                      fontSize: 12.0, color: percentColor),
+                                ),
+                                linearStrokeCap: LinearStrokeCap.roundAll,
+                                backgroundColor: Colors.grey,
+                                progressColor: completedColor,
+                              ),
+                           
                       ],
                     ),
+                 
                   ],
                 ),
               ),
@@ -757,7 +759,6 @@ status_color=Colors.green;
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: <Widget>[
-                   
                     Row(
                       children: <Widget>[
                         Icon(FontAwesomeIcons.fileImage),
@@ -780,32 +781,30 @@ status_color=Colors.green;
 
                   if (snapshot.hasData) {
                     dynamic data = snapshot.data;
-                   
-                   
 
                     if (data.length > 0) {
-             children = <Widget>[
-                      for (var item in data)
-                      if(lookupMimeType(item).startsWith("image/"))
-                        CachedNetworkImage(
-                          imageUrl: item,
-                          placeholder: (context, url) =>
-                              Image.asset('assets/placeholder.png'),
+                      children = <Widget>[
+                        for (var item in data)
+                          if (lookupMimeType(item).startsWith("image/"))
+                            CachedNetworkImage(
+                              imageUrl: item,
+                              placeholder: (context, url) =>
+                                  Image.asset('assets/placeholder.png'),
+                            ),
+                      ];
+                    } else {
+                      children = <Widget>[
+                        ListTile(
+                          title: Center(
+                            child: Text(
+                                "There are no images uploaded under this project",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 17, fontWeight: FontWeight.bold)),
+                          ),
                         ),
-                    ];
-          } else {
-            children = <Widget>[
-              ListTile(
-                title: Center(
-                  child: Text(
-                      "There are no images uploaded under this project",
-                      textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
-                ),
-              ),
-            ];
-          }
+                      ];
+                    }
                   } else if (snapshot.hasError) {
                     children = <Widget>[
                       Icon(
@@ -844,10 +843,10 @@ status_color=Colors.green;
                   );
                 },
               ),
-            
             ],
           ),
         ),
+     
       ],
     );
   }

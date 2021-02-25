@@ -75,7 +75,7 @@ class _CharityState extends State<Charity> {
                         width: 30,
                       ),
                     title: Text(
-                      "My Daily / Weekly Charity Sign up",
+                      "Donate to Zam Zam",
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: Colors.white),
                     ),

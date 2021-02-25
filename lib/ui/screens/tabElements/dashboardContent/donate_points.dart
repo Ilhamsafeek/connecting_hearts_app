@@ -28,7 +28,7 @@ class _CategoriesState extends State<DonatePoints> {
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(
-                'Donate Points',
+                'Loyality Points',
                 style: TextStyle(
                   shadows: <Shadow>[
                     Shadow(
@@ -61,19 +61,19 @@ class _CategoriesState extends State<DonatePoints> {
       children: <Widget>[
         ListTile(
             title: Text(
-              "\nYou can donate your supermarket / shopping points towards Zam Zam Foundation’s Administrative / Project expenses by quoting our registered phone number\n",
+              "\nYou can donate your Loyality points towards Zam Zam Foundation’s Administrative / Project expenses\n",
               style: TextStyle(color: Colors.white),
             ),
             subtitle: Text(
-                '(Accumulated Points Usage will be separately audited annually)\n'),
+                '(Points Usage will be separately audited annually)\n'),
              tileColor: Color.fromRGBO(80, 172, 225, 1)),
               ListTile(
                 contentPadding: EdgeInsets.only(left: 20),
                 title: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    // Text('You can now donate your Loyalty Point to Zam Zam Foundatio by producing below number to outlets that we are registered with:\n',style: TextStyle(fontSize: 14, color: Colors.white),),
-                    Text('076 665 7799', style: TextStyle(fontSize: 20, color: Colors.white),),
+                    Text('\nQuote our registered Phone Number\n',style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),),
+                    Text('076 665 7799\n', style: TextStyle(fontSize: 20, color: Colors.white),),
                   ],
                 ),
                 tileColor: Colors.green

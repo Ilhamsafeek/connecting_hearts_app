@@ -39,7 +39,8 @@ class WebServices {
     return response.body;
   }
 
-  Future<int> updateUser(currency, email, fname, lname,receiveNotification) async {
+  Future<int> updateUser(
+      currency, email, fname, lname, address, receiveNotification) async {
     // DateTime now = DateTime.now();
     // String formattedDate = DateFormat('kk:mm:ss \n EEE d MMM').format(now);
     var url = base_url + 'updateaccount';
@@ -49,6 +50,7 @@ class WebServices {
       'email': '$email',
       'firstname': '$fname',
       'lastname': '$lname',
+      'address': '$address',
       'receive_notification': '$receiveNotification',
     });
 
@@ -57,13 +59,13 @@ class WebServices {
     return response.statusCode;
   }
 
-    Future<int> updateNotificationSetting(receiveNotification) async {
+  Future<int> updateNotificationSetting(receiveNotification) async {
     var url = base_url + 'updateaccount';
     var response = await http.post(url, body: {
       'phone': '$CURRENT_USER',
       'receive_notification': '$receiveNotification',
     });
-
+    print(receiveNotification);
     print(response.statusCode);
     print(response.body);
     return response.statusCode;

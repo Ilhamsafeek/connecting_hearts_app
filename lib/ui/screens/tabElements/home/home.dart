@@ -321,7 +321,7 @@ class _HomeState extends State<Home> {
                   ];
                   return new Categories(
                       featuredImage,
-                      'School With a Smile',
+                      'SWS',
                       overview,
                       thumbnailImages,
                       secondTitle,
@@ -371,7 +371,7 @@ class _HomeState extends State<Home> {
                     CupertinoPageRoute<Null>(builder: (BuildContext context) {
                   var featuredImage = 'assets/sankalpa.png';
                   var overview =
-                      '\nThe Course on Contemporary Affairs, Cultures and Communication in Sinhala for Islamic Scholars is a unique 1-year residential course conducted through a theological education institute (Fath Academy) affiliated to Zam Zam Foundation, for Islamic Scholars selected through an open call for applications and an interview process, is currently underway with 20 participants in the first batch. The course is expected to be continued on an annual basis and a new batch is expected to be commencing by September 2019 as the 2nd batch of another 20 participant Islamic Scholars.\n\n\nThis course objective is to create and nurture Islamic Scholars / Imams who are able to responsibly guide the Muslim community in Sri Lanka and specially the youth with a very broadminded manner to counter challenges of radicalization and social alienation, while building interfaith relationships and bridging the divide between communities by clarifying doubts, eliminating suspicions and giving positive leadership by being able to communicate in a relatable manner in Sinhala Language\n';
+                      '\nThe Course on Contemporary Affairs, Cultures and Communication in Sinhala for Islamic Scholars is a unique 1-year residential course conducted through a theological education institute (Fath Academy) affiliated to Zam Zam Foundation, for Islamic Scholars selected through an open call for applications and an interview process, is currently underway with 20 participants in the first batch.\n';
                   var secondTitle = '';
                   var secondOverview = '';
                   var hadeeth = '';
@@ -385,7 +385,7 @@ class _HomeState extends State<Home> {
                   ];
                   return new Categories(
                       featuredImage,
-                      'Sankalpa',
+                      'Academy',
                       overview,
                       thumbnailImages,
                       secondTitle,
@@ -415,7 +415,7 @@ class _HomeState extends State<Home> {
               }),
           InkWell(
               child: GridItem(
-                  GridModel('assets/shop-icon.png', 'Charity Shop', null)),
+                  GridModel('assets/zamzam-media.png', '', null)),
               onTap: () {
                 // Navigator.of(context).push(
                 //     CupertinoPageRoute<Null>(builder: (BuildContext context) {
@@ -424,7 +424,7 @@ class _HomeState extends State<Home> {
               }),
           InkWell(
               child: GridItem(
-                  GridModel('assets/donate_points.png', 'Donate Points', null)),
+                  GridModel('assets/donate_points.png', 'Loyality Points', null)),
               onTap: () {
                 Navigator.of(context).push(
                     CupertinoPageRoute<Null>(builder: (BuildContext context) {

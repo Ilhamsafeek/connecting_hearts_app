@@ -30,6 +30,8 @@ class ProfileState extends State<Profile> {
   var _emailController;
   var _firstNameController;
   var _lastNameController;
+  var _addressController;
+
   dynamic _country;
   dynamic _currencyCode;
   var _receive_notifications;
@@ -39,6 +41,8 @@ class ProfileState extends State<Profile> {
     super.initState();
     setState(() {
        _emailController =TextEditingController(text: "${currentUserData['email']}");
+       _addressController =TextEditingController(text: "${currentUserData['address']}");
+
    _firstNameController =TextEditingController(text: "${currentUserData['firstname']}");
    _lastNameController =TextEditingController(text: "${currentUserData['lastname']}");
    _country = "${currentUserData['country']}";
@@ -186,6 +190,33 @@ class ProfileState extends State<Profile> {
                           ],
                         ),
                       ),
+                      
+                       Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                                child: TextFormField(
+                                  maxLines: null,
+                                  minLines: 2,
+                              validator: (value) {
+                               
+                                
+                              },
+                            
+                              controller: _addressController,
+                              keyboardType: TextInputType.emailAddress,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'Address',
+                                hintText: '',
+                              ),
+                              textInputAction: TextInputAction.next,
+                            ))
+                          ],
+                        ),
+                      ),
+                     
                       ListTile(
                           title: Padding(
                             padding: EdgeInsets.only(
@@ -204,6 +235,7 @@ class ProfileState extends State<Profile> {
                                                 _emailController.text,
                                                 _firstNameController.text,
                                                 _lastNameController.text,
+                                                _addressController.text,
                                                 _receive_notifications)
                                             .then((value) async {
                                           await WebServices(mApiListener)
@@ -275,7 +307,7 @@ class ProfileState extends State<Profile> {
                 });
                 showWaitingProgress(context);
                 await WebServices(this.mApiListener)
-                    .updateNotificationSetting(_receive_notifications);
+                    .updateNotificationSetting(currentUserData['receive_notification']);
 
                 Navigator.pop(context);
                 _scaffoldKey.currentState.showSnackBar(SnackBar(

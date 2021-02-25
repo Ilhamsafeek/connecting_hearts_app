@@ -39,7 +39,7 @@ class _CheckoutState extends State<Checkout> {
   Widget _paid = Text('');
   Widget _title = Text('Donation');
   Widget _result = Text('');
-  Widget _warning = Text('I Agree With Above Details');
+  Widget _warning = Text('I Agree');
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   static final GlobalKey<NavigatorState> navigatorKey =
       new GlobalKey<NavigatorState>();
@@ -118,7 +118,7 @@ class _CheckoutState extends State<Checkout> {
                                       fontSize: 20)),
                               new TextSpan(
                                   text:
-                                      "I confirm that this donation is through my own sources of funding, legally compliant and i take responsibility / complete liability for all information provided. (full t&c)"),
+                                      "I confirm that this donation is through my own sources of funding, legally compliant and i take responsibility / complete liability for all information provided. (Full T&C)"),
                             ],
                           ),
                         ),
@@ -150,7 +150,7 @@ class _CheckoutState extends State<Checkout> {
                                       fontSize: 20)),
                               new TextSpan(
                                   text:
-                                      "I confirm that this donation is through my own sources of funding, legally compliant and i take responsibility / complete liability for all information provided. (full t&c)"),
+                                      "I confirm that this donation is through my own sources of funding, legally compliant and i take responsibility / complete liability for all information provided. (Full T&C)"),
                             ],
                           ),
                         ),
@@ -302,7 +302,7 @@ class _CheckoutState extends State<Checkout> {
                   } else {
                     setState(() {
                       _warning = ListTile(
-                          leading: Text('I Agree With Above Details'),
+                          leading: Text('I Agree'),
                           title: Icon(
                             Icons.info,
                             color: Colors.red,
@@ -417,7 +417,7 @@ class _CheckoutState extends State<Checkout> {
                               Navigator.pop(context);
                               // Navigator.pop(context);
                             },
-                            child: Text("May be later"),
+                            child: Text("Remind Me Later"),
                             textColor: Colors.black,
                           ),
                         ),

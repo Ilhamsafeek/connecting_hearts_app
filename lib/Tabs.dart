@@ -54,6 +54,12 @@ class MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
 
   @override
   void didChangeDependencies() {
+     WebServices(mApiListener).getUserData().then((value) {
+    if (value != null) {
+      USER_ROLE = value['role'];
+      currentUserData = value;
+    }
+  });
     getNotificationCount().then((value) {
       if (value == null) {
         setState(() {
@@ -293,7 +299,7 @@ class MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
               ),
               BottomNavyBarItem(
                 title: Text(
-                  'Account',
+                  'Profile',
                   style: TextStyle(color: Theme.of(context).primaryColor),
                 ),
                 //Actually icon was in Icon type. we have changed in the cache of bottomnavybaritem. (Ctrl + click on BottomNavyBarItem to edit)

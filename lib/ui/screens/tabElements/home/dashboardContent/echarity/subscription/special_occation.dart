@@ -29,7 +29,7 @@ class _SpecialOccationState extends State<SpecialOccation> {
   ApiListener mApiListener;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   bool _is_agree = false;
-  Widget _warning = Text('I Agree With Above Details');
+  Widget _warning = Text('I Agree');
 
   @override
   void initState() {
@@ -40,7 +40,7 @@ class _SpecialOccationState extends State<SpecialOccation> {
   Widget build(BuildContext context) {
     return Scaffold(
         key: _scaffoldKey,
-        appBar: AppBar(title: Text('My Special Occations')),
+        appBar: AppBar(title: Text('My Special Occasions')),
         body: SingleChildScrollView(
           child: Center(
             child: Column(
@@ -144,7 +144,7 @@ class _SpecialOccationState extends State<SpecialOccation> {
                                             selectedOccation = T;
                                           });
                                         },
-                                        title: Text('I Feel Happy ')),
+                                        title: Text('I Feel Happy Today')),
                                   ),
                                 ],
                               ),
@@ -466,7 +466,7 @@ class _SpecialOccationState extends State<SpecialOccation> {
                                   fontWeight: FontWeight.w600, fontSize: 20)),
                           new TextSpan(
                               text:
-                                  "I confirm that this donation is through my own sources of funding, legally compliant and i take responsibility / complete liability for all information provided. (full t&c)"),
+                                  "I confirm that this donation is through my own sources of funding, legally compliant and i take responsibility / complete liability for all information provided. (Full T&C)"),
                         ],
                       ),
                     ),
@@ -503,7 +503,7 @@ class _SpecialOccationState extends State<SpecialOccation> {
                             } else {
                               setState(() {
                                 _warning = ListTile(
-                                    leading: Text('I Agree With Above Details'),
+                                    leading: Text('I Agree With'),
                                     title: Icon(
                                       Icons.info,
                                       color: Colors.red,

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:braintree_payment/braintree_payment.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -50,7 +51,7 @@ class _ProjectDetailPageState extends State<ProjectDetail> {
   String _dropDownValue;
   bool _recurring_value = false;
   bool _is_agree = false;
-  Widget _warning = Text('I Agree With Above Details');
+  Widget _warning = Text('I Agree');
 
   ApiListener mApiListener;
 
@@ -850,6 +851,8 @@ class _ProjectDetailPageState extends State<ProjectDetail> {
 
     print("Response of the payment $data");
     showWaitingProgress(context);
+    print("Resuuuuuuullllltttt: "+data);
+    if (Platform.isAndroid) {
     if (data['status'] == 'success') {
       var saleResponse = await Braintree(mApiListener).sale(usd_amount,lkrAmount,
           data['paymentNonce'], widget.projectData, 'card', 'pending','project payment','');
@@ -861,6 +864,20 @@ class _ProjectDetailPageState extends State<ProjectDetail> {
         content: Text("$saleResponse"),
       ));
     }
+  }else{
+    //Card Payment
+       if (data!=null) {
+      var saleResponse = await Braintree(mApiListener).sale(usd_amount,lkrAmount,
+          data, widget.projectData, 'card', 'pending','project payment','');
+
+      print("===============" + saleResponse);
+
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        backgroundColor: Colors.green[600],
+        content: Text("$saleResponse"),
+      ));
+    }
+  }
     Navigator.pop(context);
     Timer(Duration(seconds: 2), () {
   // 5s over, navigate to a new page
@@ -938,7 +955,7 @@ class _ProjectDetailPageState extends State<ProjectDetail> {
                                   fontWeight: FontWeight.w600, fontSize: 20)),
                           new TextSpan(
                               text:
-                                  "I confirm that this donation is through my own sources of funding, legally compliant and i take responsibility / complete liability for all information provided. (full t&c)"),
+                                  "I confirm that this donation is through my own sources of funding, legally compliant and i take responsibility / complete liability for all information provided. (Full T&C)"),
                         ],
                       ),
                     ),
@@ -973,7 +990,7 @@ class _ProjectDetailPageState extends State<ProjectDetail> {
                             } else {
                               setState(() {
                                 _warning = ListTile(
-                                    leading: Text('I Agree With Above Details'),
+                                    leading: Text('I Agree With'),
                                     title: Icon(
                                       Icons.info,
                                       color: Colors.red,

@@ -217,6 +217,7 @@ class _NotificationsState extends State<Notifications> {
       icon=Icons.beenhere_sharp;
     }
     
+    
     return new Container(
       child: Icon(
         icon,

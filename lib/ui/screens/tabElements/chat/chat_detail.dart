@@ -27,7 +27,7 @@ class _ChatDetailState extends State<ChatDetail> {
   @override
   void initState() {
     _messageController = new StreamController();
-    timer = Timer.periodic(Duration(seconds: 1), (_) => loadMessages());
+    timer = Timer.periodic(Duration(milliseconds: 500), (_) => loadMessages());
 
     super.initState();
   }
@@ -146,15 +146,17 @@ class _ChatDetailState extends State<ChatDetail> {
                                   break;
                                 case ConnectionState.active:
                                   children = <Widget>[
-                                    Bubble(
-                                      alignment: Alignment.center,
-                                      color: Color.fromARGB(255, 212, 234, 244),
-                                      elevation: 1 * px,
-                                      margin: BubbleEdges.only(top: 8.0),
-                                      child: Text('TODAY',
-                                          style: TextStyle(fontSize: 10)),
-                                    ),
+                                    // Bubble(
+                                    //   alignment: Alignment.center,
+                                    //   color: Color.fromARGB(255, 212, 234, 244),
+                                    //   elevation: 1 * px,
+                                    //   margin: BubbleEdges.only(top: 8.0),
+                                    //   child: Text('TODAY',
+                                    //       style: TextStyle(fontSize: 10)),
+                                    // ),
+                                    
                                     for (var item in snapshot.data)
+                                    (widget.chatId != '0')?
                                       item['chat_from_user'] != currentUserData['user_id']
                                           ? Bubble(
                                               style: styleSomebody,
@@ -167,7 +169,7 @@ class _ChatDetailState extends State<ChatDetail> {
                                               child: Text(item['message'],
                                                   style: TextStyle(
                                                       fontSize: 15.5)),
-                                            ),
+                                            ):Text('')
                                   ];
                                   break;
                                 case ConnectionState.done:
@@ -243,7 +245,7 @@ class _ChatDetailState extends State<ChatDetail> {
               controller: _chatController,
               maxLines: null,
               keyboardType: TextInputType.multiline,
-              autofocus: false,
+              autofocus: true,
               decoration: InputDecoration(
                 hintText: 'Please enter the message',
                 hintStyle: TextStyle(

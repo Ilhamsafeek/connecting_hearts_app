@@ -1,5 +1,6 @@
 import 'package:braintree_payment/braintree_payment.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:connecting_hearts/ui/screens/tabElements/home/dashboardContent/echarity/project.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -28,9 +29,16 @@ class Categories extends StatefulWidget {
   final dynamic milestoneImage;
   final dynamic packContent;
 
-
-  Categories(this.photo, this.category, this.description, this.thumbnailImages,
-      this.secondTitle, this.secondOverview, this.hadeeth, this.milestoneImage,this.packContent,
+  Categories(
+      this.photo,
+      this.category,
+      this.description,
+      this.thumbnailImages,
+      this.secondTitle,
+      this.secondOverview,
+      this.hadeeth,
+      this.milestoneImage,
+      this.packContent,
       {Key key})
       : super(key: key);
 }
@@ -40,6 +48,7 @@ class _CategoriesState extends State<Categories> {
   void initState() {
     super.initState();
   }
+  ApiListener mApiListener;
 
   @override
   Widget build(BuildContext context) {
@@ -140,11 +149,23 @@ class _CategoriesState extends State<Categories> {
             ),
             trailing: FlatButton.icon(
               color: Colors.amber,
-              onPressed: () {
-                Navigator.of(context).push(
-                    CupertinoPageRoute<Null>(builder: (BuildContext context) {
-                  return new Charity();
-                }));
+              onPressed: () async {
+
+                // Navigator.of(context).push(
+                //     CupertinoPageRoute<Null>(builder: (BuildContext context) {
+                //   return new Charity();
+                // }));
+                await WebServices(this.mApiListener).getCategoryData().then((value){
+                  // item['category']
+                  dynamic item = value.where((el) => el['category'] == widget.category).toList()[0];
+                   Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Project(item)),
+                                );
+
+                });
+
               },
               icon: Icon(
                 Icons.touch_app,
@@ -163,6 +184,70 @@ class _CategoriesState extends State<Categories> {
               ListTile(
                 title: Text("${widget.description}"),
               ),
+              widget.category == 'Academy'
+                  ? 
+                  Container(
+                    color: Colors.amber,
+                    child:
+                  ExpansionTile(
+                    backgroundColor: Colors.amber,
+                      childrenPadding: EdgeInsets.all(10),
+                      title: Text("VIP"),
+                      children: <Widget>[
+                        Text(
+                            'This course objective is to create and nurture Islamic Scholars / Imams who are able to responsibly guide the Muslim community in Sri Lanka and specially the youth with a very broadminded manner to counter challenges of radicalization and social alienation, while building interfaith relationships and bridging the divide between communities by clarifying doubts, eliminating suspicions and giving positive leadership by being able to communicate in a relatable manner in Sinhala Language\n')
+                      ],
+                      initiallyExpanded: false,
+                    )
+                  )
+                  : Text(''),
+
+                  widget.category == 'Academy'
+                  ? 
+                  Container(
+                    color: Colors.green,
+                    child:
+                  ExpansionTile(
+                      childrenPadding: EdgeInsets.all(10),
+                      title: Text("Academy"),
+                      children: <Widget>[
+                        Text(
+                            'This course objective is to create and nurture Islamic Scholars / Imams who are able to responsibly guide the Muslim community in Sri Lanka and specially the youth with a very broadminded manner to counter challenges of radicalization and social alienation, while building interfaith relationships and bridging the divide between communities by clarifying doubts, eliminating suspicions and giving positive leadership by being able to communicate in a relatable manner in Sinhala Language\n')
+                      ],
+                      initiallyExpanded: false,
+                    ))
+                  : Text(''),
+
+                  widget.category == 'Academy'
+                  ? 
+                  Container(
+                    color: Colors.indigo,
+                    child:
+                  ExpansionTile(
+                      childrenPadding: EdgeInsets.all(10),
+                      title: Text("Tab 3"),
+                      children: <Widget>[
+                        Text(
+                            'This course objective is to create and nurture Islamic Scholars / Imams who are able to responsibly guide the Muslim community in Sri Lanka and specially the youth with a very broadminded manner to counter challenges of radicalization and social alienation, while building interfaith relationships and bridging the divide between communities by clarifying doubts, eliminating suspicions and giving positive leadership by being able to communicate in a relatable manner in Sinhala Language\n')
+                      ],
+                      initiallyExpanded: false,
+                    ))
+                  : Text(''),
+                  widget.category == 'Academy'
+                  ? 
+                  Container(
+                    color: Colors.lightBlueAccent,
+                    child:
+                  ExpansionTile(
+                      childrenPadding: EdgeInsets.all(10),
+                      title: Text("Tab 4"),
+                      children: <Widget>[
+                        Text(
+                            'This course objective is to create and nurture Islamic Scholars / Imams who are able to responsibly guide the Muslim community in Sri Lanka and specially the youth with a very broadminded manner to counter challenges of radicalization and social alienation, while building interfaith relationships and bridging the divide between communities by clarifying doubts, eliminating suspicions and giving positive leadership by being able to communicate in a relatable manner in Sinhala Language\n')
+                      ],
+                      initiallyExpanded: false,
+                    ))
+                  : Text('')
             ],
           ),
         ),
@@ -174,72 +259,69 @@ class _CategoriesState extends State<Categories> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        if(widget.secondTitle!='')
+        if (widget.secondTitle != '')
           ListTile(
-            contentPadding: EdgeInsets.all(30),
-            title: Text(
-              "${widget.secondTitle}",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontSize: 28),
-            ),
-            tileColor: Theme.of(context).primaryColor),
-        if (widget.hadeeth.length > 0 || widget.secondOverview!='')
-            Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              if(widget.secondOverview!='')
-              ListTile(
-                title: Text("${widget.secondOverview}"),
+              contentPadding: EdgeInsets.all(30),
+              title: Text(
+                "${widget.secondTitle}",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 28),
               ),
-               if(widget.hadeeth.length > 0)
-                ListTile(
-                    contentPadding: EdgeInsets.all(30),
-                    title: Text(
-                      "${widget.hadeeth[0]}",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 20),
-                    ),
-                    subtitle: Text(
-                      "\n${widget.hadeeth[1]}",
-                      style: TextStyle(color: Colors.white, fontSize: 15),
-                    ),
-                    tileColor: Theme.of(context).primaryColor),
-            ],
+              tileColor: Theme.of(context).primaryColor),
+        if (widget.hadeeth.length > 0 || widget.secondOverview != '')
+          Card(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                if (widget.secondOverview != '')
+                  ListTile(
+                    title: Text("${widget.secondOverview}"),
+                  ),
+                if (widget.hadeeth.length > 0)
+                  ListTile(
+                      contentPadding: EdgeInsets.all(30),
+                      title: Text(
+                        "${widget.hadeeth[0]}",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 20),
+                      ),
+                      subtitle: Text(
+                        "\n${widget.hadeeth[1]}",
+                        style: TextStyle(color: Colors.white, fontSize: 15),
+                      ),
+                      tileColor: Theme.of(context).primaryColor),
+              ],
+            ),
           ),
-        ),
-        if(widget.milestoneImage!='')
+        if (widget.milestoneImage != '')
           Image.asset('${widget.milestoneImage}'),
         SizedBox(
           height: 4,
         ),
-         if (widget.packContent.length > 0)
-        ListTile(
-            contentPadding: EdgeInsets.only(left:80),
-            title: Text(
-              "Each Pack Contains",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontSize: 20),
-            ),
-            tileColor: Theme.of(context).primaryColor),
-            if (widget.packContent.length > 0)
-            GridView.count(
-              
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        crossAxisCount: 2,
-        children: <Widget>[
-          ListTile(subtitle:Text('${widget.packContent[0]}')),
-          ListTile(subtitle:Text('${widget.packContent[1]}')),
-        ]),
-        
-
+        if (widget.packContent.length > 0)
+          ListTile(
+              contentPadding: EdgeInsets.only(left: 80),
+              title: Text(
+                "Each Pack Contains",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 20),
+              ),
+              tileColor: Theme.of(context).primaryColor),
+        if (widget.packContent.length > 0)
+          GridView.count(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              crossAxisCount: 2,
+              children: <Widget>[
+                ListTile(subtitle: Text('${widget.packContent[0]}')),
+                ListTile(subtitle: Text('${widget.packContent[1]}')),
+              ]),
       ],
     );
   }

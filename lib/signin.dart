@@ -132,14 +132,19 @@ class _SigninPageState extends State<Signin> {
                                 icon: Icon(Icons.arrow_forward),
                                 color: Colors.white,
                                 onPressed: () {
+                                  print('button pressed');
                                   FirebaseAuth.instance
                                       .currentUser()
                                       .then((user) {
+                                        
                                     if (user != null) {
+                                      print('user not av');
                                       Navigator.of(context).pop();
                                       if (currentUserData['currency'] != '') {
-                                        Navigator.of(context)
-                                            .pushReplacementNamed(HOME_PAGE);
+                                        Future.delayed(Duration.zero, () {
+                                          Navigator.of(context)
+                                              .pushReplacementNamed(HOME_PAGE);
+                                        });
                                       } else {
                                         Navigator.of(context).pushReplacement(
                                             CupertinoPageRoute<Null>(builder:
@@ -148,8 +153,8 @@ class _SigninPageState extends State<Signin> {
                                         }));
                                       }
                                     } else {
-                                      Navigator.of(context).pop();
-
+                                    //  Navigator.of(context).pop();
+                                      print('user av');
                                       signIn();
                                     }
                                   });
@@ -189,7 +194,9 @@ class _SigninPageState extends State<Signin> {
       if (userdata.length != 0) {
         Navigator.pop(context);
         if (currentUserData['currency'] != '') {
-          Navigator.of(context).pushReplacementNamed(HOME_PAGE);
+          Future.delayed(Duration.zero, () {
+            Navigator.of(context).pushReplacementNamed(HOME_PAGE);
+          });
         } else {
           Navigator.of(context).pushReplacement(
               CupertinoPageRoute<Null>(builder: (BuildContext context) {
@@ -382,10 +389,7 @@ class _SigninPageState extends State<Signin> {
                               _scaffoldKey.currentState.showSnackBar(SnackBar(
                                 content: Text("Please check the input"),
                               ));
-                              // setState(() {
-                              //   // _signoutProgress = null;
-                              //   Navigator.pop(context);
-                              // });
+                              Navigator.pop(context);
                             }
                           });
                         },
@@ -432,7 +436,7 @@ class _DetailsState extends State<Details> {
   dynamic _currencyCode = "LKR";
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
-  bool _is_agree = false;
+  bool _is_agree = true;
 
   @override
   void initState() {
@@ -513,9 +517,9 @@ class _DetailsState extends State<Details> {
                             TextFormField(
                               controller: _emailController,
                               validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'please enter email.';
-                                }
+                                // if (value.isEmpty) {
+                                //   return 'please enter email.';
+                                // }
                                 if (value.length < 5) {
                                   return 'enter a valid email address';
                                 }
@@ -532,25 +536,6 @@ class _DetailsState extends State<Details> {
                                 hintText: '',
                               ),
                               textInputAction: TextInputAction.next,
-                            ),
-                            SizedBox(height: 30.0),
-                            Row(
-                              children: [
-                                Text("Currency: ",
-                                    style: TextStyle(
-                                        fontSize: 16, fontFamily: "Exo2")),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                CurrencyPickerDropdown(
-                                  initialValue: 'lk',
-                                  itemBuilder: _buildDropdownItem,
-                                  onValuePicked: (Country country) {
-                                    print("${country.currencyCode}");
-                                    _currencyCode = country.currencyCode;
-                                  },
-                                ),
-                              ],
                             ),
                             SizedBox(height: 15.0),
                             ListTile(
@@ -575,12 +560,20 @@ class _DetailsState extends State<Details> {
                                             _emailController.text,
                                             _firstNameController.text,
                                             _lastNameController.text,
-                                            '')
-                                        .then((value) {
+                                            '',
+                                            _is_agree)
+                                        .then((value) async {
                                         if (value == 200) {
+                                          var userdata = await WebServices(
+                                                  this.mApiListener)
+                                              .getUserData();
+                                          currentUserData = userdata;
                                           Navigator.pop(context);
-                                          Navigator.of(context)
-                                              .pushReplacementNamed(HOME_PAGE);
+                                          Future.delayed(Duration.zero, () {
+                                            Navigator.of(context)
+                                                .pushReplacementNamed(
+                                                    HOME_PAGE);
+                                          });
                                         } else {
                                           Navigator.pop(context);
                                           _scaffoldKey.currentState

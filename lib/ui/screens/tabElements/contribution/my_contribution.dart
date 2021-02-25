@@ -199,7 +199,7 @@ class _MyContributionState extends State<MyContribution> {
       color: Colors.green,
     );
 
-    dynamic _text = "Thank You ! \nYour Donation has Confirmed";
+    dynamic _text = "Thank You ! \nYour Donation is Confirmed";
     if (item['status'] == 'pending' &&
         (item['method'] == 'bank' || item['method'] == 'direct debit')) {
       if (item['slip_url'] == "") {
@@ -248,7 +248,7 @@ class _MyContributionState extends State<MyContribution> {
           Icons.schedule,
           color: Colors.blue,
         );
-        _text = "Thank You ! \nWe are Reviewing you Donation.";
+        _text = "Thank You ! \nWe are Reviewing your Donation.";
       }
     } else if (item['status'] == 'cancelled') {
       _moreDetailsLeading = null;

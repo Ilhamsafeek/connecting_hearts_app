@@ -31,13 +31,18 @@ class _SubscriptionState extends State<Subscription> {
   String selectedMethod = "bank";
   String selectedPeriod = "Daily";
   String selectedPaymentPackage = "Monthly";
+  Color nonSelectedColor = Colors.grey[350];
+  Color selectedColor = Colors.pink[900];
+
+  Color annualColor = Colors.grey[350];
+  Color monthlyColor = Colors.pink[900];
 
   dynamic daily_amount = 0;
   dynamic weekly_amount = 0;
   dynamic monthly_amount = 0;
   dynamic annual_amount = 0;
   bool _is_agree = false;
-  Widget _warning = Text('I Agree With Above Details');
+  Widget _warning = Text('I Agree');
   dynamic chargin_amount = 0;
   dynamic _decissionPanel = null;
   // List<String> _currencies = ['LKR','USD', 'EUR', 'JPY', 'GBP','AUD', 'KWD', 'CNH', 'GBP'];
@@ -51,7 +56,7 @@ class _SubscriptionState extends State<Subscription> {
   Widget build(BuildContext context) {
     return Scaffold(
         key: _scaffoldKey,
-        appBar: AppBar(title: Text('Subscription')),
+        appBar: AppBar(title: Text('Donate to Zam Zam')),
         body: SingleChildScrollView(
           child: Center(
             child: Column(
@@ -247,7 +252,7 @@ class _SubscriptionState extends State<Subscription> {
                         ),
                         ListTile(
                             title: Text(
-                              'Donating Amount',
+                              'Amount',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -299,10 +304,11 @@ class _SubscriptionState extends State<Subscription> {
                                             },
                                             inputFormatters: <
                                                 TextInputFormatter>[
-                                                  // WhitelistingTextInputFormatter.digitsOnly,
+                                              // WhitelistingTextInputFormatter.digitsOnly,
                                               // CurrencyInputFormatter()
                                               // FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
-                                              CurrencyInputFormatter(decimalRange: 2)
+                                              CurrencyInputFormatter(
+                                                  decimalRange: 2)
                                             ],
                                             keyboardType: TextInputType.number,
                                             style: TextStyle(
@@ -603,7 +609,7 @@ class _SubscriptionState extends State<Subscription> {
                                   fontWeight: FontWeight.w600, fontSize: 20)),
                           new TextSpan(
                               text:
-                                  "I confirm that this donation is through my own sources of funding, legally compliant and i take responsibility / complete liability for all information provided. (full t&c)"),
+                                  "I confirm that this donation is through my own sources of funding, legally compliant and i take responsibility / complete liability for all information provided. (Full T&C)"),
                         ],
                       ),
                     ),
@@ -640,7 +646,7 @@ class _SubscriptionState extends State<Subscription> {
                             } else {
                               setState(() {
                                 _warning = ListTile(
-                                    leading: Text('I Agree With Above Details'),
+                                    leading: Text('I Agree'),
                                     title: Icon(
                                       Icons.info,
                                       color: Colors.red,
@@ -805,8 +811,8 @@ class _SubscriptionState extends State<Subscription> {
   }
 
   Widget decissionPanel() {
-    dynamic value=_amount.text;
-    if (value == ''||_amount == null) {
+    dynamic value = _amount.text;
+    if (value == '' || _amount == null) {
       value = '0';
     } else {
       value = _amount.text.replaceAll(",", "");
@@ -832,12 +838,15 @@ class _SubscriptionState extends State<Subscription> {
                         print(value);
                         setState(() {
                           selectedPaymentPackage = value;
-                          _decissionPanel = decissionPanel(); //Refreshing it
+                          //Refreshing it
+                          monthlyColor = selectedColor;
+                          annualColor = nonSelectedColor;
+                          _decissionPanel = decissionPanel();
                         });
                       },
                       title: Container(
                           height: 100,
-                          color: Colors.grey[350],
+                          color: monthlyColor,
                           child: Center(
                             child: Column(
                               children: [
@@ -846,7 +855,7 @@ class _SubscriptionState extends State<Subscription> {
                                 ),
                                 Text(
                                   'Donate for this month',
-                                  style: TextStyle(color: Colors.black),
+                                  style: TextStyle(color: Colors.white),
                                 ),
                                 SizedBox(
                                   height: 20,
@@ -876,12 +885,14 @@ class _SubscriptionState extends State<Subscription> {
                         print(value);
                         setState(() {
                           selectedPaymentPackage = value;
+                          annualColor = selectedColor;
+                          monthlyColor = nonSelectedColor;
                           _decissionPanel = decissionPanel(); //Refreshing it
                         });
                       },
                       title: Container(
                           height: 100,
-                          color: Colors.pink[900],
+                          color: annualColor,
                           child: Center(
                             child: Column(
                               children: [
@@ -928,19 +939,19 @@ class _SubscriptionState extends State<Subscription> {
       } else if (selectedPeriod == 'Annually') {
         monthly_amount = double.parse("$value");
         annual_amount = double.parse("$value");
-        print("=======<<<<"+annual_amount.toString());
+        print("=======<<<<" + annual_amount.toString());
       }
 
       monthly_amount =
           FlutterMoneyFormatter(amount: double.parse('$monthly_amount'))
               .output
               .nonSymbol;
-              print("=======>>>>"+monthly_amount);
+      print("=======>>>>" + monthly_amount);
       annual_amount =
           FlutterMoneyFormatter(amount: double.parse('$annual_amount'))
               .output
               .nonSymbol;
- print("=======:Annual:>>>>"+annual_amount);
+      print("=======:Annual:>>>>" + annual_amount);
       if (selectedPaymentPackage == 'Monthly') {
         chargin_amount = monthly_amount.toString();
       } else if (selectedPaymentPackage == 'Annually') {

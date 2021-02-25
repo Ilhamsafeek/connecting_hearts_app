@@ -14,6 +14,7 @@ class _PlayState extends State<Play> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(backgroundColor: Colors.black,),
        backgroundColor: Colors.black,
       body: Center(
         child: AspectRatio(
