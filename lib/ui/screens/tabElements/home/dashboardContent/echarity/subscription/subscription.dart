@@ -304,11 +304,9 @@ class _SubscriptionState extends State<Subscription> {
                                             },
                                             inputFormatters: <
                                                 TextInputFormatter>[
-                                              // WhitelistingTextInputFormatter.digitsOnly,
-                                              // CurrencyInputFormatter()
-                                              // FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
-                                              CurrencyInputFormatter(
-                                                  decimalRange: 2)
+                                            FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                                            //  WhitelistingTextInputFormatter.digitsOnly,
+                                              CurrencyInputFormatter(decimalRange: 2)
                                             ],
                                             keyboardType: TextInputType.number,
                                             style: TextStyle(

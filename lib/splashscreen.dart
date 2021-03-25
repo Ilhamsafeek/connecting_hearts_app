@@ -20,7 +20,7 @@ class SplashScreenState extends State<SplashScreen>
   Animation<double> animation;
   ApiListener mApiListener;
   startTime() async {
-    var _duration = new Duration(seconds: 1);
+    var _duration = new Duration(milliseconds: 3500);
     return new Timer(_duration, navigateFromSplash);
     
   }
@@ -30,7 +30,7 @@ class SplashScreenState extends State<SplashScreen>
     super.initState();
     animationController = new AnimationController(
       vsync: this,
-      duration: new Duration(milliseconds: 800),
+      duration: new Duration(milliseconds: 0),
     );
     animation =
         new CurvedAnimation(parent: animationController, curve: Curves.easeOut);
@@ -89,8 +89,8 @@ class SplashScreenState extends State<SplashScreen>
               Padding(
                 padding: EdgeInsets.only(bottom: 30.0),
                 child: new Image.asset(
-                  "assets/powered_by.png",
-                  height: 35.0,
+                  "assets/zamzamlogo.png",
+                  height: 45.0,
                   fit: BoxFit.scaleDown,
                 ),
               )
@@ -100,7 +100,7 @@ class SplashScreenState extends State<SplashScreen>
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               new Image.asset(
-                "assets/logo.png",
+                "assets/splashlogo.gif",
                 width: animation.value * 250,
                 height: animation.value * 250,
               ),
