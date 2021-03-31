@@ -284,19 +284,19 @@ class Slider {
 final sliderArrayList = [
   Slider(
       sliderImageUrl: 'assets/slider_1.png',
-      sliderHeading: "Get notified with recent updates.",
+      sliderHeading: "About Connecting Hearts",
       sliderSubHeading:
-          "Keep in touch with us by notifications on recent sermon updates, events organized"),
+          "keep yourself updated from anywhere in the world about the work of Zam Zam Foundation and be a part of our projects in Sri Lanka"),
   Slider(
       sliderImageUrl: 'assets/slider_2.png',
-      sliderHeading: "Find needy people",
+      sliderHeading: "About Zam Zam Foundation",
       sliderSubHeading:
-          "You may not aware of how people are needy. This is the platform for you"),
+          "We are a government recognized nonprofit organization in Sri Lanka which serves all communities with the motto “Humanity beyond Religion”."),
   Slider(
       sliderImageUrl: 'assets/slider_3.png',
-      sliderHeading: "Support them",
+      sliderHeading: "How can you support us?",
       sliderSubHeading:
-          "We connect needy people and donors and make a network"),
+          "You can contribute towards Zam Zam Foundation through your words of encouragement, prayers and financial donations through this app"),
 ];
 
 class SlideDots extends StatelessWidget {

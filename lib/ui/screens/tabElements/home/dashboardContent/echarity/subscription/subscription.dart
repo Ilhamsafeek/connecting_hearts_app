@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:braintree_payment/braintree_payment.dart';
 import 'package:connecting_hearts/services/braintree.dart';
@@ -68,6 +69,21 @@ class _SubscriptionState extends State<Subscription> {
                   return Container(
                     child: new Column(
                       children: <Widget>[
+                       
+                        ListTile(
+                contentPadding: EdgeInsets.all(10),
+                title: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text('You may make donations towards Zam Zam Foundation’s Administrative and support services expenses as we don’t generally charge an Admin Fee from Project Donations. \n\nYour Daily contribution commitment will let you start the day with a good deed as you wake up every day.',style: TextStyle(fontSize: 14, color: Colors.white),),
+                    // Text('076 665 7799\n', style: TextStyle(fontSize: 20, color: Colors.white),),
+                  ],
+                ),
+                tileColor: Colors.green
+                ,onTap: (){
+                 
+                },),
+            
                         SizedBox(
                           height: 10,
                         ),
@@ -527,6 +543,7 @@ class _SubscriptionState extends State<Subscription> {
 
     print("Response of the payment $data");
     showWaitingProgress(context);
+    if (Platform.isAndroid) {
     if (data['status'] == 'success') {
       var saleResponse = await Braintree(mApiListener).sale(
           usd_amount,
@@ -544,6 +561,26 @@ class _SubscriptionState extends State<Subscription> {
         backgroundColor: Colors.green[600],
         content: Text("$saleResponse"),
       ));
+    }
+    }else{
+      if (data!=null) {
+         var saleResponse = await Braintree(mApiListener).sale(
+          usd_amount,
+          lkrAmount,
+          data['paymentNonce'],
+          null,
+          'card',
+          'pending',
+          'subscription',
+          selectedPeriod);
+
+      print("===============" + saleResponse);
+
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        backgroundColor: Colors.green[600],
+        content: Text("$saleResponse"),
+      ));
+      }
     }
     Navigator.pop(context);
     Timer(Duration(seconds: 2), () {

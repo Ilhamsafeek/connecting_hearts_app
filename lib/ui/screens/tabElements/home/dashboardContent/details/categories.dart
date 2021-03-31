@@ -192,10 +192,10 @@ class _CategoriesState extends State<Categories> {
                   ExpansionTile(
                     backgroundColor: Colors.amber,
                       childrenPadding: EdgeInsets.all(10),
-                      title: Text("VIP"),
+                      title: Text("Sankalpa"),
                       children: <Widget>[
                         Text(
-                            'This course objective is to create and nurture Islamic Scholars / Imams who are able to responsibly guide the Muslim community in Sri Lanka and specially the youth with a very broadminded manner to counter challenges of radicalization and social alienation, while building interfaith relationships and bridging the divide between communities by clarifying doubts, eliminating suspicions and giving positive leadership by being able to communicate in a relatable manner in Sinhala Language\n')
+                            'Unique 1-year residential course conducted for Islamic Scholars with Sinhala language fluency, selected through an open call for applications and an interview process. This course objective is to create and nurture Islamic Scholars / Imams who are able to responsibly guide the Muslim community in Sri Lanka and specially the youth with a very broadminded manner to counter challenges of radicalization and social alienation, while building interfaith relationships and bridging the divide between communities by clarifying doubts, eliminating suspicions and giving positive leadership by being able to communicate in a relatable manner in Sinhala Language.\n')
                       ],
                       initiallyExpanded: false,
                     )
@@ -209,10 +209,10 @@ class _CategoriesState extends State<Categories> {
                     child:
                   ExpansionTile(
                       childrenPadding: EdgeInsets.all(10),
-                      title: Text("Academy"),
+                      title: Text("VIP"),
                       children: <Widget>[
                         Text(
-                            'This course objective is to create and nurture Islamic Scholars / Imams who are able to responsibly guide the Muslim community in Sri Lanka and specially the youth with a very broadminded manner to counter challenges of radicalization and social alienation, while building interfaith relationships and bridging the divide between communities by clarifying doubts, eliminating suspicions and giving positive leadership by being able to communicate in a relatable manner in Sinhala Language\n')
+                            'Through the Valued Imam Project (VIP) selected qualified Chief Imams from Mosques in various Districts of Sri Lanka are provided with Continuous Professional Development through a once-a-week civic and soft skills development session series. The sessions provide them the knowledge and skills on personality development, to work with other religious leaders, to engage with diverse congregants,  to develop the mosques towards Model Mosques and to work with other communities in their own local areas.\n')
                       ],
                       initiallyExpanded: false,
                     ))
@@ -225,29 +225,15 @@ class _CategoriesState extends State<Categories> {
                     child:
                   ExpansionTile(
                       childrenPadding: EdgeInsets.all(10),
-                      title: Text("Tab 3"),
+                      title: Text("Explore Knowledge Series"),
                       children: <Widget>[
                         Text(
-                            'This course objective is to create and nurture Islamic Scholars / Imams who are able to responsibly guide the Muslim community in Sri Lanka and specially the youth with a very broadminded manner to counter challenges of radicalization and social alienation, while building interfaith relationships and bridging the divide between communities by clarifying doubts, eliminating suspicions and giving positive leadership by being able to communicate in a relatable manner in Sinhala Language\n')
+                            'A monthly knowledge sharing session series with information related to modern day / contemporary topics which are being explained from a technical and spiritual background through subject matter experts.\n')
                       ],
                       initiallyExpanded: false,
                     ))
                   : Text(''),
-                  widget.category == 'Academy'
-                  ? 
-                  Container(
-                    color: Colors.lightBlueAccent,
-                    child:
-                  ExpansionTile(
-                      childrenPadding: EdgeInsets.all(10),
-                      title: Text("Tab 4"),
-                      children: <Widget>[
-                        Text(
-                            'This course objective is to create and nurture Islamic Scholars / Imams who are able to responsibly guide the Muslim community in Sri Lanka and specially the youth with a very broadminded manner to counter challenges of radicalization and social alienation, while building interfaith relationships and bridging the divide between communities by clarifying doubts, eliminating suspicions and giving positive leadership by being able to communicate in a relatable manner in Sinhala Language\n')
-                      ],
-                      initiallyExpanded: false,
-                    ))
-                  : Text('')
+                  
             ],
           ),
         ),

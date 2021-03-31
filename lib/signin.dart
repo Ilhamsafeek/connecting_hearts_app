@@ -192,7 +192,7 @@ class _SigninPageState extends State<Signin> {
     if (userdata != null && userdata.length != 0) {
       currentUserData = userdata;
       if (userdata.length != 0) {
-        Navigator.pop(context);
+        // Navigator.pop(context);
         if (currentUserData['currency'] != '') {
           Future.delayed(Duration.zero, () {
             Navigator.of(context).pushReplacementNamed(HOME_PAGE);
@@ -215,7 +215,7 @@ class _SigninPageState extends State<Signin> {
     showWaitingProgress(context);
     await WebServices(this.mApiListener)
         .createAccount('${this.countryPhoneCode}${this.phoneNo}', countryCode);
-    Navigator.pop(context);
+    // Navigator.pop(context);
 
     Navigator.of(context).pushReplacement(
         CupertinoPageRoute<Null>(builder: (BuildContext context) {

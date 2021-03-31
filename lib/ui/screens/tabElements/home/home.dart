@@ -261,7 +261,7 @@ class _HomeState extends State<Home> {
                     CupertinoPageRoute<Null>(builder: (BuildContext context) {
                   var featuredImage = 'assets/feed-a-family.png';
                   var overview =
-                      '\n“Feed a Family” is an annual project carried out by Zam Zam Foundation since 2014 to provide with food provisions to support needy families across Sri Lanka, in the holy month of Ramadan. So far the project has supported more than to 40,000 families in many districts in Sri Lanka by easing their burden during Ramadan. An extra effort is made to share the spirit of charity and goodwill in the month of Ramadhan, with other faith communities as well by giving such Food Provisions totaling 30KG, to needy families in multi-ethnic localities.\n';
+                      '\n“Feed a Family” is an annual project carried out by Zam Zam Foundation since 2014 to provide with food provisions to support needy families across Sri Lanka, in the holy month of Ramadan. So far the project has supported thousands of families in many districts in Sri Lanka by easing their burden during Ramadan. An extra effort is made to share the spirit of charity and goodwill in the month of Ramadhan, with other faith communities as well by giving such Food Provisions, to needy families in multi-ethnic localities.\n';
                   var secondTitle =
                       'An opportunity to share the joy of Ramadhan';
                   var secondOverview =
@@ -302,7 +302,7 @@ class _HomeState extends State<Home> {
                     CupertinoPageRoute<Null>(builder: (BuildContext context) {
                   var featuredImage = 'assets/school-with-a-smile.png';
                   var overview =
-                      '\n“School with a Smile” is our flagship project which has so far helped over 60,000 students with a complete pack of school supplies including shoes, school bag, exercise books & stationary being distributed via temples, mosques, churches and other community centres. Beneficiary students are selected through school principals and education authorities with the objective of helping the needy students in order to minimize school drop-outs and to ensure the financial burden of the parents is reduced so the savings can be used for betterment of their quality of life.\n';
+                      '\n“School with a Smile” is our flagship project which has so far helped over 75,000 students with a complete pack of school supplies including shoes, school bag, exercise books & stationary being distributed via temples, mosques, churches and other community centres. Beneficiary students are selected through school principals and education authorities with the objective of helping the needy students in order to minimize school drop-outs and to ensure the financial burden of the parents is reduced so the savings can be used for betterment of their quality of life.\n';
                   var secondTitle =
                       'Let\'s Making A Difference Through Education';
                   var secondOverview =
@@ -339,7 +339,7 @@ class _HomeState extends State<Home> {
                     CupertinoPageRoute<Null>(builder: (BuildContext context) {
                   var featuredImage = 'assets/healthy-society.png';
                   var overview =
-                      '\n“Healthy Society” is an initiative which focuses on building interfaith and inter-community relationships in mixed ethnic neighborhoods and villages by facilitating partnerships within communities to work towards finding solutions for common needs of the village. Projects include building water tanks for safe drinking water, renovation of common facilities in rural hospitals, assisting with infrastructure needs of schools where children from multiple faith and ethnic groups study together, etc. the sustainability of the projects are managed by local committees comprising community and religious leaders from diverse backgrounds\n';
+                      '\n“Healthy Society” is an initiative which focuses on building interfaith and inter-community relationships in mixed ethnic neighborhoods and villages by facilitating partnerships within communities to work towards finding solutions for common needs of the area. Projects include building water tanks for safe drinking water, renovation of common facilities in rural hospitals, assisting with infrastructure needs of schools where children from multiple faith and ethnic groups study together, etc. \n';
                   var secondTitle = '';
                   var secondOverview = '';
                   var hadeeth = '';

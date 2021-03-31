@@ -851,7 +851,7 @@ class _ProjectDetailPageState extends State<ProjectDetail> {
 
     print("Response of the payment $data");
     showWaitingProgress(context);
-    print("Resuuuuuuullllltttt: "+data);
+    // print("Resuuuuuuullllltttt: "+data);
     if (Platform.isAndroid) {
     if (data['status'] == 'success') {
       var saleResponse = await Braintree(mApiListener).sale(usd_amount,lkrAmount,
@@ -865,7 +865,7 @@ class _ProjectDetailPageState extends State<ProjectDetail> {
       ));
     }
   }else{
-    //Card Payment
+   
        if (data!=null) {
       var saleResponse = await Braintree(mApiListener).sale(usd_amount,lkrAmount,
           data, widget.projectData, 'card', 'pending','project payment','');

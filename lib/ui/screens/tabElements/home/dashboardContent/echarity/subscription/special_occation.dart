@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:braintree_payment/braintree_payment.dart';
 import 'package:connecting_hearts/services/braintree.dart';
@@ -52,6 +53,20 @@ class _SpecialOccationState extends State<SpecialOccation> {
                   return Container(
                     child: new Wrap(
                       children: <Widget>[
+                         ListTile(
+                contentPadding: EdgeInsets.all(10),
+                title: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text('Donate here to celebrate or commemorate any special occasion close to your heart, or simply if you are feeling happy and thankful about your blessings, why not spend in charity now?',style: TextStyle(fontSize: 14, color: Colors.white),),
+                    Text('\n(The donations from this window will go directly to Zam Zam Foundation’s Admin account.)', style: TextStyle(fontSize: 13, color: Colors.white),),
+                  ],
+                ),
+                tileColor: Colors.green
+                ,onTap: (){
+                 
+                },),
+            
                         GridView.count(
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
@@ -386,6 +401,7 @@ class _SpecialOccationState extends State<SpecialOccation> {
 
     print("Response of the payment $data");
     showWaitingProgress(context);
+     if (Platform.isAndroid) {
     if (data['status'] == 'success') {
       var saleResponse = await Braintree(mApiListener).sale(
           usd_amount,
@@ -404,6 +420,26 @@ class _SpecialOccationState extends State<SpecialOccation> {
         content: Text("$saleResponse"),
       ));
     }
+     }else{
+        if (data!=null) {
+            var saleResponse = await Braintree(mApiListener).sale(
+          usd_amount,
+          lkrAmount,
+          data['paymentNonce'],
+          null,
+          'card',
+          'pending',
+          'occasion',
+          selectedOccation);
+
+      print("===============" + saleResponse);
+
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        backgroundColor: Colors.green[600],
+        content: Text("$saleResponse"),
+      ));
+        }
+     }
     Navigator.pop(context);
     Timer(Duration(seconds: 2), () {
   // 5s over, navigate to a new page
