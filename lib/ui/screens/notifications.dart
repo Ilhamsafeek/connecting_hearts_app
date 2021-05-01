@@ -4,10 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:connecting_hearts/constant/Constant.dart';
 import 'package:connecting_hearts/services/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:connecting_hearts/ui/screens/tabElements/home/dashboardContent/echarity/project_detail.dart';
-import 'package:connecting_hearts/miscellaneous/single_video.dart';
-
-import '../../Tabs.dart';
+import 'package:connecting_hearts/ui/screens/tabElements/dashboardContent/echarity/project_detail.dart';
 
 class Notifications extends StatefulWidget {
   final PageController pageController;
@@ -189,6 +186,7 @@ class _NotificationsState extends State<Notifications> {
 
   Widget _notificationAvatar(message) {
     
+    // ignore: non_constant_identifier_names
     var outline_color=Colors.green;
     var icon=Icons.fiber_new;
     if(message.contains('new project')){

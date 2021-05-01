@@ -123,6 +123,7 @@ class _ChannelsState extends State<Channels> {
   }
 }
 
+// ignore: must_be_immutable
 class GridItem extends StatelessWidget {
   GridModel gridModel;
 

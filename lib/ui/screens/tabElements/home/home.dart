@@ -1,21 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:connecting_hearts/ui/screens/tabElements/dashboardContent/success_stories.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:connecting_hearts/constant/Constant.dart';
 import 'package:connecting_hearts/model/Gridmodel.dart';
 import 'package:connecting_hearts/services/services.dart';
-import 'package:connecting_hearts/ui/screens/tabElements/home/dashboardContent/echarity/echarity.dart';
+import 'package:connecting_hearts/ui/screens/tabElements/dashboardContent/echarity/echarity.dart';
 import 'package:connecting_hearts/ui/screens/media/update_detail.dart';
 import 'dart:async';
 
 import '../dashboardContent/donate_points.dart';
-import 'dashboardContent/updates/media.dart';
-import 'dashboardContent/details/categories.dart';
+import '../dashboardContent/updates/media.dart';
+import '../dashboardContent/details/categories.dart';
 
 class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);
@@ -28,7 +27,6 @@ Future<dynamic> _zamzamUpdates;
 class _HomeState extends State<Home> {
   ApiListener mApiListener;
   dynamic completedProjectData = [];
-  int _currentIndex = 0;
 
   @override
   void initState() {
@@ -70,25 +68,26 @@ class _HomeState extends State<Home> {
                           ),
 
                           _dashboardGrid(),
-                          SizedBox(
-                            height: 2,
-                          ),
-                          ListTile(
-                              contentPadding: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.width * .03,
-                                right: MediaQuery.of(context).size.width * .03,
-                              ),
-                              leading: Icon(Icons.star),
-                              title: Center(
-                                child: Text(
-                                  "Our Success Stories",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                              ),
-                              trailing: Icon(Icons.star),
-                              tileColor: Color.fromRGBO(80, 172, 225, 1)),
+                          // SizedBox(
+                          //   height: 2,
+                          // ),
+                          // ListTile(
+                          //     contentPadding: EdgeInsets.only(
+                          //       left: MediaQuery.of(context).size.width * .03,
+                          //       right: MediaQuery.of(context).size.width * .03,
+                          //     ),
+                          //     leading: Icon(Icons.star),
+                          //     title: Center(
+                          //       child: Text(
+                          //         "Our Success Stories",
+                          //         style: TextStyle(
+                          //             fontWeight: FontWeight.bold,
+                          //             color: Colors.white),
+                          //       ),
+                          //     ),
+                          //     trailing: Icon(Icons.star),
+                          //     tileColor: Color.fromRGBO(80, 172, 225, 1)),
+                          
                           //              FutureBuilder<dynamic>(
                           //   future: WebServices(this.mApiListener)
                           //       .getProjectData(), // a previously-obtained Future<String> or null
@@ -144,9 +143,9 @@ class _HomeState extends State<Home> {
                           // )
                         ],
                       ))),
-                  if (completedProjectData.length > 0)
-                    for (var item in completedProjectData)
-                      _buildProjectList(item)
+                  // if (completedProjectData.length > 0)
+                  //   for (var item in completedProjectData)
+                  //     _buildProjectList(item)
                 ],
               ),
             )));
@@ -370,18 +369,17 @@ class _HomeState extends State<Home> {
                 Navigator.of(context).push(
                     CupertinoPageRoute<Null>(builder: (BuildContext context) {
                   var featuredImage = 'assets/sankalpa.png';
-                  var overview =
-                      '\nThe Course on Contemporary Affairs, Cultures and Communication in Sinhala for Islamic Scholars is a unique 1-year residential course conducted through a theological education institute (Fath Academy) affiliated to Zam Zam Foundation, for Islamic Scholars selected through an open call for applications and an interview process, is currently underway with 20 participants in the first batch.\n';
+                  var overview ='';
                   var secondTitle = '';
                   var secondOverview = '';
                   var hadeeth = '';
                   var milestoneImage = '';
                   var packContent = [];
                   dynamic thumbnailImages = [
-                    'assets/sankalpa01.png',
-                    'assets/sankalpa02.png',
-                    'assets/sankalpa03.png',
-                    'assets/sankalpa04.png'
+                    // 'assets/sankalpa01.png',
+                    // 'assets/sankalpa02.png',
+                    // 'assets/sankalpa03.png',
+                    // 'assets/sankalpa04.png'
                   ];
                   return new Categories(
                       featuredImage,
@@ -415,12 +413,12 @@ class _HomeState extends State<Home> {
               }),
           InkWell(
               child: GridItem(
-                  GridModel('assets/zamzam-media.png', '', null)),
+                  GridModel('assets/success_stories.png', 'Success Stories', null)),
               onTap: () {
-                // Navigator.of(context).push(
-                //     CupertinoPageRoute<Null>(builder: (BuildContext context) {
-                //   return new Money();
-                // }));
+                Navigator.of(context).push(
+                    CupertinoPageRoute<Null>(builder: (BuildContext context) {
+                  return new SuccessStories();
+                }));
               }),
           InkWell(
               child: GridItem(
@@ -434,23 +432,6 @@ class _HomeState extends State<Home> {
         ]);
   }
 
-  Widget _dashboardPanel(dynamic image, dynamic title) {
-    return Card(
-        child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-      Image.asset(
-        image,
-        width: 65,
-      ),
-      Padding(
-        padding: const EdgeInsets.all(5),
-        child: Text(
-          title,
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 14.2, color: Colors.black),
-        ),
-      ),
-    ]));
-  }
 
   // Widget _gridView() {
   //   return GridView.builder(
@@ -522,6 +503,7 @@ class _HomeState extends State<Home> {
   }
 
   // ignore: missing_return
+  // ignore: unused_element
   Widget _buildProjectList(item) {
     var formattedAmount = FlutterMoneyFormatter(
             amount: double.parse('${item['amount']}') *
@@ -714,6 +696,7 @@ class _HomeState extends State<Home> {
   }
 }
 
+// ignore: must_be_immutable
 class GridItem extends StatelessWidget {
   GridModel gridModel;
 

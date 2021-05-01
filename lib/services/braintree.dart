@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:connecting_hearts/services/services.dart';
 import 'package:http/http.dart' as http;
@@ -10,6 +9,7 @@ class Braintree {
   Braintree(this.mApiListener);
 
   Future<dynamic> sale(amount, lkrAmount, paymentMethodNonce, projectData,
+      // ignore: non_constant_identifier_names
       method, status, type, signup_payment_description) async {
     print("lkr_amount=====>>>" + lkrAmount);
     var appealId;

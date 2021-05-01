@@ -22,7 +22,6 @@ class SplashScreenState extends State<SplashScreen>
   startTime() async {
     var _duration = new Duration(milliseconds: 3500);
     return new Timer(_duration, navigateFromSplash);
-    
   }
 
   @override
@@ -42,8 +41,6 @@ class SplashScreenState extends State<SplashScreen>
       _visible = !_visible;
     });
     startTime();
-
-    
   }
 
   Future navigateFromSplash() async {
@@ -51,76 +48,72 @@ class SplashScreenState extends State<SplashScreen>
     FirebaseAuth.instance.currentUser().then((user) {
       print(user);
 
-      if (user != null) {
-        //User Hit
-
-        Navigator.of(context).pushReplacementNamed(HOME_PAGE);
+      if (user != null && currentUserData != null) {
+        if (currentUserData['currency'] != '') {
+          Navigator.of(context).pushReplacementNamed(HOME_PAGE);
+        } else {
+          Navigator.of(context).pushReplacementNamed(SIGN_IN);
+        }
       } else {
         Navigator.of(context).pushReplacementNamed(SIGN_IN);
       }
     });
-  
-    
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: 
-       OfflineBuilder(
-            connectivityBuilder: (
-              BuildContext context,
-              ConnectivityResult connectivity,
-              Widget child,
-            ) {
-              final bool connected = connectivity != ConnectivityResult.none;
-              return new Stack(
-                fit: StackFit.expand,
-                children: [
-                  connected
-                      ?  Stack(
-        fit: StackFit.expand,
+        body: OfflineBuilder(
+      connectivityBuilder: (
+        BuildContext context,
+        ConnectivityResult connectivity,
+        Widget child,
+      ) {
+        final bool connected = connectivity != ConnectivityResult.none;
+        return new Stack(
+          fit: StackFit.expand,
+          children: [
+            connected
+                ? Stack(
+                    fit: StackFit.expand,
+                    children: <Widget>[
+                      new Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 30.0),
+                            child: new Image.asset(
+                              "assets/zamzamlogo.png",
+                              height: 45.0,
+                              fit: BoxFit.scaleDown,
+                            ),
+                          )
+                        ],
+                      ),
+                      new Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          new Image.asset(
+                            "assets/splashlogo.gif",
+                            width: animation.value * 250,
+                            height: animation.value * 250,
+                          ),
+                        ],
+                      ),
+                    ],
+                  )
+                : Offline()
+          ],
+        );
+      },
+      child: Column(
         children: <Widget>[
-      
-          new Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(bottom: 30.0),
-                child: new Image.asset(
-                  "assets/zamzamlogo.png",
-                  height: 45.0,
-                  fit: BoxFit.scaleDown,
-                ),
-              )
-            ],
-          ),
-          new Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              new Image.asset(
-                "assets/splashlogo.gif",
-                width: animation.value * 250,
-                height: animation.value * 250,
-              ),
-            ],
+          new Text(
+            'There are no bottons to push :)',
           ),
         ],
-      )
-                      : Offline()
-                ],
-              );
-            },
-            child: Column(
-              children: <Widget>[
-                new Text(
-                  'There are no bottons to push :)',
-                ),
-              ],
-            ),
-          )
-     
-    );
+      ),
+    ));
   }
 }

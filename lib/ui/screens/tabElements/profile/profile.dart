@@ -32,8 +32,8 @@ class ProfileState extends State<Profile> {
   var _lastNameController;
   var _addressController;
 
-  dynamic _country;
   dynamic _currencyCode;
+  // ignore: non_constant_identifier_names
   var _receive_notifications;
 
 @override
@@ -45,7 +45,6 @@ class ProfileState extends State<Profile> {
 
    _firstNameController =TextEditingController(text: "${currentUserData['firstname']}");
    _lastNameController =TextEditingController(text: "${currentUserData['lastname']}");
-   _country = "${currentUserData['country']}";
    _currencyCode = "${currentUserData['currency']}";
    _receive_notifications =currentUserData['receive_notification'].toLowerCase() == 'true';
     });
@@ -93,6 +92,7 @@ class ProfileState extends State<Profile> {
                             child: TextFormField(
                               controller: _firstNameController,
                               keyboardType: TextInputType.text,
+                              // ignore: missing_return
                               validator: (value) {
                                 if (value.isEmpty) {
                                   return 'please enter first name.';
@@ -114,6 +114,7 @@ class ProfileState extends State<Profile> {
                             child: TextFormField(
                               controller: _lastNameController,
                               keyboardType: TextInputType.text,
+                              // ignore: missing_return
                               validator: (value) {
                                 if (value.isEmpty) {
                                   return 'please enter last name.';
@@ -165,6 +166,7 @@ class ProfileState extends State<Profile> {
                           children: <Widget>[
                             Expanded(
                                 child: TextFormField(
+                              // ignore: missing_return
                               validator: (value) {
                                 if (value.isEmpty) {
                                   return 'please enter email address.';
@@ -199,6 +201,7 @@ class ProfileState extends State<Profile> {
                                 child: TextFormField(
                                   maxLines: null,
                                   minLines: 2,
+                              // ignore: missing_return
                               validator: (value) {
                                
                                 

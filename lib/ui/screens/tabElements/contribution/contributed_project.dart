@@ -90,6 +90,7 @@ class _ContributedProjectState extends State<ContributedProject> {
   }
 
   Widget _detailSection() {
+    // ignore: unused_local_variable
     var paymentTypeExtension = "";
     var months = '${widget.projectData['months']}';
     if (widget.projectData['type'] == 'recursive') {
@@ -126,17 +127,17 @@ class _ContributedProjectState extends State<ContributedProject> {
     //   completedColor = Colors.orange;
     // }
     String projectStatus = 'Open';
-    Color status_color = Colors.orange;
+    Color statusColor = Colors.orange;
     if (double.parse('${widget.projectData['collected']}') -
             double.parse('${widget.projectData['amount']}') ==
         0) {
       projectStatus = 'In Progress';
-      status_color = Colors.blue;
+      statusColor = Colors.blue;
     } 
     
     if (widget.projectData['completed_percentage'] == '100') {
       projectStatus = 'Completed';
-      status_color = Colors.green;
+      statusColor = Colors.green;
     }
 
     // double percent = completedPercent / 100;
@@ -725,7 +726,7 @@ class _ContributedProjectState extends State<ContributedProject> {
                         Text(
                           projectStatus,
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, color: status_color),
+                              fontWeight: FontWeight.bold, color: statusColor),
                         ),
                         SizedBox(
                           width: 10,

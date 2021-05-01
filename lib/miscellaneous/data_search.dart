@@ -5,10 +5,10 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:connecting_hearts/miscellaneous/single_video.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-import 'package:connecting_hearts/ui/screens/tabElements/home/dashboardContent/echarity/project_detail.dart';
+import 'package:connecting_hearts/ui/screens/tabElements/dashboardContent/echarity/project_detail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../ui/screens/tabElements/home/dashboardContent/echarity/job/job_detail.dart';
+import '../ui/screens/tabElements/dashboardContent/echarity/job/job_detail.dart';
 
 typedef OnSearchChanged = Future<List<String>> Function(String);
 
@@ -478,6 +478,7 @@ class DataSearch extends SearchDelegate<String> {
         if (snapshot.hasData) _oldFilters = snapshot.data;
         return ListView.builder(
           itemCount: _oldFilters.length,
+          // ignore: missing_return
           itemBuilder: (context, index) {
             if(_oldFilters[index]!=''){
             return ListTile(

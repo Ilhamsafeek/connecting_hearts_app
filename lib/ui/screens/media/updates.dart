@@ -1,14 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:connecting_hearts/model/Gridmodel.dart';
-import 'package:connecting_hearts/model/ImageSliderModel.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:connecting_hearts/services/services.dart';
-import 'package:connecting_hearts/ui/screens/tabElements/home/dashboardContent/echarity/project.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:connecting_hearts/ui/screens/media/update_detail.dart';
 

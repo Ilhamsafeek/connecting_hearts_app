@@ -299,6 +299,7 @@ final sliderArrayList = [
           "You can contribute towards Zam Zam Foundation through your words of encouragement, prayers and financial donations through this app"),
 ];
 
+// ignore: must_be_immutable
 class SlideDots extends StatelessWidget {
   bool isActive;
   SlideDots(this.isActive);

@@ -1,6 +1,3 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:webview_media/webview_flutter.dart';
 
@@ -11,8 +8,6 @@ class MAnagementWebView extends StatefulWidget {
 }
 
 class _MAnagementWebViewState extends State<MAnagementWebView> {
-  final Completer<WebViewController> _controller =
-      Completer<WebViewController>();
 
   @override
   void initState() {

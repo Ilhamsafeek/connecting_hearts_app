@@ -85,8 +85,8 @@ class _SigninPageState extends State<Signin> {
           double deviceHeight(BuildContext context) =>
               MediaQuery.of(context).size.height;
 
-          double deviceWidth(BuildContext context) =>
-              MediaQuery.of(context).size.width;
+          // double deviceWidth(BuildContext context) =>
+          //     MediaQuery.of(context).size.width;
           return Scaffold(
               appBar: AppBar(
                 centerTitle: true,
@@ -136,24 +136,36 @@ class _SigninPageState extends State<Signin> {
                                   FirebaseAuth.instance
                                       .currentUser()
                                       .then((user) {
-                                        
                                     if (user != null) {
                                       print('user not av');
                                       Navigator.of(context).pop();
-                                      if (currentUserData['currency'] != '') {
-                                        Future.delayed(Duration.zero, () {
-                                          Navigator.of(context)
-                                              .pushReplacementNamed(HOME_PAGE);
-                                        });
+                                      if (currentUserData != null) {
+                                        if (currentUserData['currency'] != '') {
+                                          Future.delayed(Duration.zero, () {
+                                            Navigator.of(context)
+                                                .pushReplacementNamed(
+                                                    HOME_PAGE);
+                                          });
+                                        } else {
+                                         
+                                          Navigator.of(context).pushReplacement(
+                                              CupertinoPageRoute<Null>(builder:
+                                                  (BuildContext context) {
+                                            return new Details();
+                                          }));
+                                        }
                                       } else {
-                                        Navigator.of(context).pushReplacement(
-                                            CupertinoPageRoute<Null>(builder:
-                                                (BuildContext context) {
-                                          return new Details();
-                                        }));
+                                        // Navigator.of(context).pop();
+                                        _registerUser();
+
+                                        // Navigator.of(context).pushReplacement(
+                                        //     CupertinoPageRoute<Null>(builder:
+                                        //         (BuildContext context) {
+                                        //   return new Details();
+                                        // }));
                                       }
                                     } else {
-                                    //  Navigator.of(context).pop();
+                                      //  Navigator.of(context).pop();
                                       print('user av');
                                       signIn();
                                     }
@@ -185,6 +197,7 @@ class _SigninPageState extends State<Signin> {
   }
 
   _redirect() async {
+    print('going to redirect');
     CURRENT_USER = '${this.countryPhoneCode}${this.phoneNo}';
     var userdata = await WebServices(this.mApiListener).getUserData();
 
@@ -212,6 +225,7 @@ class _SigninPageState extends State<Signin> {
   }
 
   _registerUser() async {
+    print('going to register');
     showWaitingProgress(context);
     await WebServices(this.mApiListener)
         .createAccount('${this.countryPhoneCode}${this.phoneNo}', countryCode);
@@ -349,6 +363,7 @@ class _SigninPageState extends State<Signin> {
                             flex: 5,
                             child: TextFormField(
                               controller: _mobileController,
+                              // ignore: missing_return
                               validator: (value) {
                                 if (value.isEmpty) {
                                   return 'please enter phone number.';
@@ -436,6 +451,7 @@ class _DetailsState extends State<Details> {
   dynamic _currencyCode = "LKR";
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
+  // ignore: non_constant_identifier_names
   bool _is_agree = true;
 
   @override
@@ -475,6 +491,7 @@ class _DetailsState extends State<Details> {
                                 flex: 2,
                                 child: TextFormField(
                                   controller: _firstNameController,
+                                  // ignore: missing_return
                                   validator: (value) {
                                     if (value.isEmpty) {
                                       return 'please enter first name.';
@@ -496,6 +513,7 @@ class _DetailsState extends State<Details> {
                                 flex: 2,
                                 child: TextFormField(
                                   controller: _lastNameController,
+                                  // ignore: missing_return
                                   validator: (value) {
                                     if (value.isEmpty) {
                                       return 'please enter last name.';
@@ -516,6 +534,7 @@ class _DetailsState extends State<Details> {
                             ]),
                             TextFormField(
                               controller: _emailController,
+                              // ignore: missing_return
                               validator: (value) {
                                 // if (value.isEmpty) {
                                 //   return 'please enter email.';
@@ -583,11 +602,11 @@ class _DetailsState extends State<Details> {
                                           ));
                                         }
                                       })
-                                    : _scaffoldKey.currentState
-                                        .showSnackBar(SnackBar(
-                                        content:
-                                            Text("Please check the inputs"),
-                                      ));
+                                    : Navigator.pop(context);
+
+                                _scaffoldKey.currentState.showSnackBar(SnackBar(
+                                  content: Text("Please check the inputs"),
+                                ));
                               },
                               child: Text('Register and Continue',
                                   style: TextStyle(color: Colors.white)),
@@ -603,6 +622,7 @@ class _DetailsState extends State<Details> {
         ));
   }
 
+  // ignore: unused_element
   Widget _buildDropdownItem(Country country) => Container(
         child: Row(
           children: <Widget>[

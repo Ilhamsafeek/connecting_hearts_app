@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:connecting_hearts/services/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class About extends StatefulWidget {
   @override
@@ -48,22 +49,51 @@ class _AboutState extends State<About> {
     return Scaffold(
         key: _scaffoldKey,
         backgroundColor: Colors.grey[200],
-        appBar: AppBar(),
+        appBar: AppBar(title: Text('About'),),
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(1.0),
                 child: Column(
                   children: <Widget>[
-                    Center(child: Image.asset('assets/logo.png', height: 80)),
-                    // RaisedButton(
-                    //   onPressed: () async {
-                       
-                    //       showNotification();
-                    //   },
-                    //   child: Text('Notify'),
-                    // )
+                    // Center(child: Image.asset('assets/logo.png', height: 80)),
+                      Card(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Image.asset('assets/logo.png', height: 80),
+                          ListTile(
+                            
+                            title: Text(
+                                '\nZam Zam Foundation works with diverse communities across Sri Lanka beyond social, ethnic, religious divides with the principle “Humanity beyond Religion”. As a Government Registered Social Services Organization working on uplifting communities island-wide through Education, Shelter, Sanitation, Poverty Alleviation and Capacity Development initiatives, the beneficiaries are from all faith, ethnic communities and not limited to Muslim community.'),
+                          ),
+                          
+                          
+                          ListTile(
+                              title: Text(
+                            '\nWith our Mobile App, keep yourself updated from anywhere in the world about the work of Zam Zam Foundation and be a part of our projects in Sri Lanka. You can contribute towards Zam Zam Foundation through your words of encouragement, prayers and financial donations through this app',
+                          )),
+                          SizedBox(
+                            height: 30,
+                          ),
+                           Divider(
+              height: 0,
+            ),
+                           ListTile(
+              // leading: Icon(Icons.admin_panel_settings_sharp),
+              title: Text('Proudly developed by'),
+              trailing:  Image.asset('assets/hashnate_logo.png', height: 30),
+              onTap: (){
+                _launchURL('https://hashnate.com');
+              },
+            ),
+                         
+                        ],
+                      
+                      ),
+                    ),
+                 
                   
                   ],
                 ),
@@ -109,5 +139,14 @@ class _AboutState extends State<About> {
             ],
           ),
         ));
+  }
+   _launchURL(url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text("You will be notified when we prepared your receipt."),
+      ));
+    }
   }
 }

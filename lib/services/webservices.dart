@@ -16,6 +16,7 @@ class WebServices {
       'Basic ' + base64Encode(utf8.encode('$username:$password'));
   }
   WebServices(this.mApiListener);
+  // ignore: non_constant_identifier_names
   var base_url = 'https://chadmin.online/api/';
  
  
@@ -397,6 +398,7 @@ class WebServices {
     var channelId = "UCxAk5Qi0fG16-K8UxZM8o4A";
     var maxResults = "60";
 
+    // ignore: non_constant_identifier_names
     var APIURL = baseUrl +
         "search?order=date&part=snippet&channelId=" +
         channelId +
