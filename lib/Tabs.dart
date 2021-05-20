@@ -170,7 +170,8 @@ class MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return new WillPopScope(
         child: new Scaffold(
-          appBar: PreferredSize(
+          appBar: 
+          PreferredSize(
             preferredSize: Size.fromHeight(50.0),
             child: new AppBar(
               leading: Image.asset(
@@ -222,6 +223,7 @@ class MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
               ],
             ),
           ),
+         
           body: OfflineBuilder(
             connectivityBuilder: (
               BuildContext context,

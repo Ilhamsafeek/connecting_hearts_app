@@ -421,7 +421,9 @@ class _CheckoutState extends State<Checkout> {
                   ),
                   onTap: () => {}),
               ListTile(
-                  title: Padding(
+                  title: 
+                  
+                  Padding(
                     padding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom),
                     child: Row(
@@ -447,6 +449,7 @@ class _CheckoutState extends State<Checkout> {
                       ],
                     ),
                   ),
+                 
                   onTap: () => {}),
             ];
           } else {
